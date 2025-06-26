@@ -1,0 +1,204 @@
+{% extends 'base.html' %}
+
+{% block content %}
+    <!-- Page Header Start -->
+    <div class="container-fluid page-header mb-5 p-0" style="background-image: url(media/img/carousel-bg-1.jpg);">
+        <div class="container-fluid page-header-inner py-5">
+            <div class="container text-center">
+                <h1 class="display-3 text-white mb-3 animated slideInDown">О НАС</h1>
+            </div>
+        </div>
+    </div>
+    <!-- Page Header End -->
+
+
+    <!-- About Start -->
+    <div class="container-xxl py-5">
+        <div class="container">
+            <div class="row g-5">
+                <div class="col-lg-6 pt-4" style="min-height: 400px;">
+                    <div class="position-relative h-100 wow fadeIn" data-wow-delay="0.1s">
+                        <img class="position-absolute img-fluid w-100 h-100" src="media/img/about.jpg" style="object-fit: cover;" alt="">
+                    </div>
+                </div>
+                <div class="col-lg-6">
+                    <h1 class="mb-4">
+                        <!-- Логотип -->
+                        <svg height="80" viewBox="0 0 320 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <!-- Желтая молния V -->
+                            <polygon points="20,150 90,30 110,70 80,120 130,30 130,150" fill="#FFD600"/>
+                            <!-- Шашечки -->
+                            <rect x="135" y="60" width="22" height="15" rx="2" fill="#222"/>
+                            <rect x="135" y="80" width="22" height="15" rx="2" fill="#222"/>
+                            <rect x="160" y="70" width="22" height="15" rx="2" fill="#222"/>
+                            <!-- Текст Volt Taxi -->
+                            <text x="190" y="83" font-family="Arial,sans-serif" font-size="46" font-weight="bold" fill="#222">Volt</text>
+                            <text x="190" y="123" font-family="Arial,sans-serif" font-size="46" font-weight="bold" fill="#222">Taxi</text>
+                            <!-- Жёлтая дуга -->
+                            <path d="M70 155 Q160 185 270 140" stroke="#FFD600" stroke-width="5" fill="none"/>
+                        </svg>
+                        <!-- Логотип -->
+                        <p>Это лучшее место для работы</p>
+                    </h1>
+                    <p class="mb-4">Выбирая нас, вы выбираете лучшие условия для работы. Присоединяйтесь к нашей команде, мы ценим каждого водителя.</p>
+                    <div class="row g-4 mb-3 pb-3">
+                        <div class="col-12 wow fadeIn" data-wow-delay="0.1s">
+                            <div class="d-flex">
+                                <div class="bg-light d-flex flex-shrink-0 align-items-center justify-content-center mt-1" style="width: 45px; height: 45px;">
+                                    <span class="fw-bold text-secondary">1</span>
+                                </div>
+                                <div class="ps-3">
+                                    <h6>Больше заказов</h6>
+                                    <span>Пассажиры предпочитают электромобили – поездки комфортнее, тише, без запаха бензина.</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 wow fadeIn" data-wow-delay="0.5s">
+                            <div class="d-flex">
+                                <div class="bg-light d-flex flex-shrink-0 align-items-center justify-content-center mt-1" style="width: 45px; height: 45px;">
+                                    <span class="fw-bold text-secondary">2</span>
+                                </div>
+                                <div class="ps-3">
+                                    <h6>Быстрый старт</h6>
+                                    <span>Быстрое оформление в реестре перевозчиков. Официальное трудоустройство.</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 wow fadeIn" data-wow-delay="0.3s">
+                            <div class="d-flex">
+                                <div class="bg-light d-flex flex-shrink-0 align-items-center justify-content-center mt-1" style="width: 45px; height: 45px;">
+                                    <span class="fw-bold text-secondary">3</span>
+                                </div>
+                                <div class="ps-3">
+                                    <h6>Новые автомобили</h6>
+                                    <span>Самые комфортные и современные автомобили. Комфортный, тихий и удобный транспорт.</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 wow fadeIn" data-wow-delay="0.3s">
+                            <div class="d-flex">
+                                <div class="bg-light d-flex flex-shrink-0 align-items-center justify-content-center mt-1" style="width: 45px; height: 45px;">
+                                    <span class="fw-bold text-secondary">4</span>
+                                </div>
+                                <div class="ps-3">
+                                    <h6>Гибкий график</h6>
+                                    <span>Работайте, когда вам удобно, без строгих смен.</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 wow fadeIn" data-wow-delay="0.3s">
+                            <div class="d-flex">
+                                <div class="bg-light d-flex flex-shrink-0 align-items-center justify-content-center mt-1" style="width: 45px; height: 45px;">
+                                    <span class="fw-bold text-secondary">5</span>
+                                </div>
+                                <div class="ps-3">
+                                    <h6>Никаких расходов и головной боли</h6>
+                                    <span>Все расходы за счет компании.</span>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="col-12 wow fadeIn" data-wow-delay="0.3s">
+                            <div class="d-flex">
+                                <div class="bg-light d-flex flex-shrink-0 align-items-center justify-content-center mt-1" style="width: 45px; height: 45px;">
+                                    <span class="fw-bold text-secondary">6</span>
+                                </div>
+                                <div class="ps-3">
+                                    <h6>Полная поддержка</h6>
+                                    <span>Мы на связи 24/7. Готовы всегда поддержать в трудную минуту.</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- About End -->
+
+
+    <!-- Fact Start -->
+    <div class="container-fluid fact bg-dark my-5 py-5">
+        <div class="container">
+            <div class="row g-4">
+                <div class="col-md-6 col-lg-3 text-center wow fadeIn" data-wow-delay="0.1s">
+                    <i class="fa fa-check fa-2x text-white mb-3"></i>
+                    <h2 class="text-white mb-2" data-toggle="counter-up">5</h2>
+                    <h5 class="text-white mb-0">Лет опыта</h5>
+                </div>
+                <div class="col-md-6 col-lg-3 text-center wow fadeIn" data-wow-delay="0.7s">
+                    <i class="fa fa-car fa-2x text-white mb-3"></i>
+                    <h2 class="text-white mb-2" data-toggle="counter-up">65</h2>
+                    <h5 class="text-white mb-0">Автомобилей в таксопарке</h5>
+                </div>
+                <div class="col-md-6 col-lg-3 text-center wow fadeIn" data-wow-delay="0.5s">
+                    <i class="fa fa-users fa-2x text-white mb-3"></i>
+                    <h2 class="text-white mb-2" data-toggle="counter-up">50521</h2>
+                    <h5 class="text-white mb-0">Перевезенных пассажиров</h5>
+                </div>
+                <div class="col-md-6 col-lg-3 text-center wow fadeIn" data-wow-delay="0.3s">
+                    <i class="fa fa-users-cog fa-2x text-white mb-3"></i>
+                    <h2 class="text-white mb-2" data-toggle="counter-up">4,81⭐</h2>
+                    <h5 class="text-white mb-0">Средний рейтинг</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Fact End -->
+
+
+    <!-- Team Start -->
+    <div class="container-xxl py-5">
+        <div class="container">
+            <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
+                <h1 class="mb-5">СОТРУДНИКИ</h1>
+            </div>
+            <div class="row g-4">
+                <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.1s">
+                    <div class="team-item">
+                        <div class="position-relative overflow-hidden">
+                            <img class="img-fluid" src="media/img/team-1.jpg" alt="">
+                        </div>
+                        <div class="bg-light text-center p-4">
+                            <h5 class="fw-bold mb-0">Директо</h5>
+                            <small>Крутой Иван Иванович</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.7s">
+                    <div class="team-item">
+                        <div class="position-relative overflow-hidden">
+                            <img class="img-fluid" src="media/img/team-4.jpg" alt="">
+                        </div>
+                        <div class="bg-light text-center p-4">
+                            <h5 class="fw-bold mb-0">Заместитель директора</h5>
+                            <small>Сильный Иван Иванович</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.3s">
+                    <div class="team-item">
+                        <div class="position-relative overflow-hidden">
+                            <img class="img-fluid" src="media/img/team-2.jpg" alt="">
+                        </div>
+                        <div class="bg-light text-center p-4">
+                            <h5 class="fw-bold mb-0">Техническая поддержка</h5>
+                            <small>Модный Иван Иванович</small>
+                        </div>
+                    </div>
+                </div>
+                <div class="col-lg-3 col-md-6 wow fadeInUp" data-wow-delay="0.5s">
+                    <div class="team-item">
+                        <div class="position-relative overflow-hidden">
+                            <img class="img-fluid" src="media/img/team-3.jpg" alt="">
+                        </div>
+                        <div class="bg-light text-center p-4">
+                            <h5 class="fw-bold mb-0">Лучший водитель</h5>
+                            <small>Балабол Иван Иванович</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Team End -->
+{% endblock %}

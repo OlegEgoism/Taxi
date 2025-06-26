@@ -1,0 +1,152 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>VoltTaxi</title>
+    <meta content="width=device-width, initial-scale=1.0" name="viewport">
+    <meta content="" name="keywords">
+    <meta content="" name="description">
+    <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
+    <link rel="stylesheet" href="{% static 'css/style.css' %}">
+</head>
+<body>
+<!-- Spinner Start -->
+<div id="spinner" class="show bg-white position-fixed translate-middle w-100 vh-100 top-50 start-50 d-flex align-items-center justify-content-center">
+    <div class="spinner-border text-primary" style="width: 3rem; height: 3rem;" role="status">
+        <span class="sr-only">Загрузка...</span>
+    </div>
+</div>
+<!-- Spinner End -->
+
+
+<!-- Topbar Start -->
+<div class="container-fluid bg-dark text-light p-0">
+    <div class="row gx-0 d-none d-lg-flex">
+        <div class="col-lg-7 px-6 text-start">
+            <div class="h-100 d-inline-flex align-items-center py-3 me-4">
+                <small class="fa fa-map-marker-alt text-primary me-4"></small>
+                <small>
+                    {% if address %}
+                        {{ address.address }}
+                    {% else %}
+                        Адрес не указан
+                    {% endif %}
+                </small>
+            </div>
+            <div class="h-100 d-inline-flex align-items-center py-3 me-4">
+                <small class="far fa-clock text-primary me-1"></small>
+                <small>
+                    {% if address %}
+                        {{ address.time_work }}
+                    {% else %}
+                        Время работы не указано
+                    {% endif %}
+                </small>
+            </div>
+            <div class="h-100 d-inline-flex align-items-center py-3 me-4">
+                <small class="fa fa-phone-alt text-primary me-1"></small>
+                <small>
+                    {% if address.phone_mtc %}
+                        <img src="/media/img/mtc.png" alt="MTC" style="height:18px;vertical-align:middle;margin-left:6px;">
+                        {{ address.phone_mtc }}
+                    {% endif %}
+                </small>
+            </div>
+            <div class="h-100 d-inline-flex align-items-center py-3 me-4">
+                <small class="fa fa-phone-alt text-primary me-1"></small>
+                <small>
+                    {% if address.phone_a1 %}
+                        <img src="/media/img/a1.png" alt="A1" style="height:18px;vertical-align:middle;margin-left:6px;">
+                        {{ address.phone_a1 }}
+                    {% endif %}
+                </small>
+            </div>
+            <div class="h-100 d-inline-flex align-items-center py-3 me-4">
+                <small class="fa fa-phone-alt text-primary me-1"></small>
+                <small>
+                    {% if address.phone_life %}
+                        <img src="/media/img/life.png" alt="Life" style="height:18px;vertical-align:middle;margin-left:6px;">
+                        {{ address.phone_life }}
+                    {% endif %}
+                </small>
+            </div>
+        </div>
+        <div class="col-lg-5 px-5 text-end">
+            <div class="h-100 d-flex align-items-center justify-content-end">
+                <a class="btn btn-sm-square bg-white text-primary me-1" href="">
+                    <img class="social-icon" src="media/social/instagram.png" alt="Instagram">
+                </a>
+                <a class="btn btn-sm-square bg-white text-primary me-1" href="">
+                    <img class="social-icon" src="media/social/telegram.png" alt="Telegram">
+                </a>
+                <a class="btn btn-sm-square bg-white text-primary me-1" href="">
+                    <img class="social-icon" src="media/social/viber.png" alt="Viber">
+                </a>
+                <a class="btn btn-sm-square bg-white text-primary" href="">
+                    <img class="social-icon" src="media/social/whatsapp.png" alt="Whatsapp">
+                </a>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Topbar End -->
+
+
+<!-- Navbar Start -->
+<nav class="navbar navbar-expand-lg bg-white navbar-light shadow sticky-top p-0">
+    <a href="{% url 'home' %}" class="navbar-brand d-flex align-items-center px-4 px-lg-5">
+        <h2 class="m-0 text-primary"><i class="fa fa-car me-3"></i>
+            <!-- Логотип -->
+            <svg height="80" viewBox="0 0 320 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <!-- Желтая молния V -->
+                <polygon points="20,150 90,30 110,70 80,120 130,30 130,150" fill="#FFD600"/>
+                <!-- Шашечки -->
+                <rect x="135" y="60" width="22" height="15" rx="2" fill="#222"/>
+                <rect x="135" y="80" width="22" height="15" rx="2" fill="#222"/>
+                <rect x="160" y="70" width="22" height="15" rx="2" fill="#222"/>
+                <!-- Текст Volt Taxi -->
+                <text x="190" y="83" font-family="Arial,sans-serif" font-size="46" font-weight="bold" fill="#222">Volt</text>
+                <text x="190" y="123" font-family="Arial,sans-serif" font-size="46" font-weight="bold" fill="#222">Taxi</text>
+                <!-- Жёлтая дуга -->
+                <path d="M70 155 Q160 185 270 140" stroke="#FFD600" stroke-width="5" fill="none"/>
+            </svg>
+            <!-- Логотип -->
+        </h2>
+    </a>
+    <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarCollapse">
+        <div class="navbar-nav ms-auto p-4 p-lg-0">
+            <a href="{% url 'home' %}" class="nav-item nav-link">ГЛАВНАЯ</a>
+            <a href="{% url 'service' %}" class="nav-item nav-link">ЗАПЧАСТИ</a>
+            <a href="{% url 'car' %}" class="nav-item nav-link">ТАКСОПАРК</a>
+            <a href="{% url 'about' %}" class="nav-item nav-link">О НАС</a>
+            <a href="{% url 'contact' %}" class="nav-item nav-link">ОБРАТНАЯ СВЯЗЬ</a>
+        </div>
+    </div>
+</nav>
+<!-- Navbar End -->
+
+
+{% block content %}
+{% endblock %}
+
+
+<!-- JavaScript Libraries Start -->
+<script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0/dist/js/bootstrap.bundle.min.js"></script>
+<script src="{% static 'js/main.js' %}"></script>
+<script src="{% static 'lib/tempusdominus/js/tempusdominus-bootstrap-4.min.js' %}"></script>
+<script src="{% static 'lib/tempusdominus/js/moment-timezone.min.js' %}"></script>
+<script src="{% static 'lib/tempusdominus/js/moment.min.js' %}"></script>
+<script src="{% static 'lib/owlcarousel/owl.carousel.min.js' %}"></script>
+<script src="{% static 'lib/counterup/counterup.min.js' %}"></script>
+<script src="{% static 'lib/waypoints/waypoints.min.js' %}"></script>
+<script src="{% static 'lib/easing/easing.min.js' %}"></script>
+<script src="{% static 'lib/wow/wow.min.js' %}"></script>
+<script src="js/main.js"></script>
+<!-- JavaScript Libraries End -->
+</body>
+</html>
