@@ -14,7 +14,7 @@ chat_id = os.getenv('TELEGRAM_CHAT_ID')
 
 def message_to_telegram(name, phone_email, message, bot_token, chat_id):
     """Отправить сообщение в телеграмм"""
-    text = (f"💬 *Новое сообщение* ({datetime.now().strftime("%d-%m-%Y %H:%M:%S")})\n\n"
+    text = (f"💬 *Новое сообщение* ({datetime.now().strftime('%d-%m-%Y %H:%M:%S')})\n\n"
             f"👤 *Имя:* {name}\n"
             f"📞 *Контакт:* {phone_email}\n"
             f"✉️ *Сообщение:* {message}")
