@@ -1,59 +1,64 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    <!-- Page Header Start -->
-    <div class="container-fluid page-header mb-5 p-0" style="background-image: url(media/img/carousel-bg-1.jpg);">
-        <div class="container-fluid page-header-inner py-5">
-            <div class="container text-center">
-                <h1 class="display-3 text-white mb-3 animated slideInDown">ОБРАТНАЯ СВЯЗЬ</h1>
-            </div>
+<div class="container-fluid page-header mb-5 p-0" style="background-image: url(media/img/carousel-bg-1.jpg);">
+    <div class="container-fluid page-header-inner py-5">
+        <div class="container text-center">
+            <h1 class="display-3 text-white mb-3 animated slideInDown">ОБРАТНАЯ СВЯЗЬ</h1>
         </div>
     </div>
-    <!-- Page Header End -->
+</div>
 
-
-    <!-- Contact Start -->
-    <div class="container-xxl py-5">
-        <div class="container">
-            <div class="row g-4">
-                <div class="col-md-6 wow fadeIn" data-wow-delay="0.1s">
-                    {% if address and address.maps %}
-                        {{ address.maps|safe }}
-                    {% else %}
-                        <div style="color: #888;">Карта не указана</div>
-                    {% endif %}
+<div class="container-xxl py-5">
+    <div class="container">
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    {{ message }}
+                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
                 </div>
-                <div class="col-md-6">
-                    <div class="wow fadeInUp" data-wow-delay="0.2s">
-                        <form>
-                            <div class="row g-3">
-                                <div class="col-md-6">
-                                    <div class="form-floating">
-                                        <input type="text" class="form-control" id="name" placeholder="Your Name" style="border-radius: 10px">
-                                        <label for="name">Ваше имя</label>
-                                    </div>
-                                </div>
-                                <div class="col-md-6">
-                                    <div class="form-floating">
-                                        <input type="email" class="form-control" id="email" placeholder="Your Email" style="border-radius: 10px">
-                                        <label for="email">Телефон или email</label>
-                                    </div>
-                                </div>
-                                <div class="col-12">
-                                    <div class="form-floating">
-                                        <textarea class="form-control" placeholder="Leave a message here" id="message" style="height: 300px; border-radius: 10px"></textarea>
-                                        <label for="message">Сообщение</label>
-                                    </div>
-                                </div>
-                                <div class="col-12">
-                                    <button class="btn btn-primary w-100 py-3" type="submit">Отправить сообщение</button>
+            {% endfor %}
+        {% endif %}
+
+        <div class="row g-4">
+            <div class="col-md-6 wow fadeIn" data-wow-delay="0.1s">
+                {% if address and address.maps %}
+                    {{ address.maps|safe }}
+                {% else %}
+                    <div style="color: #888;">Карта не указана</div>
+                {% endif %}
+            </div>
+            <div class="col-md-6">
+                <div class="wow fadeInUp" data-wow-delay="0.2s">
+                    <form method="post" action="{% url 'contact' %}">
+                        {% csrf_token %}
+                        <div class="row g-3">
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    {{ form.name }}
+                                    <label for="name">Ваше имя</label>
                                 </div>
                             </div>
-                        </form>
-                    </div>
+                            <div class="col-md-6">
+                                <div class="form-floating">
+                                    {{ form.phone_email }}
+                                    <label for="phone_email">Телефон или email</label>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <div class="form-floating" type="submit">
+                                    {{ form.message }}
+                                    <label for="message">Сообщение</label>
+                                </div>
+                            </div>
+                            <div class="col-12">
+                                <button class="btn btn-primary w-100 py-3">Отправить сообщение</button>
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
-    <!-- Contact End -->
+</div>
 {% endblock %}

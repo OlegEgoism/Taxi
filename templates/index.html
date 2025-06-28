@@ -131,22 +131,22 @@
             <div class="row g-4">
                 <div class="col-md-6 col-lg-3 text-center wow fadeIn" data-wow-delay="0.1s">
                     <i class="fa fa-check fa-2x text-white mb-3"></i>
-                    <h2 class="text-white mb-2" data-toggle="counter-up">5</h2>
+                    <h2 class="text-white mb-2" data-toggle="counter-up">{{ address.year_work }}</h2>
                     <h5 class="text-white mb-0">Лет опыта</h5>
                 </div>
                 <div class="col-md-6 col-lg-3 text-center wow fadeIn" data-wow-delay="0.7s">
                     <i class="fa fa-car fa-2x text-white mb-3"></i>
-                    <h2 class="text-white mb-2" data-toggle="counter-up">65</h2>
+                    <h2 class="text-white mb-2" data-toggle="counter-up">{{ address.count_car }}</h2>
                     <h5 class="text-white mb-0">Автомобилей в таксопарке</h5>
                 </div>
                 <div class="col-md-6 col-lg-3 text-center wow fadeIn" data-wow-delay="0.5s">
                     <i class="fa fa-users fa-2x text-white mb-3"></i>
-                    <h2 class="text-white mb-2" data-toggle="counter-up">50521</h2>
+                    <h2 class="text-white mb-2" data-toggle="counter-up">{{ address.transported }}</h2>
                     <h5 class="text-white mb-0">Перевезенных пассажиров</h5>
                 </div>
                 <div class="col-md-6 col-lg-3 text-center wow fadeIn" data-wow-delay="0.3s">
                     <i class="fa fa-users-cog fa-2x text-white mb-3"></i>
-                    <h2 class="text-white mb-2" data-toggle="counter-up">4,81⭐</h2>
+                    <h2 class="text-white mb-2" data-toggle="counter-up">{{ address.rating }}⭐</h2>
                     <h5 class="text-white mb-0">Средний рейтинг</h5>
                 </div>
             </div>
@@ -154,47 +154,67 @@
     </div>
     <!-- Fact End -->
 
-    {#    <!-- Testimonial Start -->#}
-    {#    <div class="container-xxl py-5 wow fadeInUp" data-wow-delay="0.1s">#}
-    {#        <div class="container">#}
-    {#            <div class="text-center">#}
-    {#                <h1 class="mb-5">Отзывы клиентов</h1>#}
-    {#            </div>#}
-    {#            <div class="owl-carousel testimonial-carousel position-relative">#}
-    {#                <div class="testimonial-item text-center">#}
-    {#                    <img class="bg-light rounded-circle p-2 mx-auto mb-3" src="media/img/testimonial-1.jpg" style="width: 80px; height: 80px;">#}
-    {#                    <h5 class="mb-0">Client Name</h5>#}
-    {#                    <p>Profession</p>#}
-    {#                    <div class="testimonial-text bg-light text-center p-4">#}
-    {#                        <p class="mb-0">Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit diam amet diam et eos. Clita erat ipsum et lorem et sit.</p>#}
-    {#                    </div>#}
-    {#                </div>#}
-    {#                <div class="testimonial-item text-center">#}
-    {#                    <img class="bg-light rounded-circle p-2 mx-auto mb-3" src="media/img/testimonial-2.jpg" style="width: 80px; height: 80px;">#}
-    {#                    <h5 class="mb-0">Client Name</h5>#}
-    {#                    <p>Profession</p>#}
-    {#                    <div class="testimonial-text bg-light text-center p-4">#}
-    {#                        <p class="mb-0">Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit diam amet diam et eos. Clita erat ipsum et lorem et sit.</p>#}
-    {#                    </div>#}
-    {#                </div>#}
-    {#                <div class="testimonial-item text-center">#}
-    {#                    <img class="bg-light rounded-circle p-2 mx-auto mb-3" src="media/img/testimonial-3.jpg" style="width: 80px; height: 80px;">#}
-    {#                    <h5 class="mb-0">Client Name</h5>#}
-    {#                    <p>Profession</p>#}
-    {#                    <div class="testimonial-text bg-light text-center p-4">#}
-    {#                        <p class="mb-0">Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit diam amet diam et eos. Clita erat ipsum et lorem et sit.</p>#}
-    {#                    </div>#}
-    {#                </div>#}
-    {#                <div class="testimonial-item text-center">#}
-    {#                    <img class="bg-light rounded-circle p-2 mx-auto mb-3" src="media/img/testimonial-4.jpg" style="width: 80px; height: 80px;">#}
-    {#                    <h5 class="mb-0">Client Name</h5>#}
-    {#                    <p>Profession</p>#}
-    {#                    <div class="testimonial-text bg-light text-center p-4">#}
-    {#                        <p class="mb-0">Tempor erat elitr rebum at clita. Diam dolor diam ipsum sit diam amet diam et eos. Clita erat ipsum et lorem et sit.</p>#}
-    {#                    </div>#}
-    {#                </div>#}
-    {#            </div>#}
-    {#        </div>#}
-    {#    </div>#}
-    {#    <!-- Testimonial End -->#}
+<!-- Testimonial Start -->
+<div class="container-xxl py-5 wow fadeInUp" data-wow-delay="0.1s">
+    <div class="container">
+        <div class="text-center">
+            <h1 class="mb-5">Отзывы</h1>
+        </div>
+        <div class="testimonials-horizontal-scroll">
+            <div class="d-flex flex-nowrap overflow-auto pb-4" style="gap: 20px;">
+                {% for review in reviews %}
+                    <div class="testimonial-card flex-shrink-0" style="width: 300px;">
+                        <div class="testimonial-item text-center h-100 d-flex flex-column">
+                            <img class="bg-light rounded-circle p-2 mx-auto mb-3"
+                                 src="{{ review.photo.url }}"
+                                 style="width: 80px; height: 80px; object-fit: cover;" alt="{{ review.name }}">
+                            <h5 class="mb-0">{{ review.name }}</h5>
+                            <div class="testimonial-text bg-light text-center p-4 flex-grow-1">
+                                <p class="mb-0">{{ review.message }}</p>
+                            </div>
+                        </div>
+                    </div>
+                {% empty %}
+                    <p class="text-center w-100">Нет отзывов.</p>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Testimonial End -->
+
+<style>
+    .testimonials-horizontal-scroll {
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch; /* Для плавной прокрутки на iOS */
+    }
+    
+    .testimonials-horizontal-scroll::-webkit-scrollbar {
+        height: 8px;
+    }
+    
+    .testimonials-horizontal-scroll::-webkit-scrollbar-track {
+        background: #f1f1f1;
+        border-radius: 10px;
+    }
+    
+    .testimonials-horizontal-scroll::-webkit-scrollbar-thumb {
+        background: #888;
+        border-radius: 10px;
+    }
+    
+    .testimonials-horizontal-scroll::-webkit-scrollbar-thumb:hover {
+        background: #555;
+    }
+    
+    .testimonial-card {
+        transition: transform 0.3s;
+    }
+    
+    .testimonial-card:hover {
+        transform: translateY(-5px);
+    }
+</style>
+
+    
 {% endblock %}
