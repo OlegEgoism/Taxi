@@ -383,9 +383,6 @@
 }
 
 
-
-
-
 .social-icon {
     width: 22px;
     height: 22px;
@@ -406,13 +403,41 @@
 }
 
 .scrolling-wrapper::-webkit-scrollbar-thumb {
-    background: #FFD600;
+    background: #888;
     border-radius: 4px;
 }
 
 .scrolling-wrapper::-webkit-scrollbar-thumb:hover {
-    background: #e6c200;
+    background: #555;
 }
 
+.testimonials-horizontal-scroll {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+}
 
+.testimonials-horizontal-scroll::-webkit-scrollbar {
+    height: 8px;
+}
 
+.testimonials-horizontal-scroll::-webkit-scrollbar-track {
+    background: #f1f1f1;
+    border-radius: 10px;
+}
+
+.testimonials-horizontal-scroll::-webkit-scrollbar-thumb {
+    background: #888;
+    border-radius: 10px;
+}
+
+.testimonials-horizontal-scroll::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
+
+.testimonial-card {
+    transition: transform 0.3s;
+}
+
+.testimonial-card:hover {
+    transform: translateY(-5px);
+}
