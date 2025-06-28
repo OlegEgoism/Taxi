@@ -9,6 +9,8 @@
     <meta content="" name="description">
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
+    
+    <link rel="shortcut icon" href="{% static 'logo.ico' %}" type="image/x-icon">
 </head>
 <body>
 
@@ -106,25 +108,11 @@
 
 <!-- Navbar Start -->
 <nav class="navbar navbar-expand-lg bg-white navbar-light shadow sticky-top p-0">
-    <a href="{% url 'home' %}" class="navbar-brand d-flex align-items-center px-4 px-lg-5">
-        <h2 class="m-0 text-primary"><i class="fa fa-car me-3"></i>
-            <!-- Логотип -->
-            <svg height="80" viewBox="0 0 320 180" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <!-- Желтая молния V -->
-                <polygon points="20,150 90,30 110,70 80,120 130,30 130,150" fill="#FFD600"/>
-                <!-- Шашечки -->
-                <rect x="135" y="60" width="22" height="15" rx="2" fill="#222"/>
-                <rect x="135" y="80" width="22" height="15" rx="2" fill="#222"/>
-                <rect x="160" y="70" width="22" height="15" rx="2" fill="#222"/>
-                <!-- Текст Volt Taxi -->
-                <text x="190" y="83" font-family="Arial,sans-serif" font-size="46" font-weight="bold" fill="#FFD600">Volt</text>
-                <text x="190" y="123" font-family="Arial,sans-serif" font-size="46" font-weight="bold" fill="#FFD600">Taxi</text>
-                <!-- Жёлтая дуга -->
-                <path d="M70 155 Q160 185 270 140" stroke="#FFD600" stroke-width="5" fill="none"/>
-            </svg>
-            <!-- Логотип -->
-        </h2>
-    </a>
+<a href="{% url 'home' %}" class="navbar-brand d-flex align-items-center px-4 px-lg-5">
+    <img src="{% static 'logo.ico' %}" alt="VoltTaxi" style="height:60px; margin-right:12px;">
+    <span class="align-middle" style="font-weight: bold; color: #FFD600; font-size: 2rem;">VoltTaxi</span>
+</a>
+
     <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
         <span class="navbar-toggler-icon"></span>
     </button>
