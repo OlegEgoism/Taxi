@@ -1,7 +1,7 @@
 import os
 import requests
 from datetime import datetime
-from taxi_car.models import Address, About, Personnel, Car, Reviews
+from taxi_car.models import Address, About, Personnel, Car, Reviews, Conditions, Servicing
 from .forms import FeedbackForm
 from django.shortcuts import render, redirect
 from django.contrib import messages
@@ -55,10 +55,14 @@ def contact(request):
 def home(request):
     """Главная страница"""
     address = Address.objects.first()
+    conditions = Conditions.objects.filter(status=True)
     reviews = Reviews.objects.filter(status=True)
+    servicing = Servicing.objects.filter(status=True)
     return render(request,
                   template_name='index.html',
                   context={'address': address,
+                           'servicing': servicing,
+                           'conditions': conditions,
                            'reviews': reviews})
 
 

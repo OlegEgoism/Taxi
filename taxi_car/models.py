@@ -37,6 +37,52 @@ class Address(DateStamp):
         verbose_name_plural = 'Адрес'
 
 
+class Servicing(DateStamp):
+    """Описание работы"""
+    name = models.CharField(verbose_name='Название', max_length=50)
+    description = models.TextField(verbose_name='Описание')
+    status = models.BooleanField(verbose_name='Опубликован', default=True)
+
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        verbose_name = 'Описание работы'
+        verbose_name_plural = 'Описание работы'
+
+
+class Conditions(DateStamp):
+    """Условия"""
+    photo = models.ImageField(verbose_name='Фотография', upload_to='сonditions/', help_text='Фото формата 4:3')
+    info = models.CharField(verbose_name='Условия', max_length=100)
+    status = models.BooleanField(verbose_name='Опубликован', default=True)
+
+    def __str__(self):
+        return f"{self.info}"
+
+    def save(self, *args, **kwargs):
+        """Сохранение фотографии формата 16:9"""
+        super().save(*args, **kwargs)
+        if self.photo:
+            img = Image.open(self.photo.path)
+            width, height = img.size
+            target_ratio = 4 / 3
+            current_ratio = width / height
+            if current_ratio > target_ratio:
+                new_width = int(height * target_ratio)
+                left = (width - new_width) // 2
+                img_cropped = img.crop((left, 0, left + new_width, height))
+            else:
+                new_height = int(width / target_ratio)
+                top = (height - new_height) // 2
+                img_cropped = img.crop((0, top, width, top + new_height))
+            img_cropped.save(self.photo.path)
+
+    class Meta:
+        verbose_name = 'Условие'
+        verbose_name_plural = 'Условия'
+
+
 class Feedback(DateStamp):
     """Обратная связь"""
     name = models.CharField(verbose_name='Имя', max_length=100)
@@ -67,7 +113,7 @@ class About(DateStamp):
 
 
 class Personnel(DateStamp):
-    """Сотрудник"""
+    """Сотрудники"""
     photo = models.ImageField(verbose_name='Фотография', upload_to='photo/', help_text='Фото формата 4:3')
     fio = models.CharField(verbose_name='ФИО', max_length=50)
     position = models.CharField(verbose_name='Должность', max_length=50)
@@ -145,7 +191,6 @@ class Car(DateStamp):
     class Meta:
         verbose_name = 'Модель автомобиля'
         verbose_name_plural = 'Модели автомобилей'
-
 
 
 class Reviews(DateStamp):

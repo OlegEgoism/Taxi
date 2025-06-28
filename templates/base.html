@@ -23,7 +23,7 @@
 
 
 <!-- Topbar Start -->
-<div class="container-fluid bg-dark text-light p-0">
+<div class="container-fluid bg-dark text-light p-2">
     <div class="row gx-0 d-none d-lg-flex">
         <div class="col-lg-7 px-6 text-start">
             <div class="h-100 d-inline-flex align-items-center py-3 me-4">
@@ -51,44 +51,53 @@
                 <small>
                     {% if address.phone_mtc %}
                         <img src="/media/img/mtc.png" alt="MTC" style="height:18px;vertical-align:middle;margin-left:6px;">
-                        {{ address.phone_mtc }}
+                        <a href="tel:{{ address.phone_mtc|cut:' ' }}" class="text-white" style="text-decoration: none;">
+                            {{ address.phone_mtc }}
+                        </a>
                     {% endif %}
                 </small>
-            </div>
-            <div class="h-100 d-inline-flex align-items-center py-3 me-4">
-                <small class="fa fa-phone-alt text-primary me-1"></small>
                 <small>
                     {% if address.phone_a1 %}
                         <img src="/media/img/a1.png" alt="A1" style="height:18px;vertical-align:middle;margin-left:6px;">
-                        {{ address.phone_a1 }}
+                        <a href="tel:{{ address.phone_a1|cut:' ' }}" class="text-white" style="text-decoration: none;">
+                            {{ address.phone_a1 }}
+                        </a>
                     {% endif %}
                 </small>
-            </div>
-            <div class="h-100 d-inline-flex align-items-center py-3 me-4">
-                <small class="fa fa-phone-alt text-primary me-1"></small>
                 <small>
                     {% if address.phone_life %}
                         <img src="/media/img/life.png" alt="Life" style="height:18px;vertical-align:middle;margin-left:6px;">
-                        {{ address.phone_life }}
+                        <a href="tel:{{ address.phone_life|cut:' ' }}" class="text-white" style="text-decoration: none;">
+                            {{ address.phone_life }}
+                        </a>
                     {% endif %}
                 </small>
             </div>
         </div>
         <div class="col-lg-5 px-5 text-end">
             <div class="h-100 d-flex align-items-center justify-content-end">
-                <a class="btn btn-sm-square bg-white text-primary me-1" href="">
-                    <img class="social-icon" src="media/social/instagram.png" alt="Instagram">
-                </a>
-                <a class="btn btn-sm-square bg-white text-primary me-1" href="">
-                    <img class="social-icon" src="media/social/telegram.png" alt="Telegram">
-                </a>
-                <a class="btn btn-sm-square bg-white text-primary me-1" href="">
-                    <img class="social-icon" src="media/social/viber.png" alt="Viber">
-                </a>
-                <a class="btn btn-sm-square bg-white text-primary" href="">
-                    <img class="social-icon" src="media/social/whatsapp.png" alt="Whatsapp">
-                </a>
+                {% if address.instagram %}
+                    <a class="btn btn-sm-square bg-white text-primary me-1" href="{{ address.instagram }}" target="_blank">
+                        <img class="social-icon" src="media/social/instagram.png" alt="Instagram">
+                    </a>
+                {% endif %}
+                {% if address.telegram %}
+                    <a class="btn btn-sm-square bg-white text-primary me-1" href="{{ address.telegram }}" target="_blank">
+                        <img class="social-icon" src="media/social/telegram.png" alt="Instagram">
+                    </a>
+                {% endif %}
+                {% if address.viber %}
+                    <a class="btn btn-sm-square bg-white text-primary me-1" href="{{ address.viber }}" target="_blank">
+                        <img class="social-icon" src="media/social/viber.png" alt="Instagram">
+                    </a>
+                {% endif %}
+                {% if address.whatsapp %}
+                    <a class="btn btn-sm-square bg-white text-primary" href="{{ address.whatsapp }}" target="_blank">
+                        <img class="social-icon" src="media/social/whatsapp.png" alt="Instagram">
+                    </a>
+                {% endif %}
             </div>
+
         </div>
     </div>
 </div>
@@ -122,7 +131,7 @@
     <div class="collapse navbar-collapse" id="navbarCollapse">
         <div class="navbar-nav ms-auto p-4 p-lg-0">
             <a href="{% url 'home' %}" class="nav-item nav-link">ГЛАВНАЯ</a>
-            <a href="{% url 'service' %}" class="nav-item nav-link">ЗАПЧАСТИ</a>
+            {#            <a href="{% url 'service' %}" class="nav-item nav-link">ЗАПЧАСТИ</a>#}
             <a href="{% url 'car' %}" class="nav-item nav-link">ТАКСОПАРК</a>
             <a href="{% url 'about' %}" class="nav-item nav-link">О НАС</a>
             <a href="{% url 'contact' %}" class="nav-item nav-link">ОБРАТНАЯ СВЯЗЬ</a>

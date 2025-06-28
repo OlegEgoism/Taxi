@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.utils.safestring import mark_safe
 
-from taxi_car.models import Address, Feedback, About, Personnel, CarBrand, Car, Reviews
+from taxi_car.models import Address, Feedback, About, Personnel, CarBrand, Car, Reviews, Conditions, Servicing
 
 
 @admin.register(Address)
@@ -18,6 +18,38 @@ class AddressAdmin(admin.ModelAdmin):
     def has_delete_permission(self, request, obj=None):
         """Запретить удаление"""
         return False
+
+
+@admin.register(Servicing)
+class ServicingAdmin(admin.ModelAdmin):
+    """Описание работы"""
+    fields = 'name', 'description', 'status', 'created', 'updated'
+    list_display = 'name', 'description', 'status', 'created', 'updated'
+    readonly_fields = 'created', 'updated'
+    list_editable = 'status',
+    list_filter = 'status',
+    date_hierarchy = 'created'
+    list_per_page = 20
+
+
+@admin.register(Conditions)
+class ConditionsAdmin(admin.ModelAdmin):
+    """Условия"""
+    fields = 'preview_avatar', 'photo', 'info', 'status', 'created', 'updated'
+    list_display = 'info', 'preview_avatar', 'status', 'created', 'updated'
+    readonly_fields = 'preview_avatar', 'created', 'updated'
+    list_editable = 'status',
+    list_filter = 'status',
+    date_hierarchy = 'created'
+    list_per_page = 20
+
+    def preview_avatar(self, obj):
+        if obj.photo:
+            return mark_safe(f'<img src="{obj.photo.url}" width="60" height="60"/>')
+        else:
+            return 'Нет фотографии'
+
+    preview_avatar.short_description = 'Фото'
 
 
 @admin.register(Feedback)
@@ -120,17 +152,6 @@ class ReviewsAdmin(admin.ModelAdmin):
             return 'Нет фотографии'
 
     preview_avatar.short_description = 'Фото'
-
-
-
-
-
-
-
-
-
-
-
 
 # @admin.register(Car)
 # class CarAdmin(admin.ModelAdmin):

@@ -48,8 +48,8 @@
                                     <div class="col-md-6">
                                         <h3 class="mb-3">{{ car.car_brand.name }} {{ car.name }}</h3>
                                         <p class="mb-4">{{ car.description }}</p>
-                                        <p><i class="fa fa-check text-success me-3"></i>{{ car.year }}</p>
-                                        <p><i class="fa fa-check text-success me-3"></i>{{ car.power_reserve }}</p>
+                                        <p><i class="fa fa-check text-success me-3"></i>Год: {{ car.year }}</p>
+                                        <p><i class="fa fa-check text-success me-3"></i>Запас хода: {{ car.power_reserve }} км.</p>
                                         <a href="{% url 'contact' %}" class="btn btn-primary py-3 px-5 mt-3">Подать заявку<i class="fa fa-arrow-right ms-3"></i></a>
                                     </div>
                                 </div>
@@ -62,6 +62,7 @@
     </div>
     <!-- Service End -->
 
+    
     <!-- Modal for enlarged car image Start-->
     <div class="modal fade" id="carImageModal" tabindex="-1" aria-labelledby="carImageModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-lg">
@@ -87,8 +88,6 @@
                     modalImg.setAttribute('src', src);
                 });
             });
-
-            // (Необязательно) — очистить картинку после закрытия (чтобы не грузить лишнее)
             modal.addEventListener('hidden.bs.modal', function () {
                 modalImg.setAttribute('src', '');
             });
