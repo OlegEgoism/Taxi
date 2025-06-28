@@ -90,7 +90,8 @@ def car(request):
 
 def service(request):
     """Запчасти"""
-    return render(request, 'service.html')
+    return render(request,
+                  template_name='service.html')
 
 
 def custom_404(request, exception):
