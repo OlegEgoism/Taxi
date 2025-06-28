@@ -1,64 +1,89 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="container-fluid page-header mb-5 p-0" style="background-image: url(media/img/carousel-bg-1.jpg);">
-    <div class="container-fluid page-header-inner py-5">
-        <div class="container text-center">
-            <h1 class="display-3 text-white mb-3 animated slideInDown">ОБРАТНАЯ СВЯЗЬ</h1>
-        </div>
-    </div>
-</div>
-
-<div class="container-xxl py-5">
-    <div class="container">
-        {% if messages %}
-            {% for message in messages %}
-                <div class="alert alert-success alert-dismissible fade show" role="alert">
-                    {{ message }}
-                    <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-                </div>
-            {% endfor %}
-        {% endif %}
-
-        <div class="row g-4">
-            <div class="col-md-6 wow fadeIn" data-wow-delay="0.1s">
-                {% if address and address.maps %}
-                    {{ address.maps|safe }}
-                {% else %}
-                    <div style="color: #888;">Карта не указана</div>
-                {% endif %}
-            </div>
-            <div class="col-md-6">
-                <div class="wow fadeInUp" data-wow-delay="0.2s">
-                    <form method="post" action="{% url 'contact' %}">
-                        {% csrf_token %}
-                        <div class="row g-3">
-                            <div class="col-md-6">
-                                <div class="form-floating">
-                                    {{ form.name }}
-                                    <label for="name">Ваше имя</label>
-                                </div>
-                            </div>
-                            <div class="col-md-6">
-                                <div class="form-floating">
-                                    {{ form.phone_email }}
-                                    <label for="phone_email">Телефон или email</label>
-                                </div>
-                            </div>
-                            <div class="col-12">
-                                <div class="form-floating" type="submit">
-                                    {{ form.message }}
-                                    <label for="message">Сообщение</label>
-                                </div>
-                            </div>
-                            <div class="col-12">
-                                <button class="btn btn-primary w-100 py-3">Отправить сообщение</button>
-                            </div>
-                        </div>
-                    </form>
-                </div>
+    <div class="container-fluid page-header mb-5 p-0" style="background-image: url(media/img/carousel-bg-1.jpg);">
+        <div class="container-fluid page-header-inner py-5">
+            <div class="container text-center">
+                <h1 class="display-3 text-white mb-3 animated slideInDown">ОБРАТНАЯ СВЯЗЬ</h1>
             </div>
         </div>
     </div>
-</div>
+
+
+    <!-- Topbar Contact Start -->
+    <div class="container-xxl py-5">
+        <div class="container">
+            {% if messages %}
+                {% for message in messages %}
+                    <div class="alert alert-success alert-dismissible fade show" role="alert">
+                        {{ message }}
+                        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+                    </div>
+                {% endfor %}
+            {% endif %}
+
+            <div class="row g-4">
+                <div class="col-md-6 wow fadeIn" data-wow-delay="0.1s">
+                    {% if address and address.maps %}
+                        {{ address.maps|safe }}
+                    {% else %}
+                        <div style="color: #888;">Карта не указана</div>
+                    {% endif %}
+                </div>
+                <div class="col-md-6">
+                    <div class="wow fadeInUp" data-wow-delay="0.2s">
+                        <form method="post" action="{% url 'contact' %}">
+                            {% csrf_token %}
+                            <div class="row g-3">
+                                <div class="col-md-6">
+                                    <div class="form-floating">
+                                        {{ form.name }}
+                                        <label for="name">Ваше имя</label>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-floating">
+                                        {{ form.phone_email }}
+                                        <label for="phone_email">Телефон или email</label>
+                                        {% if form.phone_email.errors %}
+                                            <div class="text-danger" style="font-size: 13px;">
+                                                {{ form.phone_email.errors.0 }}
+                                            </div>
+                                        {% endif %}
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <div class="form-floating" type="submit">
+                                        {{ form.message }}
+                                        <label for="message">Сообщение</label>
+                                    </div>
+                                </div>
+                                <div class="col-12">
+                                    <button class="btn btn-primary w-100 py-3">Отправить сообщение</button>
+                                </div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Topbar Contact End -->
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            const phoneEmail = document.getElementById('id_phone_email');
+            phoneEmail.addEventListener('input', function () {
+                let value = phoneEmail.value.trim();
+                let isPhone = /^\+375\d{9}$/.test(value);
+                let isEmail = value.includes('@') && !value.startsWith('@') && !value.endsWith('@');
+                let errorBlock = document.getElementById('phone_email_error');
+                if (!value || isPhone || isEmail) {
+                    errorBlock.textContent = '';
+                } else {
+                    errorBlock.textContent = 'Введите телефон в формате +375XXXXXXXXX или email с символом "@"';
+                }
+            });
+        });
+    </script>
 {% endblock %}
