@@ -1,15 +1,22 @@
-# Default ignored files
-/shelf/
-/workspace.xml
-# Editor-based HTTP Client requests
-/httpRequests/
-# Datasource local storage ignored files
-/dataSources/
-/dataSources.local.xml
-/conf.iml
-/misc.xml
-/modules.xml
-/inspectionProfiles/profiles_settings.xml
-/inspectionProfiles/Project_Default.xml
-/vcs.xml
-/taxi_car/migrations/
+# Python
+*.pyc
+__pycache__/
+
+# Environment
+.env
+
+# Django Migrations
+*/migrations/
+db.sqlite3
+
+# Media (user uploaded content)
+media/
+
+# VSCode
+.vscode/
+
+# MacOS
+.DS_Store
+
+# Logs
+*.log
