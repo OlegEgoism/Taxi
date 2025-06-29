@@ -28,6 +28,7 @@ class Address(DateStamp):
     count_car = models.IntegerField(verbose_name='Автомобилей в таксопарке')
     transported = models.IntegerField(verbose_name='Перевезенных пассажиров')
     rating = models.DecimalField(verbose_name='Средний рейтинг', decimal_places=2, max_digits=3, validators=[MinValueValidator(1), MaxValueValidator(5)])
+    photo = models.ImageField(verbose_name='Изображение на странице о нас', upload_to='about/')
 
     def __str__(self):
         return f"{self.address} {self.time_work}"

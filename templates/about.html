@@ -18,7 +18,7 @@
             <div class="row g-5">
                 <div class="col-lg-6 pt-4" style="min-height: 400px;">
                     <div class="position-relative h-100 wow fadeIn" data-wow-delay="0.1s">
-                        <img class="position-absolute img-fluid w-100 h-100" src="media/img/about.jpg" style="object-fit: cover;" alt="">
+                       <img class="position-absolute img-fluid w-100 h-100" src="{{ address.photo.url }}" style="object-fit: cover;" alt="">
                     </div>
                 </div>
                 <div class="col-lg-6">
@@ -41,6 +41,7 @@
                             </div>
                         {% endfor %}
                     <a href="{% url 'contact' %}" class="btn btn-primary py-3 px-5 mt-3">Подать заявку<i class="fa fa-arrow-right ms-3"></i></a>
+                    <a href="{% url 'car' %}" class="btn btn-primary py-3 px-5 mt-3">Наш таксопарк<i class="fa fa-arrow-right ms-3"></i></a>
                     </div>
                 </div>
             </div>

@@ -7,7 +7,9 @@ from taxi_car.models import Address, Feedback, About, Personnel, CarBrand, Car, 
 @admin.register(Address)
 class AddressAdmin(admin.ModelAdmin):
     """Адрес"""
-    list_display = 'address', 'time_work', 'phone_mtc', 'phone_a1', 'phone_life', 'created', 'updated'
+    fields = 'address', 'time_work', 'phone_mtc', 'phone_a1', 'phone_life', 'maps', 'telegram', 'viber', 'whatsapp', 'instagram', 'year_work', 'count_car', 'transported', 'rating', 'preview_avatar', 'photo', 'created', 'updated'
+    list_display = 'address', 'preview_avatar', 'time_work', 'phone_mtc', 'phone_a1', 'phone_life', 'created', 'updated'
+    readonly_fields = 'preview_avatar', 'created', 'updated'
 
     def has_add_permission(self, request):
         """Создание только одной записи"""
@@ -18,6 +20,14 @@ class AddressAdmin(admin.ModelAdmin):
     def has_delete_permission(self, request, obj=None):
         """Запретить удаление"""
         return False
+
+    def preview_avatar(self, obj):
+        if obj.photo:
+            return mark_safe(f'<img src="{obj.photo.url}" width="60" height="60"/>')
+        else:
+            return 'Нет фотографии'
+
+    preview_avatar.short_description = 'Фото'
 
 
 @admin.register(Servicing)
@@ -68,7 +78,7 @@ class FeedbackAdmin(admin.ModelAdmin):
 @admin.register(About)
 class AboutAdmin(admin.ModelAdmin):
     """О нас"""
-    list_display = 'numbers', 'name', 'description', 'created', 'updated'
+    list_display = 'name', 'numbers', 'description', 'created', 'updated'
     date_hierarchy = 'created'
     ordering = ['numbers']
     list_per_page = 20

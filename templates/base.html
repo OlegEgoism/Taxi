@@ -9,7 +9,7 @@
     <meta content="" name="description">
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
-    
+
     <link rel="shortcut icon" href="{% static 'logo.ico' %}" type="image/x-icon">
 </head>
 <body>
@@ -79,22 +79,23 @@
         <div class="col-lg-5 px-5 text-end">
             <div class="h-100 d-flex align-items-center justify-content-end">
                 {% if address.instagram %}
-                    <a class="btn btn-sm-square bg-white text-primary me-1" href="{{ address.instagram }}" target="_blank">
+                    <a class="btn btn-sm-square text-primary me-1" href="{{ address.instagram }}" target="_blank">
                         <img class="social-icon" src="media/social/instagram.png" alt="Instagram">
                     </a>
                 {% endif %}
                 {% if address.telegram %}
-                    <a class="btn btn-sm-square bg-white text-primary me-1" href="{{ address.telegram }}" target="_blank">
-                        <img class="social-icon" src="media/social/telegram.png" alt="Instagram">
+                    <a class="btn btn-sm-square text-primary me-1" href="{{ address.telegram }}" target="_blank">
+                        <img class="social-icon" src="media/social/telegram.png" alt="Telegram">
                     </a>
+
                 {% endif %}
                 {% if address.viber %}
-                    <a class="btn btn-sm-square bg-white text-primary me-1" href="{{ address.viber }}" target="_blank">
+                    <a class="btn btn-sm-square text-primary me-1" href="{{ address.viber }}" target="_blank">
                         <img class="social-icon" src="media/social/viber.png" alt="Instagram">
                     </a>
                 {% endif %}
                 {% if address.whatsapp %}
-                    <a class="btn btn-sm-square bg-white text-primary" href="{{ address.whatsapp }}" target="_blank">
+                    <a class="btn btn-sm-square text-primary me-1" href="{{ address.whatsapp }}" target="_blank">
                         <img class="social-icon" src="media/social/whatsapp.png" alt="Instagram">
                     </a>
                 {% endif %}
@@ -108,10 +109,10 @@
 
 <!-- Navbar Start -->
 <nav class="navbar navbar-expand-lg bg-white navbar-light shadow sticky-top p-0">
-<a href="{% url 'home' %}" class="navbar-brand d-flex align-items-center px-4 px-lg-5">
-    <img src="{% static 'logo.ico' %}" alt="VoltTaxi" style="height:60px; margin-right:12px;">
-    <span class="align-middle" style="font-weight: bold; color: #FFD600; font-size: 2rem;">VoltTaxi</span>
-</a>
+    <a href="{% url 'home' %}" class="navbar-brand d-flex align-items-center px-4 px-lg-5">
+        <img src="{% static 'logo.ico' %}" alt="VoltTaxi" style="height:60px; margin-right:12px;">
+        <span class="align-middle" style="font-weight: bold; color: #FFD600; font-size: 2rem;">VoltTaxi</span>
+    </a>
 
     <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
         <span class="navbar-toggler-icon"></span>
@@ -146,6 +147,8 @@
 <script src="{% static 'lib/easing/easing.min.js' %}"></script>
 <script src="{% static 'lib/wow/wow.min.js' %}"></script>
 <script src="js/main.js"></script>
+<script src="js/phone_email.js"></script>
+
 <!-- JavaScript Libraries End -->
 </body>
 </html>

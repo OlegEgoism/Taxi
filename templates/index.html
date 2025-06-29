@@ -8,10 +8,9 @@
                 {% for condition in conditions %}
                     <div class="carousel-item {% if forloop.first %}active{% endif %}">
                         <div class="carousel-bg-light position-relative" style="height: 500px;">
-    <img class="w-100 h-100 position-absolute top-0 start-0" src="media/img/carousel-bg-7.jpg" alt="Image" style="object-fit: cover;">
-    <div class="carousel-overlay position-absolute top-0 start-0 w-100 h-100"></div>
-</div>
-
+                            <img class="w-100 h-100 position-absolute top-0 start-0" src="media/img/carousel-bg-7.jpg" alt="Image" style="object-fit: cover;">
+                            <div class="carousel-overlay position-absolute top-0 start-0 w-100 h-100"></div>
+                        </div>
                         <div class="carousel-caption d-flex align-items-center">
                             <div class="container">
                                 <div class="row align-items-center justify-content-center justify-content-lg-start">
@@ -19,7 +18,7 @@
                                         <h1 class="display-3 text-white mb-4 pb-3 animated slideInDown">
                                             {{ condition.info }}
                                         </h1>
-                                        <a href="{% url 'car' %}" class="btn btn-primary py-3 px-5 animated slideInDown">
+                                        <a href="{% url 'about' %}" class="btn btn-primary py-3 px-5 animated slideInDown">
                                             Узнать больше<i class="fa fa-arrow-right ms-3"></i>
                                         </a>
                                         <a href="{% url 'contact' %}" class="btn btn-primary py-3 px-5 animated slideInDown">
