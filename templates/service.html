@@ -10,23 +10,24 @@
         </div>
     </div>
     <!-- Page Header End -->
-    
-    
-<!-- Поиск Start -->
-<form method="get" class="mb-4">
-    <div class="d-flex justify-content-center">
-        <div class="input-group input-group-lg" style="width: 40%;">
-            <input type="text" name="q" class="form-control" placeholder="Поиск по запчастям, бренду или описанию"
-                   value="{{ query|default_if_none:'' }}">
-            <button class="btn btn-primary" type="submit"><i class="fa fa-search"></i> Найти</button>
-            {% if query %}
-                <a href="{% url 'service' %}" class="btn btn-outline-secondary">Сбросить</a>
-            {% endif %}
+
+
+    <!-- Поиск Start -->
+    <form method="get" class="mb-4">
+        <div class="d-flex justify-content-center">
+            <div class="input-group input-group-lg" style="width: 40%;">
+                <input type="text" name="q" class="form-control" placeholder="Поиск по запчастям, бренду или описанию"
+                       value="{{ query|default_if_none:'' }}">
+                <button class="btn btn-primary" type="submit"><i class="fa fa-search"></i> Найти</button>
+                {% if query %}
+                    <a href="{% url 'service' %}" class="btn btn-outline-secondary">Сбросить</a>
+                {% endif %}
+            </div>
         </div>
-    </div>
-</form>
+    </form>
+    <!-- Поиск End -->
 
-
+    
     <!-- Service Start -->
     <div class="container-xxl service py-5">
         <div class="container">
