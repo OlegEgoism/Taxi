@@ -1,7 +1,7 @@
 import os
 import requests
 from datetime import datetime
-from taxi_car.models import Address, About, Personnel, Car, Reviews, Conditions, Servicing
+from taxi_car.models import Address, About, Personnel, Car, Reviews, Conditions, Servicing, Spares
 from .forms import FeedbackForm
 from django.shortcuts import render, redirect
 from django.contrib import messages
@@ -81,7 +81,7 @@ def about(request):
 def car(request):
     """Таксопарк"""
     address = Address.objects.first()
-    cars = Car.objects.filter(status=True)
+    cars = Car.objects.filter(status=True).order_by('car_brand__name', 'name')
     return render(request,
                   template_name='car.html',
                   context={'address': address,
@@ -90,8 +90,12 @@ def car(request):
 
 def service(request):
     """Запчасти"""
+    address = Address.objects.first()
+    spares = Spares.objects.filter(status=True)
     return render(request,
-                  template_name='service.html')
+                  template_name='service.html',
+                  context={'address': address,
+                           'spares': spares})
 
 
 def custom_404(request, exception):

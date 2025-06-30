@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.utils.safestring import mark_safe
 
-from taxi_car.models import Address, Feedback, About, Personnel, CarBrand, Car, Reviews, Conditions, Servicing
+from taxi_car.models import Address, Feedback, About, Personnel, CarBrand, Car, Reviews, Conditions, Servicing, Spares
 
 
 @admin.register(Address)
@@ -104,7 +104,7 @@ class PersonnelAdmin(admin.ModelAdmin):
 
 
 class CarInline(admin.TabularInline):
-    """Контроль времени"""
+    """Автомобили"""
     model = Car
     fields = 'photo', 'car_brand', 'name', 'year', 'power_reserve', 'description', 'status', 'created', 'updated'
     readonly_fields = 'created', 'updated'
@@ -122,12 +122,31 @@ class CarInline(admin.TabularInline):
         return formset
 
 
+class SparesInline(admin.TabularInline):
+    """Запчасти"""
+    model = Spares
+    fields = 'photo', 'car_brand', 'name', 'price', 'guarantee', 'description', 'availability', 'status', 'created', 'updated'
+    readonly_fields = 'created', 'updated'
+    classes = ['collapse']
+    list_per_page = 20
+    extra = 0
+
+    def get_formset(self, request, obj=None, **kwargs):
+        """Стиль отображения"""
+        formset = super().get_formset(request, obj, **kwargs)
+        formset.form.base_fields['name'].widget.attrs['style'] = 'width: 180px;'
+        formset.form.base_fields['price'].widget.attrs['style'] = 'width: 60px;'
+        formset.form.base_fields['guarantee'].widget.attrs['style'] = 'width: 60px;'
+        formset.form.base_fields['description'].widget.attrs['style'] = 'width: 360px;'
+        return formset
+
+
 @admin.register(CarBrand)
 class CarBrandAdmin(admin.ModelAdmin):
     """Бренд автомобиля"""
-    list_display = 'name', 'car_count', 'created', 'updated'
+    list_display = 'name', 'car_count', 'spares_count', 'spares_availability_count', 'created', 'updated'
     date_hierarchy = 'created'
-    inlines = CarInline,
+    inlines = CarInline, SparesInline
     list_per_page = 20
 
     def preview_avatar(self, obj):
@@ -139,10 +158,23 @@ class CarBrandAdmin(admin.ModelAdmin):
     preview_avatar.short_description = 'Фото'
 
     def car_count(self, obj):
-        """Количество автомобилей этого бренда"""
-        return obj.car_set.count()
+        """Количество моделей этого бренда"""
+        return obj.car.count()
 
     car_count.short_description = 'Количество моделей'
+
+    def spares_count(self, obj):
+        """Количество запчастей этого бренда"""
+        return obj.spares.count()
+
+    spares_count.short_description = 'Количество запчастей'
+
+
+    def spares_availability_count(self, obj):
+        """Количество запчастей этого бренда"""
+        return obj.spares.filter(availability=True).count()
+
+    spares_availability_count.short_description = 'Количество запчастей в наличии'
 
 
 @admin.register(Reviews)

@@ -9,7 +9,6 @@
     <meta content="" name="description">
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
     <link rel="stylesheet" href="{% static 'css/style.css' %}">
-
     <link rel="shortcut icon" href="{% static 'logo.ico' %}" type="image/x-icon">
 </head>
 <body>
@@ -87,20 +86,18 @@
                     <a class="btn btn-sm-square text-primary me-1" href="{{ address.telegram }}" target="_blank">
                         <img class="social-icon" src="media/social/telegram.png" alt="Telegram">
                     </a>
-
                 {% endif %}
                 {% if address.viber %}
                     <a class="btn btn-sm-square text-primary me-1" href="{{ address.viber }}" target="_blank">
-                        <img class="social-icon" src="media/social/viber.png" alt="Instagram">
+                        <img class="social-icon" src="media/social/viber.png" alt="Viber">
                     </a>
                 {% endif %}
                 {% if address.whatsapp %}
                     <a class="btn btn-sm-square text-primary me-1" href="{{ address.whatsapp }}" target="_blank">
-                        <img class="social-icon" src="media/social/whatsapp.png" alt="Instagram">
+                        <img class="social-icon" src="media/social/whatsapp.png" alt="Whatsapp">
                     </a>
                 {% endif %}
             </div>
-
         </div>
     </div>
 </div>
@@ -113,14 +110,13 @@
         <img src="{% static 'logo.ico' %}" alt="VoltTaxi" style="height:60px; margin-right:12px;">
         <span class="align-middle" style="font-weight: bold; color: #FFD600; font-size: 2rem;">VoltTaxi</span>
     </a>
-
     <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
         <span class="navbar-toggler-icon"></span>
     </button>
     <div class="collapse navbar-collapse" id="navbarCollapse">
         <div class="navbar-nav ms-auto p-4 p-lg-0">
             <a href="{% url 'home' %}" class="nav-item nav-link">ГЛАВНАЯ</a>
-            {#            <a href="{% url 'service' %}" class="nav-item nav-link">ЗАПЧАСТИ</a>#}
+            <a href="{% url 'service' %}" class="nav-item nav-link">ЗАПЧАСТИ</a>
             <a href="{% url 'car' %}" class="nav-item nav-link">ТАКСОПАРК</a>
             <a href="{% url 'about' %}" class="nav-item nav-link">О НАС</a>
             <a href="{% url 'contact' %}" class="nav-item nav-link">ОБРАТНАЯ СВЯЗЬ</a>
@@ -130,8 +126,69 @@
 <!-- Navbar End -->
 
 
-{% block content %}
-{% endblock %}
+<!-- Контент страницы -->
+<div class="main-content">
+    {% block content %}
+    {% endblock %}
+</div>
+
+
+<!-- Footer Start -->
+<div class="container-fluid bg-dark text-light footer pt-1 mt-5 wow fadeIn" data-wow-delay="0.1s">
+    <div class="container py-5">
+        <div class="row g-5">
+            <div class="col-lg-6 col-md-6">
+                <h4 class="text-light mb-2">Адрес</h4>
+                <p class="mb-0"><i class="fa fa-map-marker-alt me-0"></i>
+                    {% if address %}
+                        {{ address.address }}
+                    {% else %}
+                        Адрес не указан
+                    {% endif %}
+                </p>
+                <p class="mb-0"><i class="fa fa-phone-alt me-0"></i>
+                    <small>
+                        {% if address.phone_mtc %}
+                            <img src="/media/img/mtc.png" alt="MTC" style="height:18px;vertical-align:middle;">
+                            <a href="tel:{{ address.phone_mtc|cut:' ' }}" class="text-white" style="text-decoration: none;">
+                                {{ address.phone_mtc }}
+                            </a>
+                        {% endif %}
+                        <br>
+                        {% if address.phone_a1 %}
+                            <img src="/media/img/a1.png" alt="A1" style="height:18px;vertical-align:middle;">
+                            <a href="tel:{{ address.phone_a1|cut:' ' }}" class="text-white" style="text-decoration: none;">
+                                {{ address.phone_a1 }}
+                            </a>
+                        {% endif %}
+                        <br>
+                        {% if address.phone_life %}
+                            <img src="/media/img/life.png" alt="Life" style="height:18px;vertical-align:middle;">
+                            <a href="tel:{{ address.phone_life|cut:' ' }}" class="text-white" style="text-decoration: none;">
+                                {{ address.phone_life }}
+                            </a>
+                        {% endif %}
+                    </small>
+                </p>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <h4 class="text-light mb-2">Время работы</h4>
+                <p class="mb-0"><i class="fa fa-map-marker-alt me-0"></i>
+                    {% if address %}
+                        {{ address.time_work }}
+                    {% else %}
+                        Время работы не указано
+                    {% endif %}
+                </p>
+            </div>
+            <div class="col-lg-3 col-md-6">
+                <a href="{% url 'contact' %}" class="btn btn-primary py-3 px-5 mt-3">Подать заявку<i class="fa fa-arrow-right ms-3"></i></a>
+            </div>
+        </div>
+    </div>
+</div>
+</div>
+<!-- Footer End -->
 
 
 <!-- JavaScript Libraries Start -->
@@ -148,7 +205,8 @@
 <script src="{% static 'lib/wow/wow.min.js' %}"></script>
 <script src="js/main.js"></script>
 <script src="js/phone_email.js"></script>
-
 <!-- JavaScript Libraries End -->
+
+
 </body>
 </html>
