@@ -10,6 +10,21 @@
         </div>
     </div>
     <!-- Page Header End -->
+    
+    
+<!-- Поиск Start -->
+<form method="get" class="mb-4">
+    <div class="d-flex justify-content-center">
+        <div class="input-group input-group-lg" style="width: 40%;">
+            <input type="text" name="q" class="form-control" placeholder="Поиск по запчастям, бренду или описанию"
+                   value="{{ query|default_if_none:'' }}">
+            <button class="btn btn-primary" type="submit"><i class="fa fa-search"></i> Найти</button>
+            {% if query %}
+                <a href="{% url 'service' %}" class="btn btn-outline-secondary">Сбросить</a>
+            {% endif %}
+        </div>
+    </div>
+</form>
 
 
     <!-- Service Start -->
@@ -47,9 +62,18 @@
                                     </div>
                                     <div class="col-md-6">
                                         <h3 class="mb-3">{{ spare.car_brand.name }} {{ spare.name }}</h3>
-                                        <p><i class="fa fa-check text-success me-3"></i>Цена: {{ spare.price }}</p>
-                                        <p><i class="fa fa-check text-success me-3"></i>Гарантия: {{ spare.guarantee }} лет</p>
-                                        <p class="mb-4">{{ spare.description }}</p>
+                                        <p>
+                                            <i class="fa fa-check text-success me-3"></i>
+                                            Цена: <span style="font-weight:bold; color:rgb(0,0,0);">{{ spare.price }} руб.</span>
+                                        </p>
+                                        <p>
+                                            <i class="fa fa-check text-success me-3"></i>
+                                            Гарантия: <span style="font-weight:bold; color:rgb(0,0,0);">{{ spare.guarantee }} {{ spare.guarantee_word }}</span>
+                                        </p>
+                                        <p>
+                                            <i class="fa fa-check text-success me-3"></i>
+                                            <span style="font-weight:bold; color:rgb(0,0,0);">{{ spare.description }}</span>
+                                        </p>
                                         <a href="{% url 'contact' %}" class="btn btn-primary py-3 px-5 mt-3">Заказать<i class="fa fa-arrow-right ms-3"></i></a>
                                     </div>
                                 </div>
@@ -62,5 +86,36 @@
     </div>
     <!-- Service End -->
 
-    
+
+    <!-- Modal for enlarged car image Start-->
+    <div class="modal fade" id="carImageModal" tabindex="-1" aria-labelledby="carImageModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content bg-transparent border-0">
+                <div class="modal-body p-0">
+                    <img id="modalCarImage" src="" class="img-fluid rounded-3 shadow" style="width: 100%; height: auto;" alt="Увеличенное фото">
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Modal for enlarged car image End -->
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var modal = document.getElementById('carImageModal');
+            var modalImg = document.getElementById('modalCarImage');
+            var carImages = document.querySelectorAll('[data-bs-target="#carImageModal"]');
+
+            carImages.forEach(function (el) {
+                el.addEventListener('click', function () {
+                    var src = this.getAttribute('data-img-src');
+                    modalImg.setAttribute('src', src);
+                });
+            });
+            modal.addEventListener('hidden.bs.modal', function () {
+                modalImg.setAttribute('src', '');
+            });
+        });
+    </script>
+
 {% endblock %}

@@ -226,11 +226,22 @@ class Spares(DateStamp):
                 img_cropped = img.crop((0, top, width, top + new_height))
             img_cropped.save(self.photo.path)
 
+    def guarantee_word(self):
+        """Отображение слова"""
+        n = self.guarantee or 0
+        if 11 <= (n % 100) <= 14:
+            return 'лет'
+        last = n % 10
+        if last == 1:
+            return 'год'
+        elif 2 <= last <= 4:
+            return 'года'
+        else:
+            return 'лет'
+
     class Meta:
         verbose_name = 'Запчасть'
         verbose_name_plural = 'Запчасти'
-
-
 
 
 class Reviews(DateStamp):

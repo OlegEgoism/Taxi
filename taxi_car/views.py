@@ -88,14 +88,25 @@ def car(request):
                            'cars': cars})
 
 
+from django.db.models import Q
+
 def service(request):
     """Запчасти"""
     address = Address.objects.first()
+    query = request.GET.get('q', '').strip()
     spares = Spares.objects.filter(status=True)
+    if query:
+        spares = spares.filter(
+            Q(car_brand__name__icontains=query) |
+            Q(name__icontains=query) |
+            Q(description__icontains=query)
+        )
     return render(request,
                   template_name='service.html',
                   context={'address': address,
-                           'spares': spares})
+                           'spares': spares,
+                           'query': query})
+
 
 
 def custom_404(request, exception):
