@@ -2204,7 +2204,7 @@ progress {
     min-height: calc(1.5em + 1rem + 2px);
     padding: .5rem 1rem;
     font-size: 1.25rem;
-    border-radius: .3rem
+    /*border-radius: .3rem*/
 }
 
 .form-control-lg::file-selector-button {
@@ -2620,7 +2620,7 @@ textarea.form-control-lg {
 .input-group-lg > .form-control, .input-group-lg > .form-select, .input-group-lg > .input-group-text, .input-group-lg > .btn {
     padding: .5rem 1rem;
     font-size: 1.25rem;
-    border-radius: .3rem
+    /*border-radius: .3rem*/
 }
 
 .input-group-sm > .form-control, .input-group-sm > .form-select, .input-group-sm > .input-group-text, .input-group-sm > .btn {
@@ -3393,7 +3393,7 @@ textarea.form-control-lg {
 .btn-lg, .btn-group-lg > .btn {
     padding: .5rem 1rem;
     font-size: 1.25rem;
-    border-radius: .3rem
+    /*border-radius: .3rem*/
 }
 
 .btn-sm, .btn-group-sm > .btn {
