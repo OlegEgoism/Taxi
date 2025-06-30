@@ -7,7 +7,7 @@ from taxi_car.models import Address, Feedback, About, Personnel, CarBrand, Car, 
 @admin.register(Address)
 class AddressAdmin(admin.ModelAdmin):
     """Адрес"""
-    fields = 'address', 'time_work', 'phone_mtc', 'phone_a1', 'phone_life', 'maps', 'telegram', 'viber', 'whatsapp', 'instagram', 'year_work', 'count_car', 'transported', 'rating', 'preview_avatar', 'photo', 'created', 'updated'
+    fields = 'address', 'time_work', 'phone_mtc', 'phone_a1', 'phone_life', 'maps', 'telegram', 'viber', 'whatsapp', 'instagram', 'year_work', 'count_car', 'transported', 'rating_start', 'rating_end', 'preview_avatar', 'photo', 'created', 'updated'
     list_display = 'address', 'preview_avatar', 'time_work', 'phone_mtc', 'phone_a1', 'phone_life', 'created', 'updated'
     readonly_fields = 'preview_avatar', 'created', 'updated'
 

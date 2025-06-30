@@ -1,5 +1,7 @@
 import os
 import requests
+import random
+import time
 from datetime import datetime
 from taxi_car.models import Address, About, Personnel, Car, Reviews, Conditions, Servicing, Spares
 from .forms import FeedbackForm
@@ -52,18 +54,45 @@ def contact(request):
                            'form': form})
 
 
+RATING_CACHE = {
+    'value': 4.5,
+    'timestamp': 0,
+    'start': None,
+    'end': None,
+}
+
+
+def get_random_rating(address):
+    """Рейтинг"""
+    now = time.time()
+    rating_start = float(address.rating_start)
+    rating_end = float(address.rating_end)
+    if (now - RATING_CACHE['timestamp'] > 10 * 60 or
+            RATING_CACHE['start'] != rating_start or
+            RATING_CACHE['end'] != rating_end):
+        RATING_CACHE['start'] = rating_start
+        RATING_CACHE['end'] = rating_end
+        RATING_CACHE['value'] = round(random.uniform(rating_start, rating_end), 2)
+        RATING_CACHE['timestamp'] = now
+    return RATING_CACHE['value']
+
+
 def home(request):
     """Главная страница"""
     address = Address.objects.first()
     conditions = Conditions.objects.filter(status=True)
     reviews = Reviews.objects.filter(status=True)
     servicing = Servicing.objects.filter(status=True)
+    random_rating = get_random_rating(address)
     return render(request,
                   template_name='index.html',
-                  context={'address': address,
-                           'servicing': servicing,
-                           'conditions': conditions,
-                           'reviews': reviews})
+                  context={
+                      'address': address,
+                      'servicing': servicing,
+                      'conditions': conditions,
+                      'reviews': reviews,
+                      'random_rating': random_rating
+                  })
 
 
 def about(request):
@@ -90,6 +119,7 @@ def car(request):
 
 from django.db.models import Q
 
+
 def service(request):
     """Запчасти"""
     address = Address.objects.first()
@@ -106,7 +136,6 @@ def service(request):
                   context={'address': address,
                            'spares': spares,
                            'query': query})
-
 
 
 def custom_404(request, exception):

@@ -27,7 +27,8 @@ class Address(DateStamp):
     year_work = models.IntegerField(verbose_name='Лет опыта')
     count_car = models.IntegerField(verbose_name='Автомобилей в таксопарке')
     transported = models.IntegerField(verbose_name='Перевезенных пассажиров')
-    rating = models.DecimalField(verbose_name='Средний рейтинг', decimal_places=2, max_digits=3, validators=[MinValueValidator(1), MaxValueValidator(5)])
+    rating_start = models.DecimalField(verbose_name='Средний рейтинг начальный', decimal_places=2, max_digits=3, validators=[MinValueValidator(1), MaxValueValidator(4)], help_text='Минимальное начальное значение с 1 до 4')
+    rating_end = models.DecimalField(verbose_name='Средний рейтинг конечный', decimal_places=2, max_digits=3, validators=[MinValueValidator(4), MaxValueValidator(5)], help_text='Минимальное конечное значение с 4 до 5')
     photo = models.ImageField(verbose_name='Изображение на странице о нас', upload_to='about/')
 
     def __str__(self):
