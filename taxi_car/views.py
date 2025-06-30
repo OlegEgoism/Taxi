@@ -67,12 +67,12 @@ RATING_CACHE = {
 def get_random_rating(address):
     """Рейтинг"""
     now = time.time()
-    if address.rating_start is None:
-        address.rating_start = 4
-    if address.rating_end is None:
-        address.rating_end = 4
-    rating_start = float(address.rating_start)
-    rating_end = float(address.rating_end)
+    if not address:
+        rating_start = 4
+        rating_end = 4.5
+    else:
+        rating_start = float(address.rating_start or 4)
+        rating_end = float(address.rating_end or 4.5)
     if (now - RATING_CACHE['timestamp'] > 10 * 60 or
             RATING_CACHE['start'] != rating_start or
             RATING_CACHE['end'] != rating_end):
