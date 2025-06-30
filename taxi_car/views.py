@@ -8,6 +8,8 @@ from .forms import FeedbackForm
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from dotenv import load_dotenv
+from django.db.models import Q
+
 
 load_dotenv()
 bot_token = os.getenv('TELEGRAM_BOT_TOKEN')
@@ -65,6 +67,10 @@ RATING_CACHE = {
 def get_random_rating(address):
     """Рейтинг"""
     now = time.time()
+    if address.rating_start is None:
+        address.rating_start = 4
+    if address.rating_end is None:
+        address.rating_end = 4
     rating_start = float(address.rating_start)
     rating_end = float(address.rating_end)
     if (now - RATING_CACHE['timestamp'] > 10 * 60 or
@@ -117,7 +123,6 @@ def car(request):
                            'cars': cars})
 
 
-from django.db.models import Q
 
 
 def service(request):
