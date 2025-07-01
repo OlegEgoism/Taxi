@@ -74,25 +74,21 @@
     <div class="container-fluid fact bg-dark my-5 py-5">
         <div class="container">
             <div class="row g-4">
-<div class="col-md-6 col-lg-3 text-center wow fadeIn" data-wow-delay="0.1s">
-    <i class="fa fa-check fa-2x text-white mb-3"></i>
-    <h2 class="text-white mb-2" data-toggle="counter-up">{{ years_work }}</h2>
-    <h5 class="text-white mb-0">{{ years_word }} опыта</h5>
-</div>
-
-
+                <div class="col-md-6 col-lg-3 text-center wow fadeIn" data-wow-delay="0.1s">
+                    <i class="fa fa-check fa-2x text-white mb-3"></i>
+                    <h2 class="text-white mb-2" data-toggle="counter-up">{{ years_work }}</h2>
+                    <h5 class="text-white mb-0">{{ years_word }} опыта</h5>
+                </div>
                 <div class="col-md-6 col-lg-3 text-center wow fadeIn" data-wow-delay="0.7s">
                     <i class="fa fa-car fa-2x text-white mb-3"></i>
                     <h2 class="text-white mb-2" data-toggle="counter-up">{{ address.count_car }}</h2>
                     <h5 class="text-white mb-0">автомобилей в таксопарке</h5>
                 </div>
-                
                 <div class="col-md-6 col-lg-3 text-center wow fadeIn" data-wow-delay="0.5s">
                     <i class="fa fa-users fa-2x text-white mb-3"></i>
                     <h2 class="text-white mb-2" data-toggle="counter-up">{{ passenger_count }}</h2>
                     <h5 class="text-white mb-0">перевезенных пассажиров</h5>
                 </div>
-
                 <div class="col-md-6 col-lg-3 text-center wow fadeIn" data-wow-delay="0.3s">
                     <i class="fa fa-users-cog fa-2x text-white mb-3"></i>
                     <h2 class="text-white mb-2" data-toggle="counter-up">{{ random_rating }}⭐</h2>
@@ -118,7 +114,7 @@
                                 <img class="bg-light rounded-circle p-2 mx-auto mb-3"
                                      src="{{ review.photo.url }}"
                                      style="width: 180px; height: 180px; object-fit: cover;" alt="{{ review.name }}">
-                                <h5 class="mb-0">{{ review.name }}</h5>
+                                <h5 class="mb-1">{{ review.name }}</h5>
                                 <div class="testimonial-text bg-light text-center p-4 flex-grow-1">
                                     <p class="mb-0">{{ review.message }}</p>
                                 </div>

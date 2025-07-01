@@ -51,7 +51,7 @@
                 <small class="fa fa-phone-alt text-primary me-1"></small>
                 <small>
                     {% if address.phone_mtc %}
-                        <img src="/media/img/mtc.png" alt="MTC" style="height:18px;vertical-align:middle;margin-left:6px;">
+                        <img src="/media/social/mtc.png" alt="MTC" style="height:18px;vertical-align:middle;margin-left:6px;">
                         <a href="tel:{{ address.phone_mtc|cut:' ' }}" class="text-white" style="text-decoration: none;">
                             {{ address.phone_mtc }}
                         </a>
@@ -59,7 +59,7 @@
                 </small>
                 <small>
                     {% if address.phone_a1 %}
-                        <img src="/media/img/a1.png" alt="A1" style="height:18px;vertical-align:middle;margin-left:6px;">
+                        <img src="/media/social/a1.png" alt="A1" style="height:18px;vertical-align:middle;margin-left:6px;">
                         <a href="tel:{{ address.phone_a1|cut:' ' }}" class="text-white" style="text-decoration: none;">
                             {{ address.phone_a1 }}
                         </a>
@@ -67,7 +67,7 @@
                 </small>
                 <small>
                     {% if address.phone_life %}
-                        <img src="/media/img/life.png" alt="Life" style="height:18px;vertical-align:middle;margin-left:6px;">
+                        <img src="/media/social/life.png" alt="Life" style="height:18px;vertical-align:middle;margin-left:6px;">
                         <a href="tel:{{ address.phone_life|cut:' ' }}" class="text-white" style="text-decoration: none;">
                             {{ address.phone_life }}
                         </a>
@@ -149,21 +149,21 @@
                 <p class="mb-0"><i class="fa fa-phone-alt me-0"></i>
                     <small>
                         {% if address.phone_mtc %}
-                            <img src="/media/img/mtc.png" alt="MTC" style="height:18px;vertical-align:middle;">
+                            <img src="/media/social/mtc.png" alt="MTC" style="height:18px;vertical-align:middle;">
                             <a href="tel:{{ address.phone_mtc|cut:' ' }}" class="text-white" style="text-decoration: none;">
                                 {{ address.phone_mtc }}
                             </a>
                         {% endif %}
                         <br>
                         {% if address.phone_a1 %}
-                            <img src="/media/img/a1.png" alt="A1" style="height:18px;vertical-align:middle;">
+                            <img src="/media/social/a1.png" alt="A1" style="height:18px;vertical-align:middle;">
                             <a href="tel:{{ address.phone_a1|cut:' ' }}" class="text-white" style="text-decoration: none;">
                                 {{ address.phone_a1 }}
                             </a>
                         {% endif %}
                         <br>
                         {% if address.phone_life %}
-                            <img src="/media/img/life.png" alt="Life" style="height:18px;vertical-align:middle;">
+                            <img src="/media/social/life.png" alt="Life" style="height:18px;vertical-align:middle;">
                             <a href="tel:{{ address.phone_life|cut:' ' }}" class="text-white" style="text-decoration: none;">
                                 {{ address.phone_life }}
                             </a>
