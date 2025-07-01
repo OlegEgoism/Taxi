@@ -5,10 +5,11 @@
 __pycache__/
 *.py[cod]
 *$py.class
+
 # Django stuff:
 db.sqlite3
+media/
 *.log
-
 
 # Virtual environments
 venv/
@@ -26,7 +27,7 @@ Thumbs.db
 
 # Migrations (если не хотите игнорить — закомментируйте)
  */migrations/__pycache__/
- */migrations/*.pyc
+ */migrations/*.py
 
 # PyCharm
 *.sublime-workspace
