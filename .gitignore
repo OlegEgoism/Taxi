@@ -1,0 +1,38 @@
+# Python
+*.pyc
+*.pyo
+*.pyd
+__pycache__/
+*.py[cod]
+*$py.class
+# Django stuff:
+db.sqlite3
+*.log
+
+
+# Virtual environments
+venv/
+.env/
+.env
+
+# IDE
+.idea/
+.vscode/
+*.iml
+
+# System
+.DS_Store
+Thumbs.db
+
+# Migrations (если не хотите игнорить — закомментируйте)
+ */migrations/__pycache__/
+ */migrations/*.pyc
+
+# PyCharm
+*.sublime-workspace
+*.sublime-project
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
