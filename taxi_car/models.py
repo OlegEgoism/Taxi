@@ -200,7 +200,7 @@ class Spares(DateStamp):
     car_brand = models.ForeignKey(to=CarBrand, verbose_name='Бренд автомобиля', on_delete=models.CASCADE, related_name='spares')
     name = models.CharField(verbose_name='Название запчасти', max_length=100)
     price = models.DecimalField(verbose_name='Цена', decimal_places=2, max_digits=10, validators=[MinValueValidator(1), MaxValueValidator(50000)], blank=True, null=True)
-    guarantee = models.IntegerField(verbose_name='Гарантия (лет)', validators=[MinValueValidator(0), MaxValueValidator(100)], blank=True, null=True)
+    # guarantee = models.IntegerField(verbose_name='Гарантия (лет)', validators=[MinValueValidator(0), MaxValueValidator(100)], blank=True, null=True)
     description = models.TextField(verbose_name='Описание')
     availability = models.BooleanField(verbose_name='Наличие', default=True)
     status = models.BooleanField(verbose_name='Опубликован', default=True)
@@ -226,18 +226,18 @@ class Spares(DateStamp):
                 img_cropped = img.crop((0, top, width, top + new_height))
             img_cropped.save(self.photo.path)
 
-    def guarantee_word(self):
-        """Отображение слова"""
-        n = self.guarantee or 0
-        if 11 <= (n % 100) <= 14:
-            return 'лет'
-        last = n % 10
-        if last == 1:
-            return 'год'
-        elif 2 <= last <= 4:
-            return 'года'
-        else:
-            return 'лет'
+    # def guarantee_word(self):
+    #     """Отображение слова"""
+    #     n = self.guarantee or 0
+    #     if 11 <= (n % 100) <= 14:
+    #         return 'лет'
+    #     last = n % 10
+    #     if last == 1:
+    #         return 'год'
+    #     elif 2 <= last <= 4:
+    #         return 'года'
+    #     else:
+    #         return 'лет'
 
     class Meta:
         verbose_name = 'Запчасть'

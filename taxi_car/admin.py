@@ -125,7 +125,7 @@ class CarInline(admin.TabularInline):
 class SparesInline(admin.TabularInline):
     """Запчасти"""
     model = Spares
-    fields = 'photo', 'car_brand', 'name', 'price', 'guarantee', 'description', 'availability', 'status', 'created', 'updated'
+    fields = 'photo', 'car_brand', 'name', 'price', 'description', 'availability', 'status', 'created', 'updated'
     readonly_fields = 'created', 'updated'
     classes = ['collapse']
     list_per_page = 20
@@ -136,8 +136,7 @@ class SparesInline(admin.TabularInline):
         formset = super().get_formset(request, obj, **kwargs)
         formset.form.base_fields['name'].widget.attrs['style'] = 'width: 180px;'
         formset.form.base_fields['price'].widget.attrs['style'] = 'width: 60px;'
-        formset.form.base_fields['guarantee'].widget.attrs['style'] = 'width: 60px;'
-        formset.form.base_fields['description'].widget.attrs['style'] = 'width: 360px;'
+        formset.form.base_fields['description'].widget.attrs['style'] = 'width: 460px;'
         return formset
 
 
