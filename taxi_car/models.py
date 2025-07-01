@@ -24,28 +24,14 @@ class Address(DateStamp):
     viber = models.URLField(verbose_name='Viber', blank=True, null=True)
     whatsapp = models.URLField(verbose_name='Whatsapp', blank=True, null=True)
     instagram = models.URLField(verbose_name='Instagram', blank=True, null=True)
-    year_work = models.IntegerField(verbose_name='Опыт работы')
+    created_year_work = models.DateField(verbose_name='Дата начала работы компании')
     count_car = models.IntegerField(verbose_name='Автомобилей в таксопарке')
-    transported = models.IntegerField(verbose_name='Перевезенных пассажиров')
     rating_start = models.DecimalField(verbose_name='Средний рейтинг начальный', decimal_places=2, max_digits=3, validators=[MinValueValidator(1), MaxValueValidator(4)], help_text='Минимальное начальное значение с 1 до 4', default=4)
     rating_end = models.DecimalField(verbose_name='Средний рейтинг конечный', decimal_places=2, max_digits=3, validators=[MinValueValidator(4), MaxValueValidator(5)], help_text='Минимальное конечное значение с 4 до 5', default=4.5)
     photo = models.ImageField(verbose_name='Изображение на странице о нас', upload_to='about/')
 
     def __str__(self):
         return f"{self.address} {self.time_work}"
-
-    def guarantee_word(self):
-        """Отображение слова"""
-        n = self.year_work or 0
-        if 11 <= (n % 100) <= 14:
-            return 'лет'
-        last = n % 10
-        if last == 1:
-            return 'год'
-        elif 2 <= last <= 4:
-            return 'года'
-        else:
-            return 'лет'
 
     class Meta:
         verbose_name = 'Адрес'

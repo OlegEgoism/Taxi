@@ -1,35 +1,10 @@
-import os
-import requests
-import random
-import time
-from datetime import datetime
 from taxi_car.models import Address, About, Personnel, Car, Reviews, Conditions, Servicing, Spares
 from .forms import FeedbackForm
 from django.shortcuts import render, redirect
 from django.contrib import messages
-from dotenv import load_dotenv
 from django.db.models import Q
 
-
-load_dotenv()
-bot_token = os.getenv('TELEGRAM_BOT_TOKEN')
-chat_id = os.getenv('TELEGRAM_CHAT_ID')
-
-
-def message_to_telegram(name, phone_email, message, bot_token, chat_id):
-    """Отправить сообщение в телеграмм"""
-    text = (f"💬 *Новое сообщение* ({datetime.now().strftime('%d-%m-%Y %H:%M:%S')})\n\n"
-            f"👤 *Имя:* {name}\n"
-            f"📞 *Контакт:* {phone_email}\n"
-            f"✉️ *Сообщение:* {message}")
-    url = f"https://api.telegram.org/bot{bot_token}/sendMessage"
-    data = {
-        "chat_id": chat_id,
-        "text": text,
-        "parse_mode": "Markdown"
-    }
-    response = requests.post(url, data=data)
-    return response.ok
+from .utils import message_to_telegram, bot_token, chat_id, get_random_rating, calculate_passengers, get_years_work, years_word
 
 
 def contact(request):
@@ -56,33 +31,6 @@ def contact(request):
                            'form': form})
 
 
-RATING_CACHE = {
-    'value': 4.5,
-    'timestamp': 0,
-    'start': None,
-    'end': None,
-}
-
-
-def get_random_rating(address):
-    """Рейтинг"""
-    now = time.time()
-    if not address:
-        rating_start = 4
-        rating_end = 4.5
-    else:
-        rating_start = float(address.rating_start or 4)
-        rating_end = float(address.rating_end or 4.5)
-    if (now - RATING_CACHE['timestamp'] > 0.1 * 60 or
-            RATING_CACHE['start'] != rating_start or
-            RATING_CACHE['end'] != rating_end):
-        RATING_CACHE['start'] = rating_start
-        RATING_CACHE['end'] = rating_end
-        RATING_CACHE['value'] = round(random.uniform(rating_start, rating_end), 2)
-        RATING_CACHE['timestamp'] = now
-    return RATING_CACHE['value']
-
-
 def home(request):
     """Главная страница"""
     address = Address.objects.first()
@@ -90,6 +38,9 @@ def home(request):
     reviews = Reviews.objects.filter(status=True)
     servicing = Servicing.objects.filter(status=True)
     random_rating = get_random_rating(address)
+    passenger_count = calculate_passengers(address)
+    years_work = get_years_work(address)
+    years_word_str = years_word(years_work)
     return render(request,
                   template_name='index.html',
                   context={
@@ -97,7 +48,10 @@ def home(request):
                       'servicing': servicing,
                       'conditions': conditions,
                       'reviews': reviews,
-                      'random_rating': random_rating
+                      'random_rating': random_rating,
+                      'passenger_count': passenger_count,
+                      'years_work': years_work,
+                      'years_word': years_word_str,
                   })
 
 
@@ -121,8 +75,6 @@ def car(request):
                   template_name='car.html',
                   context={'address': address,
                            'cars': cars})
-
-
 
 
 def service(request):

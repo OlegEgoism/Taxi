@@ -8,7 +8,7 @@
                 {% for condition in conditions %}
                     <div class="carousel-item {% if forloop.first %}active{% endif %}">
                         <div class="carousel-bg-light position-relative" style="height: 500px;">
-                            <img class="w-100 h-100 position-absolute top-0 start-0" src="media/img/carousel-bg-7.jpg" alt="Image" style="object-fit: cover;">
+                            <img class="w-100 h-100 position-absolute top-0 start-0" src="media/img/carousel-bg-1.jpg" alt="Image" style="object-fit: cover;">
                             <div class="carousel-overlay position-absolute top-0 start-0 w-100 h-100"></div>
                         </div>
                         <div class="carousel-caption d-flex align-items-center">
@@ -56,11 +56,10 @@
                 {% for service in servicing %}
                     <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="{{ forloop.counter|floatformat:1|add:"0.1" }}s">
                         <div class="d-flex {% if forloop.counter|divisibleby:2 %}bg-light{% endif %} py-5 px-4">
-                            <i class="fa fa-certificate fa-3x text-primary flex-shrink-0"></i> <!-- Здесь можно добавить свою иконку для каждого условия -->
+                            <i class="fa fa-certificate fa-3x text-primary flex-shrink-0"></i>
                             <div class="ps-4">
                                 <h5 class="mb-3">{{ service.name }}</h5>
                                 <p>{{ service.description }}</p>
-                                <a class="text-secondary border-bottom" href="">Read More</a>
                             </div>
                         </div>
                     </div>
@@ -75,21 +74,25 @@
     <div class="container-fluid fact bg-dark my-5 py-5">
         <div class="container">
             <div class="row g-4">
-                <div class="col-md-6 col-lg-3 text-center wow fadeIn" data-wow-delay="0.1s">
-                    <i class="fa fa-check fa-2x text-white mb-3"></i>
-                    <h2 class="text-white mb-2" data-toggle="counter-up">{{ address.year_work }}</h2>
-                    <h5 class="text-white mb-0">{{ address.guarantee_word }} опыта</h5>
-                </div>
+<div class="col-md-6 col-lg-3 text-center wow fadeIn" data-wow-delay="0.1s">
+    <i class="fa fa-check fa-2x text-white mb-3"></i>
+    <h2 class="text-white mb-2" data-toggle="counter-up">{{ years_work }}</h2>
+    <h5 class="text-white mb-0">{{ years_word }} опыта</h5>
+</div>
+
+
                 <div class="col-md-6 col-lg-3 text-center wow fadeIn" data-wow-delay="0.7s">
                     <i class="fa fa-car fa-2x text-white mb-3"></i>
                     <h2 class="text-white mb-2" data-toggle="counter-up">{{ address.count_car }}</h2>
                     <h5 class="text-white mb-0">автомобилей в таксопарке</h5>
                 </div>
+                
                 <div class="col-md-6 col-lg-3 text-center wow fadeIn" data-wow-delay="0.5s">
                     <i class="fa fa-users fa-2x text-white mb-3"></i>
-                    <h2 class="text-white mb-2" data-toggle="counter-up">{{ address.transported }}</h2>
+                    <h2 class="text-white mb-2" data-toggle="counter-up">{{ passenger_count }}</h2>
                     <h5 class="text-white mb-0">перевезенных пассажиров</h5>
                 </div>
+
                 <div class="col-md-6 col-lg-3 text-center wow fadeIn" data-wow-delay="0.3s">
                     <i class="fa fa-users-cog fa-2x text-white mb-3"></i>
                     <h2 class="text-white mb-2" data-toggle="counter-up">{{ random_rating }}⭐</h2>
@@ -129,6 +132,6 @@
         </div>
     </div>
     <!-- Testimonial End -->
-    
-    
+
+
 {% endblock %}
