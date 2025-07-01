@@ -104,16 +104,14 @@ class PersonnelAdmin(admin.ModelAdmin):
 
 
 class CarInline(admin.TabularInline):
-    """Автомобили"""
+    """Модель автомобиля"""
     model = Car
-    fields = 'photo', 'car_brand', 'name', 'year', 'power_reserve', 'description', 'status', 'created', 'updated'
-    readonly_fields = 'created', 'updated'
+    fields = 'photo', 'preview_avatar', 'car_brand', 'name', 'year', 'power_reserve', 'description', 'status', 'created', 'updated'
+    readonly_fields = 'preview_avatar', 'created', 'updated'
     classes = ['collapse']
-    list_per_page = 20
     extra = 0
 
     def get_formset(self, request, obj=None, **kwargs):
-        """Стиль отображения"""
         formset = super().get_formset(request, obj, **kwargs)
         formset.form.base_fields['name'].widget.attrs['style'] = 'width: 180px;'
         formset.form.base_fields['year'].widget.attrs['style'] = 'width: 60px;'
@@ -121,14 +119,20 @@ class CarInline(admin.TabularInline):
         formset.form.base_fields['description'].widget.attrs['style'] = 'width: 360px;'
         return formset
 
+    def preview_avatar(self, obj):
+        if obj.photo:
+            return mark_safe(f'<img src="{obj.photo.url}" width="100" height="100" />')
+        return 'Нет фото'
+
+    preview_avatar.short_description = 'Фото'
+
 
 class SparesInline(admin.TabularInline):
     """Запчасти"""
     model = Spares
-    fields = 'photo', 'car_brand', 'name', 'price', 'description', 'availability', 'status', 'created', 'updated'
-    readonly_fields = 'created', 'updated'
+    fields = 'photo', 'preview_avatar', 'car_brand', 'name', 'price', 'description', 'availability', 'status', 'created', 'updated'
+    readonly_fields = 'preview_avatar', 'created', 'updated'
     classes = ['collapse']
-    list_per_page = 20
     extra = 0
 
     def get_formset(self, request, obj=None, **kwargs):
@@ -138,15 +142,21 @@ class SparesInline(admin.TabularInline):
         formset.form.base_fields['price'].widget.attrs['style'] = 'width: 60px;'
         formset.form.base_fields['description'].widget.attrs['style'] = 'width: 460px;'
         return formset
+
+    def preview_avatar(self, obj):
+        if obj.photo:
+            return mark_safe(f'<img src="{obj.photo.url}" width="100" height="100" />')
+        return 'Нет фото'
+
+    preview_avatar.short_description = 'Фото'
 
 
 class ShopCarInline(admin.TabularInline):
     """Авто из китая"""
     model = ShopCar
-    fields = 'photo', 'car_brand', 'name', 'price', 'description', 'status', 'created', 'updated'
-    readonly_fields = 'created', 'updated'
+    fields = 'photo', 'preview_avatar', 'car_brand', 'name', 'price', 'description', 'status', 'created', 'updated'
+    readonly_fields = 'preview_avatar', 'created', 'updated'
     classes = ['collapse']
-    list_per_page = 20
     extra = 0
 
     def get_formset(self, request, obj=None, **kwargs):
@@ -156,6 +166,13 @@ class ShopCarInline(admin.TabularInline):
         formset.form.base_fields['price'].widget.attrs['style'] = 'width: 60px;'
         formset.form.base_fields['description'].widget.attrs['style'] = 'width: 460px;'
         return formset
+
+    def preview_avatar(self, obj):
+        if obj.photo:
+            return mark_safe(f'<img src="{obj.photo.url}" width="100" height="100" />')
+        return 'Нет фото'
+
+    preview_avatar.short_description = 'Фото'
 
 
 @admin.register(CarBrand)
@@ -165,14 +182,6 @@ class CarBrandAdmin(admin.ModelAdmin):
     date_hierarchy = 'created'
     inlines = CarInline, SparesInline, ShopCarInline
     list_per_page = 20
-
-    def preview_avatar(self, obj):
-        if obj.photo:
-            return mark_safe(f'<img src="{obj.photo.url}" width="60" height="60"/>')
-        else:
-            return 'Нет фотографии'
-
-    preview_avatar.short_description = 'Фото'
 
     def car_count(self, obj):
         """Количество моделей этого бренда"""
@@ -185,7 +194,6 @@ class CarBrandAdmin(admin.ModelAdmin):
         return obj.spares.count()
 
     spares_count.short_description = 'Количество запчастей'
-
 
     def spares_availability_count(self, obj):
         """Количество запчастей этого бренда"""

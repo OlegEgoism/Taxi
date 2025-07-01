@@ -83,7 +83,7 @@ def service(request):
     query = request.GET.get('q', '').strip()
     brand_id = request.GET.get('brand', '')
     brands = CarBrand.objects.all()
-    spares = Spares.objects.none()
+    spares = Spares.objects.filter(status=True)
     if brand_id:
         spares = Spares.objects.filter(status=True, car_brand_id=brand_id)
         if query:

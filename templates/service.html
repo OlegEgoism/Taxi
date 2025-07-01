@@ -85,6 +85,15 @@
                                             </p>
                                             <p>
                                                 <i class="fa fa-check text-success me-3"></i>
+                                                Наличие:
+                                                {% if spare.availability %}
+                                                    <span style="font-weight:bold; color:rgb(0,0,0);">Да</span>
+                                                {% else %}
+                                                    <span style="font-weight:bold; color:red;">Нет</span>
+                                                {% endif %}
+                                            </p>
+                                            <p>
+                                                <i class="fa fa-check text-success me-3"></i>
                                                 Описание: <span style="font-weight:bold; color:rgb(0,0,0);">{{ spare.description }}</span>
                                             </p>
                                             <a href="{% url 'contact' %}" class="btn btn-primary py-3 px-5 mt-3">Заказать<i class="fa fa-arrow-right ms-3"></i></a>
