@@ -18,7 +18,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path
-from taxi_car.views import home, contact, about, car, service
+from taxi_car.views import home, contact, about, car, service, shop_car
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -27,6 +27,7 @@ urlpatterns = [
     path('about', about, name='about'),
     path('car', car, name='car'),
     path('service', service, name='service'),
+    path('shop_car', shop_car, name='shop_car'),
 ]
 
 if settings.DEBUG:

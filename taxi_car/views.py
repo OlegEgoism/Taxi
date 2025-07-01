@@ -1,4 +1,4 @@
-from taxi_car.models import Address, About, Personnel, Car, Reviews, Conditions, Servicing, Spares, CarBrand
+from taxi_car.models import Address, About, Personnel, Car, Reviews, Conditions, Servicing, Spares, CarBrand, ShopCar
 from .forms import FeedbackForm
 from django.shortcuts import render, redirect
 from django.contrib import messages
@@ -83,26 +83,36 @@ def service(request):
     query = request.GET.get('q', '').strip()
     brand_id = request.GET.get('brand', '')
     brands = CarBrand.objects.all()
-    spares = Spares.objects.none()  # По умолчанию не показываем ничего
-
-    # Если выбран бренд, показываем только его запчасти (и поиск, если есть)
+    spares = Spares.objects.none()
     if brand_id:
         spares = Spares.objects.filter(status=True, car_brand_id=brand_id)
         if query:
             spares = spares.filter(
-                Q(car_brand__name__icontains=query) |
-                Q(name__icontains=query) |
-                Q(description__icontains=query)
+                Q(name__iregex=query) |
+                Q(car_brand__name__iregex=query) |
+                Q(description__iregex=query)
             )
+    return render(request,
+                  template_name='service.html',
+                  context={'address': address,
+                           'spares': spares,
+                           'brands': brands,
+                           'active_brand': int(brand_id) if brand_id.isdigit() else None,
+                           'query': query,
+                           })
 
-    return render(request, 'service.html', {
-        'address': address,
-        'spares': spares,
-        'brands': brands,
-        'active_brand': int(brand_id) if brand_id.isdigit() else None,
-        'query': query,
-    })
 
+def shop_car(request):
+    """Авто из Китая"""
+    address = Address.objects.first()
+    brands = CarBrand.objects.all()
+    shop_cars = ShopCar.objects.filter(status=True)
+    return render(request,
+                  template_name='shop_car.html',
+                  context={'address': address,
+                           'brands': brands,
+                           'shop_cars': shop_cars,
+                           })
 
 
 def custom_404(request, exception):

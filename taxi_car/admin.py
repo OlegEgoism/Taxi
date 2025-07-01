@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.utils.safestring import mark_safe
 
-from taxi_car.models import Address, Feedback, About, Personnel, CarBrand, Car, Reviews, Conditions, Servicing, Spares
+from taxi_car.models import Address, Feedback, About, Personnel, CarBrand, Car, Reviews, Conditions, Servicing, Spares, ShopCar
 
 
 @admin.register(Address)
@@ -140,12 +140,30 @@ class SparesInline(admin.TabularInline):
         return formset
 
 
+class ShopCarInline(admin.TabularInline):
+    """Авто из китая"""
+    model = ShopCar
+    fields = 'photo', 'car_brand', 'name', 'price', 'description', 'status', 'created', 'updated'
+    readonly_fields = 'created', 'updated'
+    classes = ['collapse']
+    list_per_page = 20
+    extra = 0
+
+    def get_formset(self, request, obj=None, **kwargs):
+        """Стиль отображения"""
+        formset = super().get_formset(request, obj, **kwargs)
+        formset.form.base_fields['name'].widget.attrs['style'] = 'width: 180px;'
+        formset.form.base_fields['price'].widget.attrs['style'] = 'width: 60px;'
+        formset.form.base_fields['description'].widget.attrs['style'] = 'width: 460px;'
+        return formset
+
+
 @admin.register(CarBrand)
 class CarBrandAdmin(admin.ModelAdmin):
     """Бренд автомобиля"""
     list_display = 'name', 'car_count', 'spares_count', 'spares_availability_count', 'created', 'updated'
     date_hierarchy = 'created'
-    inlines = CarInline, SparesInline
+    inlines = CarInline, SparesInline, ShopCarInline
     list_per_page = 20
 
     def preview_avatar(self, obj):
