@@ -73,7 +73,7 @@ def get_random_rating(address):
     else:
         rating_start = float(address.rating_start or 4)
         rating_end = float(address.rating_end or 4.5)
-    if (now - RATING_CACHE['timestamp'] > 10 * 60 or
+    if (now - RATING_CACHE['timestamp'] > 0.1 * 60 or
             RATING_CACHE['start'] != rating_start or
             RATING_CACHE['end'] != rating_end):
         RATING_CACHE['start'] = rating_start
