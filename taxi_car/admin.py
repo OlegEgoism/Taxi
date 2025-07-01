@@ -140,7 +140,7 @@ class SparesInline(admin.TabularInline):
         formset = super().get_formset(request, obj, **kwargs)
         formset.form.base_fields['name'].widget.attrs['style'] = 'width: 180px;'
         formset.form.base_fields['price'].widget.attrs['style'] = 'width: 60px;'
-        formset.form.base_fields['description'].widget.attrs['style'] = 'width: 460px;'
+        formset.form.base_fields['description'].widget.attrs['style'] = 'width: 360px;'
         return formset
 
     def preview_avatar(self, obj):
@@ -164,7 +164,7 @@ class ShopCarInline(admin.TabularInline):
         formset = super().get_formset(request, obj, **kwargs)
         formset.form.base_fields['name'].widget.attrs['style'] = 'width: 180px;'
         formset.form.base_fields['price'].widget.attrs['style'] = 'width: 60px;'
-        formset.form.base_fields['description'].widget.attrs['style'] = 'width: 460px;'
+        formset.form.base_fields['description'].widget.attrs['style'] = 'width: 360px;'
         return formset
 
     def preview_avatar(self, obj):
