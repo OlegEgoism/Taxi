@@ -200,7 +200,6 @@ class Spares(DateStamp):
     car_brand = models.ForeignKey(to=CarBrand, verbose_name='Бренд автомобиля', on_delete=models.CASCADE, related_name='spares')
     name = models.CharField(verbose_name='Название запчасти', max_length=100)
     price = models.DecimalField(verbose_name='Цена', decimal_places=2, max_digits=10, validators=[MinValueValidator(1), MaxValueValidator(50000)], blank=True, null=True)
-    # guarantee = models.IntegerField(verbose_name='Гарантия (лет)', validators=[MinValueValidator(0), MaxValueValidator(100)], blank=True, null=True)
     description = models.TextField(verbose_name='Описание')
     availability = models.BooleanField(verbose_name='Наличие', default=True)
     status = models.BooleanField(verbose_name='Опубликован', default=True)

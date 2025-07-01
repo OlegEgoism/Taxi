@@ -1,4 +1,4 @@
-from taxi_car.models import Address, About, Personnel, Car, Reviews, Conditions, Servicing, Spares
+from taxi_car.models import Address, About, Personnel, Car, Reviews, Conditions, Servicing, Spares, CarBrand
 from .forms import FeedbackForm
 from django.shortcuts import render, redirect
 from django.contrib import messages
@@ -81,18 +81,28 @@ def service(request):
     """Запчасти"""
     address = Address.objects.first()
     query = request.GET.get('q', '').strip()
-    spares = Spares.objects.filter(status=True)
-    if query:
-        spares = spares.filter(
-            Q(car_brand__name__icontains=query) |
-            Q(name__icontains=query) |
-            Q(description__icontains=query)
-        )
-    return render(request,
-                  template_name='service.html',
-                  context={'address': address,
-                           'spares': spares,
-                           'query': query})
+    brand_id = request.GET.get('brand', '')
+    brands = CarBrand.objects.all()
+    spares = Spares.objects.none()  # По умолчанию не показываем ничего
+
+    # Если выбран бренд, показываем только его запчасти (и поиск, если есть)
+    if brand_id:
+        spares = Spares.objects.filter(status=True, car_brand_id=brand_id)
+        if query:
+            spares = spares.filter(
+                Q(car_brand__name__icontains=query) |
+                Q(name__icontains=query) |
+                Q(description__icontains=query)
+            )
+
+    return render(request, 'service.html', {
+        'address': address,
+        'spares': spares,
+        'brands': brands,
+        'active_brand': int(brand_id) if brand_id.isdigit() else None,
+        'query': query,
+    })
+
 
 
 def custom_404(request, exception):
