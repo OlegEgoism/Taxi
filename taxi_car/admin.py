@@ -7,8 +7,8 @@ from taxi_car.models import Address, Feedback, About, Personnel, CarBrand, Car, 
 @admin.register(Address)
 class AddressAdmin(admin.ModelAdmin):
     """Адрес"""
-    fields = 'address', 'time_work', 'phone_mtc', 'phone_a1', 'phone_life', 'maps', 'telegram', 'viber', 'whatsapp', 'instagram', 'created_year_work', 'count_car', 'rating_start', 'rating_end', 'preview_avatar', 'photo', 'created', 'updated'
-    list_display = 'address', 'preview_avatar', 'time_work', 'phone_mtc', 'phone_a1', 'phone_life', 'created', 'updated'
+    fields = 'name', 'slogan', 'address', 'time_work', 'phone_mtc', 'phone_a1', 'phone_life', 'maps', 'telegram', 'viber', 'whatsapp', 'instagram', 'created_year_work', 'count_car', 'rating_start', 'rating_end', 'preview_avatar', 'photo', 'created', 'updated'
+    list_display = 'name', 'address', 'preview_avatar', 'time_work', 'phone_mtc', 'phone_a1', 'phone_life', 'created', 'updated'
     readonly_fields = 'preview_avatar', 'created', 'updated'
 
     def has_add_permission(self, request):
@@ -73,6 +73,14 @@ class FeedbackAdmin(admin.ModelAdmin):
     search_help_text = 'Поиск по имени, телефону или почте'
     date_hierarchy = 'created'
     list_per_page = 20
+
+    def has_add_permission(self, request):
+        """Запрещает добавление"""
+        return False
+
+    def has_delete_permission(self, request, obj=None):
+        """По желанию: запретить и удаление"""
+        return False
 
 
 @admin.register(About)

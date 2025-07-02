@@ -18,14 +18,26 @@
             <div class="row g-5">
                 <div class="col-lg-6 pt-4" style="min-height: 400px;">
                     <div class="position-relative h-100 wow fadeIn" data-wow-delay="0.1s">
-                       <img class="position-absolute img-fluid w-100 h-100" src="{{ address.photo.url }}" style="object-fit: cover;" alt="">
+                        <img class="position-absolute img-fluid w-100 h-100" src="{{ address.photo.url }}" style="object-fit: cover;" alt="">
                     </div>
                 </div>
                 <div class="col-lg-6">
                     <h1 class="mb-4">
-                        <p><span style="color: #FFD600;">ВольтТакси</span> лучшее место для работы</p>
+                            <span style="color: #FFD600;">
+                            {% if address %}
+                                {{ address.name }}
+                            {% else %}
+                                Название организации
+                            {% endif %}
+                        </span>
                     </h1>
-                    <p class="mb-4">Выбирая нас, вы выбираете лучшие условия для работы. Присоединяйтесь к нашей команде, мы ценим каждого водителя.</p>
+                    <p class="mb-4">
+                        {% if address %}
+                            {{ address.slogan }}
+                        {% else %}
+                            Название лозунга
+                        {% endif %}
+                    </p>
                     <div class="row g-4 mb-3 pb-3">
                         {% for item in about_info %}
                             <div class="col-12 wow fadeIn" data-wow-delay="0.1s">
@@ -40,8 +52,8 @@
                                 </div>
                             </div>
                         {% endfor %}
-                    <a href="{% url 'contact' %}" class="btn btn-primary py-3 px-5 mt-3">Подать заявку<i class="fa fa-arrow-right ms-3"></i></a>
-                    <a href="{% url 'car' %}" class="btn btn-primary py-3 px-5 mt-3">Наш таксопарк<i class="fa fa-arrow-right ms-3"></i></a>
+                        <a href="{% url 'contact' %}" class="btn btn-primary py-3 px-5 mt-3">Подать заявку<i class="fa fa-arrow-right ms-3"></i></a>
+                        <a href="{% url 'car' %}" class="btn btn-primary py-3 px-5 mt-3">Наш таксопарк<i class="fa fa-arrow-right ms-3"></i></a>
                     </div>
                 </div>
             </div>

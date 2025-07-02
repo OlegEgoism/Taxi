@@ -108,7 +108,13 @@
 <nav class="navbar navbar-expand-lg bg-white navbar-light shadow sticky-top p-0">
     <a href="{% url 'home' %}" class="navbar-brand d-flex align-items-center px-4 px-lg-5">
         <img src="{% static 'logo.ico' %}" alt="VoltTaxi" style="height:60px; margin-right:12px;">
-        <span class="align-middle" style="font-weight: bold; color: #FFD600; font-size: 2rem;">ВольтТакси</span>
+        <span class="align-middle" style="font-weight: bold; color: #FFD600; font-size: 2rem;">
+            {% if address %}
+                {{ address.name }}
+            {% else %}
+                Название организации
+            {% endif %}
+        </span>
     </a>
     <button type="button" class="navbar-toggler me-4" data-bs-toggle="collapse" data-bs-target="#navbarCollapse">
         <span class="navbar-toggler-icon"></span>
@@ -116,8 +122,8 @@
     <div class="collapse navbar-collapse" id="navbarCollapse">
         <div class="navbar-nav ms-auto p-4 p-lg-0">
             <a href="{% url 'home' %}" class="nav-item nav-link">ГЛАВНАЯ</a>
-            <a href="{% url 'service' %}" class="nav-item nav-link">ЗАПЧАСТИ</a>
             <a href="{% url 'car' %}" class="nav-item nav-link">ТАКСОПАРК</a>
+            <a href="{% url 'service' %}" class="nav-item nav-link">ЗАПЧАСТИ</a>
             <a href="{% url 'shop_car' %}" class="nav-item nav-link">АВТО ИЗ КИТАЯ</a>
             <a href="{% url 'about' %}" class="nav-item nav-link">О НАС</a>
             <a href="{% url 'contact' %}" class="nav-item nav-link">ОБРАТНАЯ СВЯЗЬ</a>

@@ -14,8 +14,10 @@ class DateStamp(models.Model):
 
 class Address(DateStamp):
     """Адрес"""
+    name = models.CharField(verbose_name='Название организации')
+    slogan = models.CharField(verbose_name='Лозунг организации', blank=True, null=True)
     address = models.CharField(verbose_name='Адрес', max_length=100)
-    time_work = models.CharField(verbose_name='Время работы', max_length=100)
+    time_work = models.CharField(verbose_name='Время работы', max_length=100, blank=True, null=True)
     phone_mtc = models.CharField(verbose_name='Телефон MTC', max_length=25, help_text='Номер телефона указывать в формате +___(__)___-__-__', blank=True, null=True)
     phone_a1 = models.CharField(verbose_name='Телефон A1', max_length=25, help_text='Номер телефона указывать в формате +___(__)___-__-__', blank=True, null=True)
     phone_life = models.CharField(verbose_name='Телефона Life', max_length=25, help_text='Номер телефона указывать в формате +___(__)___-__-__', blank=True, null=True)
@@ -159,7 +161,7 @@ class CarBrand(DateStamp):
 
 
 class Car(DateStamp):
-    """Модель автомобиля"""
+    """Таксопарк"""
     photo = models.ImageField(verbose_name='Фотография', upload_to='car/', help_text='Фото формата 16:9')
     car_brand = models.ForeignKey(to=CarBrand, verbose_name='Бренд автомобиля', on_delete=models.CASCADE, related_name='car')
     name = models.CharField(verbose_name='Модель', max_length=100)
@@ -190,8 +192,8 @@ class Car(DateStamp):
             img_cropped.save(self.photo.path)
 
     class Meta:
-        verbose_name = 'Модель автомобиля'
-        verbose_name_plural = 'Модели автомобилей'
+        verbose_name = 'Таксопарк'
+        verbose_name_plural = 'Таксопарк'
 
 
 class Spares(DateStamp):
