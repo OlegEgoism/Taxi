@@ -8,7 +8,7 @@ from taxi_car.models import Address, Feedback, About, Personnel, CarBrand, Car, 
 class AddressAdmin(admin.ModelAdmin):
     """Адрес"""
     fields = 'slogan', 'preview_avatar', 'photo', 'name', 'address', 'time_work', 'phone_mtc', 'phone_a1', 'phone_life', 'maps', 'telegram', 'viber', 'whatsapp', 'instagram', 'created_year_work', 'count_car', 'rating_start', 'rating_end', 'created', 'updated'
-    list_display = 'name', 'address', 'preview_avatar', 'time_work', 'phone_mtc', 'phone_a1', 'phone_life', 'created', 'updated'
+    list_display = 'slogan', 'preview_avatar', 'name', 'address', 'time_work', 'phone_mtc', 'phone_a1', 'phone_life', 'created', 'updated'
     readonly_fields = 'preview_avatar', 'created', 'updated'
 
     def has_add_permission(self, request):
@@ -27,14 +27,14 @@ class AddressAdmin(admin.ModelAdmin):
         else:
             return 'Нет фотографии'
 
-    preview_avatar.short_description = 'Фото'
+    preview_avatar.short_description = 'О нас (Фото)'
 
 
 @admin.register(Servicing)
 class ServicingAdmin(admin.ModelAdmin):
     """Почему мы"""
     fields = 'preview_avatar', 'photo', 'name', 'description', 'numbers', 'status', 'created', 'updated'
-    list_display = 'name', 'description', 'numbers', 'preview_avatar', 'status', 'created', 'updated'
+    list_display = 'preview_avatar', 'name', 'description', 'numbers', 'status', 'created', 'updated'
     readonly_fields = 'preview_avatar', 'created', 'updated'
     list_editable = 'status',
     list_filter = 'status',
@@ -55,7 +55,7 @@ class ServicingAdmin(admin.ModelAdmin):
 class QuestionsAnswersAdmin(admin.ModelAdmin):
     """Вопросы ответы"""
     fields = 'questions', 'answers', 'numbers', 'status', 'created', 'updated'
-    list_display ='questions', 'answers',  'numbers',  'status', 'created', 'updated'
+    list_display = 'questions', 'answers', 'numbers', 'status', 'created', 'updated'
     readonly_fields = 'created', 'updated'
     list_editable = 'status',
     list_filter = 'status',
@@ -68,7 +68,7 @@ class QuestionsAnswersAdmin(admin.ModelAdmin):
 class ConditionsAdmin(admin.ModelAdmin):
     """Банер"""
     fields = 'preview_avatar', 'photo', 'info', 'description', 'status', 'created', 'updated'
-    list_display = 'info', 'description', 'preview_avatar', 'status', 'created', 'updated'
+    list_display = 'preview_avatar', 'info', 'description', 'status', 'created', 'updated'
     readonly_fields = 'preview_avatar', 'created', 'updated'
     list_editable = 'status',
     list_filter = 'status',
@@ -108,7 +108,9 @@ class FeedbackAdmin(admin.ModelAdmin):
 @admin.register(About)
 class AboutAdmin(admin.ModelAdmin):
     """О нас"""
-    list_display = 'name', 'numbers', 'description', 'created', 'updated'
+    fields = 'name', 'description', 'numbers', 'created', 'updated'
+    list_display = 'name', 'description', 'numbers', 'created', 'updated'
+    readonly_fields = 'created', 'updated',
     date_hierarchy = 'created'
     ordering = ['numbers']
     list_per_page = 20

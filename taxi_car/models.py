@@ -14,8 +14,9 @@ class DateStamp(models.Model):
 
 class Address(DateStamp):
     """Адрес"""
-    name = models.CharField(verbose_name='Название организации')
     slogan = models.CharField(verbose_name='О нас (Лозунг организации)', blank=True, null=True)
+    photo = models.ImageField(verbose_name='О нас (Фото)', upload_to='about/')
+    name = models.CharField(verbose_name='Название организации')
     address = models.CharField(verbose_name='Адрес', max_length=100)
     time_work = models.CharField(verbose_name='Время работы', max_length=100, blank=True, null=True)
     phone_mtc = models.CharField(verbose_name='Телефон MTC', max_length=25, help_text='Номер телефона указывать в формате +___(__)___-__-__', blank=True, null=True)
@@ -30,7 +31,6 @@ class Address(DateStamp):
     count_car = models.IntegerField(verbose_name='Автомобилей в таксопарке')
     rating_start = models.DecimalField(verbose_name='Средний рейтинг начальный', decimal_places=2, max_digits=3, validators=[MinValueValidator(1), MaxValueValidator(4)], help_text='Минимальное начальное значение с 1 до 4', default=4)
     rating_end = models.DecimalField(verbose_name='Средний рейтинг конечный', decimal_places=2, max_digits=3, validators=[MinValueValidator(4), MaxValueValidator(5)], help_text='Минимальное конечное значение с 4 до 5', default=4.5)
-    photo = models.ImageField(verbose_name='О нас (Фото)', upload_to='about/')
 
     def __str__(self):
         return f"{self.address} {self.time_work}"
