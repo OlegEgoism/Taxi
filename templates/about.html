@@ -52,6 +52,8 @@
                                     </div>
                                 </div>
                             </div>
+                        {% empty %}
+                            <p class="text-center w-100">Нет информации.</p>
                         {% endfor %}
                     </div>
                 </div>
@@ -94,6 +96,8 @@
                                     </div>
                                 </div>
                             </div>
+                        {% empty %}
+                            <p class="text-center w-100">Нет информации.</p>
                         {% endfor %}
                     </div>
                 </div>
@@ -120,6 +124,8 @@
                             <small>{{ member.fio }}</small>
                         </div>
                     </div>
+                {% empty %}
+                    <p class="text-center w-100">Нет информации.</p>
                 {% endfor %}
             </div>
         </div>

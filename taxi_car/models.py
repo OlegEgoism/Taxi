@@ -29,8 +29,8 @@ class Address(DateStamp):
     instagram = models.URLField(verbose_name='Instagram', blank=True, null=True)
     created_year_work = models.DateField(verbose_name='Дата начала работы компании')
     count_car = models.IntegerField(verbose_name='Автомобилей в таксопарке')
-    rating_start = models.DecimalField(verbose_name='Средний рейтинг начальный', decimal_places=2, max_digits=3, validators=[MinValueValidator(1), MaxValueValidator(4)], help_text='Минимальное начальное значение с 1 до 4', default=4)
-    rating_end = models.DecimalField(verbose_name='Средний рейтинг конечный', decimal_places=2, max_digits=3, validators=[MinValueValidator(4), MaxValueValidator(5)], help_text='Минимальное конечное значение с 4 до 5', default=4.5)
+    rating_start = models.DecimalField(verbose_name='Средний рейтинг начальный', decimal_places=2, max_digits=3, validators=[MinValueValidator(1), MaxValueValidator(4.5)], help_text='Минимальное начальное значение с 1 до 4,5', default=4.5)
+    rating_end = models.DecimalField(verbose_name='Средний рейтинг конечный', decimal_places=2, max_digits=3, validators=[MinValueValidator(4), MaxValueValidator(5)], help_text='Минимальное конечное значение с 4 до 5', default=4.8)
 
     def __str__(self):
         return f"{self.address} {self.time_work}"
