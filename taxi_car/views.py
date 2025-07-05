@@ -1,4 +1,4 @@
-from taxi_car.models import Address, About, Personnel, Car, Reviews, Conditions, Servicing, Spares, CarBrand, ShopCar
+from taxi_car.models import Address, About, Personnel, Car, Reviews, Conditions, Servicing, Spares, CarBrand, ShopCar, QuestionsAnswers
 from .forms import FeedbackForm
 from django.shortcuts import render, redirect
 from django.contrib import messages
@@ -28,7 +28,8 @@ def contact(request):
     return render(request,
                   template_name='contact.html',
                   context={'address': address,
-                           'form': form})
+                           'form': form
+                           })
 
 
 def home(request):
@@ -36,7 +37,8 @@ def home(request):
     address = Address.objects.first()
     conditions = Conditions.objects.filter(status=True)
     reviews = Reviews.objects.filter(status=True)
-    servicing = Servicing.objects.filter(status=True)
+    servicing = Servicing.objects.filter(status=True).order_by('numbers')
+    questions_answers = QuestionsAnswers.objects.filter(status=True).order_by('numbers')
     random_rating = get_random_rating(address)
     passenger_count = calculate_passengers(address)
     years_work = get_years_work(address)
@@ -46,6 +48,7 @@ def home(request):
                   context={
                       'address': address,
                       'servicing': servicing,
+                      'questions_answers': questions_answers,
                       'conditions': conditions,
                       'reviews': reviews,
                       'random_rating': random_rating,
@@ -59,12 +62,15 @@ def about(request):
     """О нас"""
     address = Address.objects.first()
     about_info = About.objects.all()
+    questions_answers = QuestionsAnswers.objects.filter(status=True).order_by('numbers')
     personnel = Personnel.objects.filter(status=True)
     return render(request,
                   template_name='about.html',
                   context={'address': address,
+                           'questions_answers': questions_answers,
                            'about_info': about_info,
-                           'personnel': personnel})
+                           'personnel': personnel
+                           })
 
 
 def car(request):
@@ -74,7 +80,8 @@ def car(request):
     return render(request,
                   template_name='car.html',
                   context={'address': address,
-                           'cars': cars})
+                           'cars': cars
+                           })
 
 
 def service(request):

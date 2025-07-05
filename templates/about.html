@@ -38,34 +38,76 @@
                             Название лозунга
                         {% endif %}
                     </p>
-                    <div class="row g-4 mb-3 pb-3">
+                </div>
+            </div>
+            <div class="container-xxl py-5">
+                <div class="container">
+                    <div class="row g-4">
                         {% for item in about_info %}
-                            <div class="col-12 wow fadeIn" data-wow-delay="0.1s">
-                                <div class="d-flex">
-                                    <div class="bg-light d-flex flex-shrink-0 align-items-center justify-content-center mt-1" style="width: 45px; height: 45px;">
-                                        <span class="fw-bold text-secondary">{{ item.numbers }}</span>
-                                    </div>
-                                    <div class="ps-3">
-                                        <h6>{{ item.name }}</h6>
-                                        <span>{{ item.description }}</span>
+                            <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="{{ forloop.counter|floatformat:1|add:"0.1" }}s">
+                                <div class="{% if forloop.counter|divisibleby:2 %}bg-light{% endif %} py-4 px-0" style="position:relative; min-height:100px;">
+                                    <div style="margin-left:20px;">
+                                        <h5>{{ item.name }}</h5>
+                                        <p>{{ item.description }}</p>
                                     </div>
                                 </div>
                             </div>
                         {% endfor %}
-                        <a href="{% url 'contact' %}" class="btn btn-primary py-3 px-5 mt-3">Подать заявку<i class="fa fa-arrow-right ms-3"></i></a>
-                        <a href="{% url 'car' %}" class="btn btn-primary py-3 px-5 mt-3">Наш таксопарк<i class="fa fa-arrow-right ms-3"></i></a>
                     </div>
+                </div>
+                <div class="text-center mt-4">
+                    <a href="{% url 'about' %}" class="btn btn-primary py-3 px-5 mt-3"> Узнать о нас <i class="fa fa-arrow-right ms-3"></i> </a>
+                    <a href="{% url 'contact' %}" class="btn btn-primary py-3 px-5 mt-3"> Подать заявку <i class="fa fa-arrow-right ms-3"></i> </a>
                 </div>
             </div>
         </div>
     </div>
     <!-- About End -->
 
+
+    <!-- QuestionsAnswers Start -->
+    <div class="container-xxl py-8">
+        <div class="container">
+            <div class="row g-4">
+                <div class="text-center">
+                    <h1 class="mb-0">ВОПРОСЫ ОТВЕТЫ</h1>
+                </div>
+                <div class="col-lg-12 col-md-12 col-12 mx-auto">
+                    <div class="accordion mb-5" id="questionsAccordion">
+                        {% for que_ans in questions_answers %}
+                            <div class="accordion-item">
+                                <h2 class="accordion-header" id="heading{{ forloop.counter }}">
+                                    <button class="accordion-button {% if not forloop.first %}collapsed{% endif %}" type="button"
+                                            data-bs-toggle="collapse"
+                                            data-bs-target="#collapse{{ forloop.counter }}"
+                                            aria-expanded="{% if forloop.first %}true{% else %}false{% endif %}"
+                                            aria-controls="collapse{{ forloop.counter }}">
+                                        {{ que_ans.questions }}
+                                    </button>
+                                </h2>
+                                <div id="collapse{{ forloop.counter }}"
+                                     class="accordion-collapse collapse {% if forloop.first %}show{% endif %}"
+                                     aria-labelledby="heading{{ forloop.counter }}"
+                                     data-bs-parent="#questionsAccordion">
+                                    <div class="accordion-body">
+                                        {{ que_ans.answers }}
+                                    </div>
+                                </div>
+                            </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- QuestionsAnswers End -->
+
+
     <!-- Team Start -->
     <div class="container-xxl py-5">
         <div class="container">
             <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
-                <h1 class="mb-5">СОТРУДНИКИ</h1>
+                <h1 class="mb-4">СОТРУДНИКИ</h1>
             </div>
             <div class="scrolling-wrapper" style="overflow-x: auto; white-space: nowrap; padding-bottom: 20px;">
                 {% for member in personnel %}

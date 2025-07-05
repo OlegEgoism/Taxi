@@ -17,9 +17,12 @@
                                     <div class="col-10 col-lg-7 text-center text-lg-start">
                                         <h1 class="display-3 text-white mb-4 pb-3 animated slideInDown">
                                             {{ condition.info }}
+                                            <p style="color: #ffffff; font-size: 24px">
+                                                {{ condition.description }}
+                                            </p>
                                         </h1>
                                         <a href="{% url 'about' %}" class="btn btn-primary py-3 px-5 animated slideInDown">
-                                            Узнать больше<i class="fa fa-arrow-right ms-3"></i>
+                                            Узнать о нас<i class="fa fa-arrow-right ms-3"></i>
                                         </a>
                                         <a href="{% url 'contact' %}" class="btn btn-primary py-3 px-5 animated slideInDown">
                                             Подать заявку<i class="fa fa-arrow-right ms-3"></i>
@@ -53,12 +56,18 @@
     <div class="container-xxl py-5">
         <div class="container">
             <div class="row g-4">
+                <div class="text-center">
+                    <h1 class="mb-0">ПОЧЕМУ МЫ</h1>
+                </div>
                 {% for service in servicing %}
                     <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="{{ forloop.counter|floatformat:1|add:"0.1" }}s">
-                        <div class="d-flex {% if forloop.counter|divisibleby:2 %}bg-light{% endif %} py-5 px-4">
-                            <i class="fa fa-certificate fa-3x text-primary flex-shrink-0"></i>
-                            <div class="ps-4">
-                                <h5 class="mb-3">{{ service.name }}</h5>
+                        <div class="{% if forloop.counter|divisibleby:2 %}bg-light{% endif %} py-5 px-4" style="position:relative; min-height:100px;">
+                            <img src="{{ service.photo.url }}"
+                                 alt="{{ service.name }}"
+                                 width="50" height="50"
+                                 style="object-fit:cover; position:absolute; top:20px; left:20px;">
+                            <div style="margin-left:70px;">
+                                <h5 class="mb-3" style="margin-top:0;">{{ service.name }}</h5>
                                 <p>{{ service.description }}</p>
                             </div>
                         </div>
@@ -66,8 +75,50 @@
                 {% endfor %}
             </div>
         </div>
+        <div class="text-center mt-4">
+            <a href="{% url 'about' %}" class="btn btn-primary py-3 px-5 mt-3"> Узнать о нас <i class="fa fa-arrow-right ms-3"></i> </a>
+            <a href="{% url 'contact' %}" class="btn btn-primary py-3 px-5 mt-3"> Подать заявку <i class="fa fa-arrow-right ms-3"></i> </a>
+        </div>
     </div>
     <!-- Service End -->
+
+
+    {#    <!-- QuestionsAnswers Start -->#}
+    {#    <div class="container-xxl py-8">#}
+    {#        <div class="container">#}
+    {#            <div class="row g-4">#}
+    {#                <div class="text-center">#}
+    {#                    <h1 class="mb-0">ВОПРОСЫ ОТВЕТЫ</h1>#}
+    {#                </div>#}
+    {#                <div class="col-lg-12 col-md-12 col-12 mx-auto">#}
+    {#                    <div class="accordion mb-5" id="questionsAccordion">#}
+    {#                        {% for que_ans in questions_answers %}#}
+    {#                            <div class="accordion-item">#}
+    {#                                <h2 class="accordion-header" id="heading{{ forloop.counter }}">#}
+    {#                                    <button class="accordion-button {% if not forloop.first %}collapsed{% endif %}" type="button"#}
+    {#                                            data-bs-toggle="collapse"#}
+    {#                                            data-bs-target="#collapse{{ forloop.counter }}"#}
+    {#                                            aria-expanded="{% if forloop.first %}true{% else %}false{% endif %}"#}
+    {#                                            aria-controls="collapse{{ forloop.counter }}">#}
+    {#                                        {{ que_ans.questions }}#}
+    {#                                    </button>#}
+    {#                                </h2>#}
+    {#                                <div id="collapse{{ forloop.counter }}"#}
+    {#                                     class="accordion-collapse collapse {% if forloop.first %}show{% endif %}"#}
+    {#                                     aria-labelledby="heading{{ forloop.counter }}"#}
+    {#                                     data-bs-parent="#questionsAccordion">#}
+    {#                                    <div class="accordion-body">#}
+    {#                                        {{ que_ans.answers }}#}
+    {#                                    </div>#}
+    {#                                </div>#}
+    {#                            </div>#}
+    {#                        {% endfor %}#}
+    {#                    </div>#}
+    {#                </div>#}
+    {#            </div>#}
+    {#        </div>#}
+    {#    </div>#}
+    {#    <!-- QuestionsAnswers End -->#}
 
 
     <!-- Fact Start -->
@@ -104,7 +155,7 @@
     <div class="container-xxl py-5 wow fadeInUp" data-wow-delay="0.1s">
         <div class="container">
             <div class="text-center">
-                <h1 class="mb-5">Отзывы</h1>
+                <h1 class="mb-0">ОТЗЫВЫ</h1>
             </div>
             <div class="testimonials-horizontal-scroll">
                 <div class="d-flex flex-nowrap overflow-auto pb-4" style="gap: 20px;">

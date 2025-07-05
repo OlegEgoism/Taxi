@@ -15,7 +15,7 @@ class DateStamp(models.Model):
 class Address(DateStamp):
     """Адрес"""
     name = models.CharField(verbose_name='Название организации')
-    slogan = models.CharField(verbose_name='Лозунг организации', blank=True, null=True)
+    slogan = models.CharField(verbose_name='О нас (Лозунг организации)', blank=True, null=True)
     address = models.CharField(verbose_name='Адрес', max_length=100)
     time_work = models.CharField(verbose_name='Время работы', max_length=100, blank=True, null=True)
     phone_mtc = models.CharField(verbose_name='Телефон MTC', max_length=25, help_text='Номер телефона указывать в формате +___(__)___-__-__', blank=True, null=True)
@@ -30,7 +30,7 @@ class Address(DateStamp):
     count_car = models.IntegerField(verbose_name='Автомобилей в таксопарке')
     rating_start = models.DecimalField(verbose_name='Средний рейтинг начальный', decimal_places=2, max_digits=3, validators=[MinValueValidator(1), MaxValueValidator(4)], help_text='Минимальное начальное значение с 1 до 4', default=4)
     rating_end = models.DecimalField(verbose_name='Средний рейтинг конечный', decimal_places=2, max_digits=3, validators=[MinValueValidator(4), MaxValueValidator(5)], help_text='Минимальное конечное значение с 4 до 5', default=4.5)
-    photo = models.ImageField(verbose_name='Изображение на странице о нас', upload_to='about/')
+    photo = models.ImageField(verbose_name='О нас (Фото)', upload_to='about/')
 
     def __str__(self):
         return f"{self.address} {self.time_work}"
@@ -41,23 +41,59 @@ class Address(DateStamp):
 
 
 class Servicing(DateStamp):
-    """Описание работы"""
+    """Почему мы"""
+    photo = models.ImageField(verbose_name='О нас (Фото)', upload_to='why_us/')
     name = models.CharField(verbose_name='Название', max_length=50)
     description = models.TextField(verbose_name='Описание')
+    numbers = models.IntegerField(verbose_name='Порядковый номер', validators=[MinValueValidator(1), MaxValueValidator(100)], unique=True)
     status = models.BooleanField(verbose_name='Опубликован', default=True)
 
     def __str__(self):
         return self.name
 
+    def save(self, *args, **kwargs):
+        """Сохранение фотографии формата 16:9"""
+        super().save(*args, **kwargs)
+        if self.photo:
+            img = Image.open(self.photo.path)
+            width, height = img.size
+            target_ratio = 2 / 2
+            current_ratio = width / height
+            if current_ratio > target_ratio:
+                new_width = int(height * target_ratio)
+                left = (width - new_width) // 2
+                img_cropped = img.crop((left, 0, left + new_width, height))
+            else:
+                new_height = int(width / target_ratio)
+                top = (height - new_height) // 2
+                img_cropped = img.crop((0, top, width, top + new_height))
+            img_cropped.save(self.photo.path)
+
     class Meta:
-        verbose_name = 'Описание работы'
-        verbose_name_plural = 'Описание работы'
+        verbose_name = 'Почему мы'
+        verbose_name_plural = 'Почему мы'
+
+
+class QuestionsAnswers(DateStamp):
+    """Вопросы ответы"""
+    questions = models.TextField(verbose_name='Вопрос')
+    answers = models.TextField(verbose_name='Ответ')
+    numbers = models.IntegerField(verbose_name='Порядковый номер', validators=[MinValueValidator(1), MaxValueValidator(100)], unique=True)
+    status = models.BooleanField(verbose_name='Опубликован', default=True)
+
+    def __str__(self):
+        return f'{self.numbers} - {self.questions}'
+
+    class Meta:
+        verbose_name = 'Вопросы ответы'
+        verbose_name_plural = 'Вопросы ответы'
 
 
 class Conditions(DateStamp):
-    """Условия"""
+    """Банер"""
     photo = models.ImageField(verbose_name='Фотография', upload_to='сonditions/', help_text='Фото формата 4:3')
-    info = models.CharField(verbose_name='Условия', max_length=100)
+    info = models.CharField(verbose_name='Название', max_length=50)
+    description = models.CharField(verbose_name='Описание', max_length=250)
     status = models.BooleanField(verbose_name='Опубликован', default=True)
 
     def __str__(self):
@@ -82,8 +118,8 @@ class Conditions(DateStamp):
             img_cropped.save(self.photo.path)
 
     class Meta:
-        verbose_name = 'Условие'
-        verbose_name_plural = 'Условия'
+        verbose_name = 'Банер'
+        verbose_name_plural = 'Банеры'
 
 
 class Feedback(DateStamp):

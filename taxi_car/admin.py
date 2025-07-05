@@ -1,13 +1,13 @@
 from django.contrib import admin
 from django.utils.safestring import mark_safe
 
-from taxi_car.models import Address, Feedback, About, Personnel, CarBrand, Car, Reviews, Conditions, Servicing, Spares, ShopCar
+from taxi_car.models import Address, Feedback, About, Personnel, CarBrand, Car, Reviews, Conditions, Servicing, Spares, ShopCar, QuestionsAnswers
 
 
 @admin.register(Address)
 class AddressAdmin(admin.ModelAdmin):
     """Адрес"""
-    fields = 'name', 'slogan', 'address', 'time_work', 'phone_mtc', 'phone_a1', 'phone_life', 'maps', 'telegram', 'viber', 'whatsapp', 'instagram', 'created_year_work', 'count_car', 'rating_start', 'rating_end', 'preview_avatar', 'photo', 'created', 'updated'
+    fields = 'slogan', 'preview_avatar', 'photo', 'name', 'address', 'time_work', 'phone_mtc', 'phone_a1', 'phone_life', 'maps', 'telegram', 'viber', 'whatsapp', 'instagram', 'created_year_work', 'count_car', 'rating_start', 'rating_end', 'created', 'updated'
     list_display = 'name', 'address', 'preview_avatar', 'time_work', 'phone_mtc', 'phone_a1', 'phone_life', 'created', 'updated'
     readonly_fields = 'preview_avatar', 'created', 'updated'
 
@@ -32,21 +32,43 @@ class AddressAdmin(admin.ModelAdmin):
 
 @admin.register(Servicing)
 class ServicingAdmin(admin.ModelAdmin):
-    """Описание работы"""
-    fields = 'name', 'description', 'status', 'created', 'updated'
-    list_display = 'name', 'description', 'status', 'created', 'updated'
+    """Почему мы"""
+    fields = 'preview_avatar', 'photo', 'name', 'description', 'numbers', 'status', 'created', 'updated'
+    list_display = 'name', 'description', 'numbers', 'preview_avatar', 'status', 'created', 'updated'
+    readonly_fields = 'preview_avatar', 'created', 'updated'
+    list_editable = 'status',
+    list_filter = 'status',
+    date_hierarchy = 'created'
+    ordering = 'numbers',
+    list_per_page = 20
+
+    def preview_avatar(self, obj):
+        if obj.photo:
+            return mark_safe(f'<img src="{obj.photo.url}" width="60" height="60"/>')
+        else:
+            return 'Нет фотографии'
+
+    preview_avatar.short_description = 'Фото'
+
+
+@admin.register(QuestionsAnswers)
+class QuestionsAnswersAdmin(admin.ModelAdmin):
+    """Вопросы ответы"""
+    fields = 'questions', 'answers', 'numbers', 'status', 'created', 'updated'
+    list_display ='questions', 'answers',  'numbers',  'status', 'created', 'updated'
     readonly_fields = 'created', 'updated'
     list_editable = 'status',
     list_filter = 'status',
     date_hierarchy = 'created'
+    ordering = 'numbers',
     list_per_page = 20
 
 
 @admin.register(Conditions)
 class ConditionsAdmin(admin.ModelAdmin):
-    """Условия"""
-    fields = 'preview_avatar', 'photo', 'info', 'status', 'created', 'updated'
-    list_display = 'info', 'preview_avatar', 'status', 'created', 'updated'
+    """Банер"""
+    fields = 'preview_avatar', 'photo', 'info', 'description', 'status', 'created', 'updated'
+    list_display = 'info', 'description', 'preview_avatar', 'status', 'created', 'updated'
     readonly_fields = 'preview_avatar', 'created', 'updated'
     list_editable = 'status',
     list_filter = 'status',
