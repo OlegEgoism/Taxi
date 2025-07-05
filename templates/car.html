@@ -46,10 +46,13 @@
                                         </div>
                                     </div>
                                     <div class="col-md-6">
+                                        
+{#                                        <span style="font-weight:bold; color:rgb(0,0,0);">{{ spare.price }} руб.</span>#}
+                                        
                                         <h3 class="mb-3">{{ car.car_brand.name }} {{ car.name }}</h3>
-                                        <p><i class="fa fa-check text-success me-3"></i>Год: {{ car.year }}</p>
-                                        <p><i class="fa fa-check text-success me-3"></i>Запас хода: {{ car.power_reserve }} км.</p>
-                                        <p class="mb-4">{{ car.description }}</p>
+                                        <p><i class="fa fa-check text-success me-3"></i>Год: <span style="font-weight:bold; color:rgb(0,0,0);">{{ car.year }}</span></p>
+                                        <p><i class="fa fa-check text-success me-3"></i>Запас хода: <span style="font-weight:bold; color:rgb(0,0,0);">{{ car.power_reserve }} км.</span></p>
+                                        <p><i class="fa fa-check text-success me-3"></i>Описание: <span style="font-weight:bold; color:rgb(0,0,0);">{{ car.description }}</span></p>
                                         <a href="{% url 'contact' %}" class="btn btn-primary py-3 px-5 mt-3">Подать заявку<i class="fa fa-arrow-right ms-3"></i></a>
                                         <a href="{% url 'about' %}" class="btn btn-primary py-3 px-5 mt-3">Наши условия<i class="fa fa-arrow-right ms-3"></i></a>
                                     </div>
