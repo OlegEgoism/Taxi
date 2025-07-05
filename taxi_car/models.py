@@ -14,8 +14,8 @@ class DateStamp(models.Model):
 
 class Address(DateStamp):
     """Адрес"""
-    slogan = models.CharField(verbose_name='О нас (Лозунг организации)', blank=True, null=True)
     photo = models.ImageField(verbose_name='О нас (Фото)', upload_to='about/')
+    slogan = models.CharField(verbose_name='О нас (Лозунг организации)', blank=True, null=True)
     name = models.CharField(verbose_name='Название организации')
     address = models.CharField(verbose_name='Адрес', max_length=100)
     time_work = models.CharField(verbose_name='Время работы', max_length=100, blank=True, null=True)

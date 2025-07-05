@@ -7,8 +7,8 @@ from taxi_car.models import Address, Feedback, About, Personnel, CarBrand, Car, 
 @admin.register(Address)
 class AddressAdmin(admin.ModelAdmin):
     """Адрес"""
-    fields = 'slogan', 'preview_avatar', 'photo', 'name', 'address', 'time_work', 'phone_mtc', 'phone_a1', 'phone_life', 'maps', 'telegram', 'viber', 'whatsapp', 'instagram', 'created_year_work', 'count_car', 'rating_start', 'rating_end', 'created', 'updated'
-    list_display = 'slogan', 'preview_avatar', 'name', 'address', 'time_work', 'phone_mtc', 'phone_a1', 'phone_life', 'created', 'updated'
+    fields = 'preview_avatar', 'photo', 'slogan', 'name', 'address', 'time_work', 'phone_mtc', 'phone_a1', 'phone_life', 'maps', 'telegram', 'viber', 'whatsapp', 'instagram', 'created_year_work', 'count_car', 'rating_start', 'rating_end', 'created', 'updated'
+    list_display = 'preview_avatar', 'slogan', 'name', 'address', 'time_work', 'phone_mtc', 'phone_a1', 'phone_life', 'created', 'updated'
     readonly_fields = 'preview_avatar', 'created', 'updated'
 
     def has_add_permission(self, request):
