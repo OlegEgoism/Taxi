@@ -59,6 +59,31 @@
                 <div class="text-center">
                     <h1 class="mb-0">ПОЧЕМУ МЫ</h1>
                 </div>
+                <div class="container">
+                    <div class="row g-4">
+                        <div class="col-md-6 col-lg-3 text-center wow fadeIn" data-wow-delay="0.1s">
+                            <i class="fa fa-check fa-2x mb-3"></i>
+                            <h2 class="mb-2" data-toggl`e="counter-up">{{ years_work }}</h2>
+                            <h5 class="mb-0">{{ years_word }} опыта</h5>
+                        </div>
+                        <div class="col-md-6 col-lg-3 text-center wow fadeIn" data-wow-delay="0.7s">
+                            <i class="fa fa-car fa-2x mb-3"></i>
+                            <h2 class="mb-2" data-toggle="counter-up">{{ address.count_car }}</h2>
+                            <h5 class="mb-0">автомобилей в таксопарке</h5>
+                        </div>
+                        <div class="col-md-6 col-lg-3 text-center wow fadeIn" data-wow-delay="0.5s">
+                            <i class="fa fa-users fa-2x mb-3"></i>
+                            <h2 class="mb-2" data-toggle="counter-up">{{ passenger_count }}</h2>
+                            <h5 class="mb-0">перевезенных пассажиров</h5>
+                        </div>
+                        <div class="col-md-6 col-lg-3 text-center wow fadeIn" data-wow-delay="0.3s">
+                            <i class="fa fa-users-cog fa-2x mb-3"></i>
+                            <h2 class="mb-2" data-toggle="counter-up">{{ random_rating }}⭐</h2>
+                            <h5 class="mb-0">средний рейтинг</h5>
+                        </div>
+                    </div>
+                    <br>
+                </div>
                 {% for service in servicing %}
                     <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="{{ forloop.counter|floatformat:1|add:"0.1" }}s">
                         <div class="{% if forloop.counter|divisibleby:2 %}bg-light{% endif %} py-5 px-4" style="position:relative; min-height:100px;">
@@ -121,34 +146,34 @@
     {#    <!-- QuestionsAnswers End -->#}
 
 
-    <!-- Fact Start -->
-    <div class="container-fluid fact bg-dark my-5 py-5">
-        <div class="container">
-            <div class="row g-4">
-                <div class="col-md-6 col-lg-3 text-center wow fadeIn" data-wow-delay="0.1s">
-                    <i class="fa fa-check fa-2x text-white mb-3"></i>
-                    <h2 class="text-white mb-2" data-toggle="counter-up">{{ years_work }}</h2>
-                    <h5 class="text-white mb-0">{{ years_word }} опыта</h5>
-                </div>
-                <div class="col-md-6 col-lg-3 text-center wow fadeIn" data-wow-delay="0.7s">
-                    <i class="fa fa-car fa-2x text-white mb-3"></i>
-                    <h2 class="text-white mb-2" data-toggle="counter-up">{{ address.count_car }}</h2>
-                    <h5 class="text-white mb-0">автомобилей в таксопарке</h5>
-                </div>
-                <div class="col-md-6 col-lg-3 text-center wow fadeIn" data-wow-delay="0.5s">
-                    <i class="fa fa-users fa-2x text-white mb-3"></i>
-                    <h2 class="text-white mb-2" data-toggle="counter-up">{{ passenger_count }}</h2>
-                    <h5 class="text-white mb-0">перевезенных пассажиров</h5>
-                </div>
-                <div class="col-md-6 col-lg-3 text-center wow fadeIn" data-wow-delay="0.3s">
-                    <i class="fa fa-users-cog fa-2x text-white mb-3"></i>
-                    <h2 class="text-white mb-2" data-toggle="counter-up">{{ random_rating }}⭐</h2>
-                    <h5 class="text-white mb-0">средний рейтинг</h5>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Fact End -->
+{#    <!-- Fact Start -->#}
+{#    <div class="container-fluid fact bg-dark my-5 py-5">#}
+{#        <div class="container">#}
+{#            <div class="row g-4">#}
+{#                <div class="col-md-6 col-lg-3 text-center wow fadeIn" data-wow-delay="0.1s">#}
+{#                    <i class="fa fa-check fa-2x text-white mb-3"></i>#}
+{#                    <h2 class="text-white mb-2" data-toggle="counter-up">{{ years_work }}</h2>#}
+{#                    <h5 class="text-white mb-0">{{ years_word }} опыта</h5>#}
+{#                </div>#}
+{#                <div class="col-md-6 col-lg-3 text-center wow fadeIn" data-wow-delay="0.7s">#}
+{#                    <i class="fa fa-car fa-2x text-white mb-3"></i>#}
+{#                    <h2 class="text-white mb-2" data-toggle="counter-up">{{ address.count_car }}</h2>#}
+{#                    <h5 class="text-white mb-0">автомобилей в таксопарке</h5>#}
+{#                </div>#}
+{#                <div class="col-md-6 col-lg-3 text-center wow fadeIn" data-wow-delay="0.5s">#}
+{#                    <i class="fa fa-users fa-2x text-white mb-3"></i>#}
+{#                    <h2 class="text-white mb-2" data-toggle="counter-up">{{ passenger_count }}</h2>#}
+{#                    <h5 class="text-white mb-0">перевезенных пассажиров</h5>#}
+{#                </div>#}
+{#                <div class="col-md-6 col-lg-3 text-center wow fadeIn" data-wow-delay="0.3s">#}
+{#                    <i class="fa fa-users-cog fa-2x text-white mb-3"></i>#}
+{#                    <h2 class="text-white mb-2" data-toggle="counter-up">{{ random_rating }}⭐</h2>#}
+{#                    <h5 class="text-white mb-0">средний рейтинг</h5>#}
+{#                </div>#}
+{#            </div>#}
+{#        </div>#}
+{#    </div>#}
+{#    <!-- Fact End -->#}
 
 
     <!-- Testimonial Start -->
