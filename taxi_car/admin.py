@@ -242,101 +242,104 @@ class ShopCarAdmin(admin.ModelAdmin):
 
 
 class CarInline(admin.TabularInline):
-    """Модель автомобиля"""
+    """Модель автомобиля (только просмотр)"""
     model = Car
     fields = 'car_brand', 'name', 'year', 'power_reserve', 'description', 'status', 'created', 'updated'
-    readonly_fields = 'created', 'updated'
+    readonly_fields = 'car_brand', 'name', 'year', 'power_reserve', 'description', 'created', 'updated'
     classes = ['collapse']
     extra = 0
 
-    def get_formset(self, request, obj=None, **kwargs):
-        formset = super().get_formset(request, obj, **kwargs)
-        formset.form.base_fields['name'].widget.attrs['style'] = 'width: 180px;'
-        formset.form.base_fields['year'].widget.attrs['style'] = 'width: 60px;'
-        formset.form.base_fields['power_reserve'].widget.attrs['style'] = 'width: 60px;'
-        formset.form.base_fields['description'].widget.attrs['style'] = 'width: 360px;'
-        return formset
+    def has_add_permission(self, request, obj=None):
+        return False
 
-    # def preview_avatar(self, obj):
-    #     if obj.photo:
-    #         return mark_safe(f'<img src="{obj.photo.url}" width="100" height="100" />')
-    #     return 'Нет фото'
-    #
-    # preview_avatar.short_description = 'Фото'
+    def has_delete_permission(self, request, obj=None):
+        return False
+
+    # def get_formset(self, request, obj=None, **kwargs):
+    #     formset = super().get_formset(request, obj, **kwargs)
+    #     formset.form.base_fields['name'].widget.attrs['style'] = 'width: 180px;'
+    #     formset.form.base_fields['year'].widget.attrs['style'] = 'width: 60px;'
+    #     formset.form.base_fields['power_reserve'].widget.attrs['style'] = 'width: 60px;'
+    #     formset.form.base_fields['description'].widget.attrs['style'] = 'width: 360px;'
+    #     return formset
 
 
 class SparesInline(admin.TabularInline):
     """Запчасти"""
     model = Spares
-    fields =  'car_brand', 'name', 'price', 'description', 'availability', 'status', 'created', 'updated'
-    readonly_fields = 'created', 'updated'
+    fields = 'car_brand', 'name', 'price', 'description', 'availability', 'status', 'created', 'updated'
+    readonly_fields = 'car_brand', 'name', 'price', 'description', 'created', 'updated'
     classes = ['collapse']
     extra = 0
 
-    def get_formset(self, request, obj=None, **kwargs):
-        """Стиль отображения"""
-        formset = super().get_formset(request, obj, **kwargs)
-        formset.form.base_fields['name'].widget.attrs['style'] = 'width: 180px;'
-        formset.form.base_fields['price'].widget.attrs['style'] = 'width: 60px;'
-        formset.form.base_fields['description'].widget.attrs['style'] = 'width: 360px;'
-        return formset
+    def has_add_permission(self, request, obj=None):
+        return False
 
-    # def preview_avatar(self, obj):
-    #     if obj.photo:
-    #         return mark_safe(f'<img src="{obj.photo.url}" width="100" height="100" />')
-    #     return 'Нет фото'
-    #
-    # preview_avatar.short_description = 'Фото'
+    def has_delete_permission(self, request, obj=None):
+        return False
+
+    # def get_formset(self, request, obj=None, **kwargs):
+    #     """Стиль отображения"""
+    #     formset = super().get_formset(request, obj, **kwargs)
+    #     formset.form.base_fields['name'].widget.attrs['style'] = 'width: 180px;'
+    #     formset.form.base_fields['price'].widget.attrs['style'] = 'width: 60px;'
+    #     formset.form.base_fields['description'].widget.attrs['style'] = 'width: 360px;'
+    #     return formset
 
 
 class ShopCarInline(admin.TabularInline):
     """Авто из китая"""
     model = ShopCar
-    fields =  'car_brand', 'name', 'price', 'description', 'status', 'created', 'updated'
-    readonly_fields = 'created', 'updated'
+    fields = 'car_brand', 'name', 'price', 'description', 'status', 'created', 'updated'
+    readonly_fields = 'car_brand', 'name', 'price', 'description', 'created', 'updated'
     classes = ['collapse']
     extra = 0
 
-    def get_formset(self, request, obj=None, **kwargs):
-        """Стиль отображения"""
-        formset = super().get_formset(request, obj, **kwargs)
-        formset.form.base_fields['name'].widget.attrs['style'] = 'width: 180px;'
-        formset.form.base_fields['price'].widget.attrs['style'] = 'width: 60px;'
-        formset.form.base_fields['description'].widget.attrs['style'] = 'width: 360px;'
-        return formset
+    def has_add_permission(self, request, obj=None):
+        return False
 
-    # def preview_avatar(self, obj):
-    #     if obj.photo:
-    #         return mark_safe(f'<img src="{obj.photo.url}" width="100" height="100" />')
-    #     return 'Нет фото'
-    #
-    # preview_avatar.short_description = 'Фото'
+    def has_delete_permission(self, request, obj=None):
+        return False
+
+    # def get_formset(self, request, obj=None, **kwargs):
+    #     """Стиль отображения"""
+    #     formset = super().get_formset(request, obj, **kwargs)
+    #     formset.form.base_fields['name'].widget.attrs['style'] = 'width: 180px;'
+    #     formset.form.base_fields['price'].widget.attrs['style'] = 'width: 60px;'
+    #     formset.form.base_fields['description'].widget.attrs['style'] = 'width: 360px;'
+    #     return formset
 
 
 @admin.register(CarBrand)
 class CarBrandAdmin(admin.ModelAdmin):
     """Бренд автомобиля"""
     pass
-    list_display = 'name', 'car_count', 'spares_count', 'spares_availability_count', 'created', 'updated'
+    list_display = 'name', 'car_count', 'shop_car_count', 'spares_count', 'spares_availability_count', 'created', 'updated'
     date_hierarchy = 'created'
-    inlines =  ShopCarInline, CarInline, SparesInline,
+    inlines = ShopCarInline, CarInline, SparesInline,
     list_per_page = 20
 
     def car_count(self, obj):
         """Количество моделей этого бренда"""
         return obj.car.count()
 
-    car_count.short_description = 'Количество моделей'
+    car_count.short_description = 'Количество таксопарка'
+
+    def shop_car_count(self, obj):
+        """Количество авто из китая"""
+        return obj.shop.count()
+
+    shop_car_count.short_description = 'Количество авто из китая'
 
     def spares_count(self, obj):
         """Количество запчастей этого бренда"""
-        return obj.spares.count()
+        return obj.spare.count()
 
     spares_count.short_description = 'Количество запчастей'
 
     def spares_availability_count(self, obj):
         """Количество запчастей этого бренда"""
-        return obj.spares.filter(availability=True).count()
+        return obj.spare.filter(availability=True).count()
 
     spares_availability_count.short_description = 'Количество запчастей в наличии'
 
@@ -358,24 +361,3 @@ class ReviewsAdmin(admin.ModelAdmin):
             return 'Нет фотографии'
 
     preview_avatar.short_description = 'Фото'
-
-# @admin.register(Car)
-# class CarAdmin(admin.ModelAdmin):
-#     """Модель автомобиля"""
-#     list_display = '__str__', 'preview_avatar', 'year', 'power_reserve', 'description', 'status', 'created', 'updated'
-#     fields = 'preview_avatar', 'photo', 'car_brand', 'name', 'year', 'power_reserve', 'description', 'status', 'created', 'updated'
-#     readonly_fields = 'preview_avatar', 'created', 'updated',
-#     list_editable = 'status',
-#     list_filter = 'status', 'car_brand__name', 'year',
-#     search_fields = 'name', 'car_brand__name', 'year', 'power_reserve'
-#     search_help_text = 'Поиск по модели, бренду, году выпуска, запасу хода автомобиля'
-#     date_hierarchy = 'created'
-#     list_per_page = 20
-#
-#     def preview_avatar(self, obj):
-#         if obj.photo:
-#             return mark_safe(f'<img src="{obj.photo.url}" width="60" height="60"/>')
-#         else:
-#             return 'Нет фотографии'
-#
-#     preview_avatar.short_description = 'Фото'
