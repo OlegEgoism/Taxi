@@ -11,6 +11,48 @@
     </div>
     <!-- Page Header End -->
 
+    <!-- --- Стили для черных стрелок --- -->
+    <style>
+        /* Черные стрелки для карусели */
+        .carousel-control-prev-icon,
+        .carousel-control-next-icon {
+            background-image: none !important;
+            width: 3rem;
+            height: 3rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .carousel-control-prev-icon::after,
+        .carousel-control-next-icon::after {
+            content: '';
+            display: block;
+            width: 2rem;
+            height: 2rem;
+            border: solid #000;
+            border-width: 0 0.4rem 0.4rem 0;
+            padding: 0.3rem;
+            margin: auto;
+            border-radius: 0.25rem;
+        }
+
+        .carousel-control-prev-icon::after {
+            transform: rotate(135deg);
+            /* ← влево */
+        }
+
+        .carousel-control-next-icon::after {
+            transform: rotate(-45deg);
+            /* → вправо */
+        }
+
+        .carousel-control-prev,
+        .carousel-control-next {
+            filter: none !important;
+        }
+    </style>
+    <!-- --- Конец стилей --- -->
 
     <!-- Список брендов Start -->
     <div class="container mb-3">
@@ -24,7 +66,6 @@
         </div>
     </div>
     <!-- Список брендов End -->
-
 
     {% if active_brand %}
         <!-- Поиск Start -->
@@ -42,7 +83,6 @@
             </div>
         </form>
         <!-- Поиск End -->
-
 
         <!-- Service Start -->
         <div class="container-xxl service py-5">
@@ -112,7 +152,7 @@
                                             </p>
                                             <p>
                                                 <i class="fa fa-check text-success me-3"></i>
-                                                Описание: <span style="font-weight:bold; color:rgb(0,0,0);">{{ spare.description|safe }}</span>
+                                                Описание: <span style="font-weight:bold; color:rgb(0,0,0);">{{ spare.description|safe|safe }}</span>
                                             </p>
                                             <a href="{% url 'contact' %}" class="btn btn-primary py-2 px-5 mt-3">Заказать запчасть<i class="fa fa-arrow-right ms-3"></i></a>
                                         </div>
@@ -139,7 +179,6 @@
     </div>
     <!-- Modal for enlarged car image End -->
 
-
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             var modal = document.getElementById('carImageModal');
@@ -164,6 +203,4 @@
             });
         });
     </script>
-
-
 {% endblock %}

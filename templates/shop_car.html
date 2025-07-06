@@ -11,7 +11,6 @@
     </div>
     <!-- Page Header End -->
 
-
     <!-- Car Start -->
     <div class="container-xxl service py-2">
         <div class="container">
@@ -47,11 +46,11 @@
                                                 </div>
                                                 {% if shop_car.shops.count > 1 %}
                                                     <button class="carousel-control-prev" type="button" data-bs-target="#shopCarCarousel{{ shop_car.id }}" data-bs-slide="prev">
-                                                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                                        <span class="carousel-control-prev-icon" style="filter: brightness(0);" aria-hidden="true"></span>
                                                         <span class="visually-hidden">Previous</span>
                                                     </button>
                                                     <button class="carousel-control-next" type="button" data-bs-target="#shopCarCarousel{{ shop_car.id }}" data-bs-slide="next">
-                                                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                                        <span class="carousel-control-next-icon" style="filter: brightness(0);" aria-hidden="true"></span>
                                                         <span class="visually-hidden">Next</span>
                                                     </button>
                                                 {% endif %}
@@ -79,10 +78,6 @@
     </div>
     <!-- Car End -->
 
-
-
-
-
     <!-- Modal for enlarged car image Start-->
     <div class="modal fade" id="carImageModal" tabindex="-1" aria-labelledby="carImageModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-lg">
@@ -95,31 +90,28 @@
     </div>
     <!-- Modal for enlarged car image End -->
 
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var modal = document.getElementById('carImageModal');
+            var modalImg = document.getElementById('modalCarImage');
+            var images = document.querySelectorAll('.car-image-fullscreen, .spare-image-fullscreen, .shopcar-image-fullscreen');
 
-<script>
-    document.addEventListener('DOMContentLoaded', function () {
-        var modal = document.getElementById('carImageModal');
-        var modalImg = document.getElementById('modalCarImage');
-        var images = document.querySelectorAll('.car-image-fullscreen, .spare-image-fullscreen, .shopcar-image-fullscreen');
+            images.forEach(function (el) {
+                el.addEventListener('click', function () {
+                    var src = this.getAttribute('data-img-src');
+                    modalImg.setAttribute('src', src);
+                    var bsModal = new bootstrap.Modal(modal);
+                    bsModal.show();
+                });
+            });
 
-        images.forEach(function (el) {
-            el.addEventListener('click', function () {
-                var src = this.getAttribute('data-img-src');
-                modalImg.setAttribute('src', src);
-                var bsModal = new bootstrap.Modal(modal);
-                bsModal.show();
+            modal.addEventListener('hidden.bs.modal', function () {
+                modalImg.setAttribute('src', '');
+            });
+            modalImg.addEventListener('click', function () {
+                var bsModal = bootstrap.Modal.getInstance(modal);
+                if (bsModal) bsModal.hide();
             });
         });
-
-        modal.addEventListener('hidden.bs.modal', function () {
-            modalImg.setAttribute('src', '');
-        });
-        modalImg.addEventListener('click', function () {
-            var bsModal = bootstrap.Modal.getInstance(modal);
-            if (bsModal) bsModal.hide();
-        });
-    });
-</script>
-
-    
+    </script>
 {% endblock %}
