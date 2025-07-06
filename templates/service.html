@@ -31,7 +31,7 @@
         <form method="get" class="mb-4">
             <input type="hidden" name="brand" value="{{ active_brand }}">
             <div class="d-flex justify-content-center">
-                <div class="input-group input-group-lg" style="width: 40%;">
+                <div class="input-group input-group-lg" style="width: 80%; max-width: 600px">
                     <input type="text" name="q" class="form-control" placeholder="Поиск"
                            value="{{ query|default_if_none:'' }}">
                     <button class="btn btn-primary" type="submit"><i class="fa fa-search"></i> Найти</button>
@@ -112,7 +112,7 @@
                                             </p>
                                             <p>
                                                 <i class="fa fa-check text-success me-3"></i>
-                                                Описание: <span style="font-weight:bold; color:rgb(0,0,0);">{{ spare.description }}</span>
+                                                Описание: <span style="font-weight:bold; color:rgb(0,0,0);">{{ spare.description|safe }}</span>
                                             </p>
                                             <a href="{% url 'contact' %}" class="btn btn-primary py-2 px-5 mt-3">Заказать запчасть<i class="fa fa-arrow-right ms-3"></i></a>
                                         </div>
