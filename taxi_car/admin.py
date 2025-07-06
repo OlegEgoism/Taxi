@@ -124,6 +124,12 @@ class AboutAdmin(admin.ModelAdmin):
     ordering = 'numbers',
     list_per_page = 20
 
+    def get_form(self, request, obj=None, **kwargs):
+        form = super().get_form(request, obj, **kwargs)
+        if 'name' in form.base_fields:
+            form.base_fields['name'].widget.attrs['style'] = 'width: 40%;'
+        return form
+
 
 class PhotoCarInline(admin.TabularInline):
     """Фото таксопарка"""

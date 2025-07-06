@@ -50,7 +50,7 @@
                                 <div class="{% if forloop.counter|divisibleby:2 %}bg-light{% endif %} py-4 px-0" style="position:relative; min-height:100px;">
                                     <div style="margin-left:20px;">
                                         <h5>{{ item.name }}</h5>
-                                        <p>{{ item.description }}</p>
+                                        <p>{{ item.description|safe }}</p>
                                     </div>
                                 </div>
                             </div>

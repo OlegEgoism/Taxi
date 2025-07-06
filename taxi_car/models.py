@@ -24,9 +24,9 @@ class Address(DateStamp):
     phone_a1 = models.CharField(verbose_name='Телефон A1', max_length=25, help_text='Номер телефона указывать в формате +___(__)___-__-__', blank=True, null=True)
     phone_life = models.CharField(verbose_name='Телефона Life', max_length=25, help_text='Номер телефона указывать в формате +___(__)___-__-__', blank=True, null=True)
     maps = models.TextField('Расположение на карте', help_text='Вставить скрипт-ссылку с конструктора карт https://yandex.ru/map-constructor (width="640" height="400")', blank=True, null=True)
-    telegram = models.URLField(verbose_name='Telegram', blank=True, null=True, help_text='Вставить: "https://web.telegram.org/k/#" потом только свой логин')
+    telegram = models.URLField(verbose_name='Telegram', blank=True, null=True, help_text='Вставить: "https://web.telegram.org/k/#" потом только свой логин @....')
     viber = models.URLField(verbose_name='Viber', blank=True, null=True)
-    whatsapp = models.URLField(verbose_name='Whatsapp', blank=True, null=True)
+    whatsapp = models.URLField(verbose_name='Whatsapp', blank=True, null=True, help_text='Вставить: "https://wa.me/" потом только свой номер телефона 375...')
     instagram = models.URLField(verbose_name='Instagram', blank=True, null=True)
     created_year_work = models.DateField(verbose_name='Дата начала работы компании')
     count_car = models.IntegerField(verbose_name='Автомобилей в таксопарке')
@@ -37,18 +37,6 @@ class Address(DateStamp):
 
     def __str__(self):
         return f"{self.address} {self.time_work}"
-
-    def viber_url(self):
-        if self.viber:
-            num = self.viber.replace('+', '').replace(' ', '').replace('-', '').replace('(', '').replace(')', '')
-            return f"viber://chat?number=%2B{num}"
-        return None
-
-    def whatsapp_url(self):
-        if self.whatsapp:
-            num = self.whatsapp.replace('+', '').replace(' ', '').replace('-', '').replace('(', '').replace(')', '')
-            return f"https://wa.me/{num}"
-        return None
 
     class Meta:
         verbose_name = 'Основные данные'
@@ -107,7 +95,7 @@ class QuestionsAnswers(DateStamp):
 class Conditions(DateStamp):
     """Банер"""
     photo = models.ImageField(verbose_name='Фотография', upload_to='сonditions/', help_text='Фото формата 4:3')
-    info = models.CharField(verbose_name='Название', max_length=40, help_text='Максимально 40 символов')
+    info = models.CharField(verbose_name='Название', max_length=60, help_text='Максимально 60 символов')
     description = models.TextField(verbose_name='Описание')
     status = models.BooleanField(verbose_name='Опубликован', default=True)
 
@@ -154,7 +142,7 @@ class Feedback(DateStamp):
 
 class About(DateStamp):
     """О нас"""
-    name = models.CharField(verbose_name='Название', max_length=50)
+    name = models.CharField(verbose_name='Название', max_length=100, help_text='Максимально 100 символов')
     description = models.TextField(verbose_name='Описание')
     numbers = models.IntegerField(verbose_name='Порядковый номер', validators=[MinValueValidator(1), MaxValueValidator(10)])
 
