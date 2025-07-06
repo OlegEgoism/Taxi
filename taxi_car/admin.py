@@ -1,14 +1,16 @@
 from django.contrib import admin
 from django.utils.safestring import mark_safe
 
-from taxi_car.models import Address, Feedback, About, Personnel, CarBrand, Car, Reviews, Conditions, Servicing, Spares, ShopCar, QuestionsAnswers
+from taxi_car.models import Address, Feedback, About, CarBrand, Car, Reviews, Conditions, Servicing, Spares, ShopCar, QuestionsAnswers
 
 
 @admin.register(Address)
 class AddressAdmin(admin.ModelAdmin):
-    """Адрес"""
-    fields = 'preview_avatar', 'photo', 'slogan', 'name', 'address', 'time_work', 'phone_mtc', 'phone_a1', 'phone_life', 'maps', 'telegram', 'viber', 'whatsapp', 'instagram', 'created_year_work', 'count_car', 'rating_start', 'rating_end', 'created', 'updated'
-    list_display = 'preview_avatar', 'slogan', 'name', 'address', 'time_work', 'phone_mtc', 'phone_a1', 'phone_life', 'created', 'updated'
+    """Основные данные"""
+    fields = ('preview_avatar', 'photo', 'slogan', 'why_us_description', 'name', 'address', 'time_work', 'phone_mtc',
+              'phone_a1', 'phone_life', 'maps', 'telegram', 'viber', 'whatsapp', 'instagram', 'created_year_work',
+              'count_car', 'rating_start', 'rating_end', 'telegram_bot_token', 'telegram_chat_id', 'created', 'updated')
+    list_display = 'name', 'address', 'time_work', 'phone_mtc', 'phone_a1', 'phone_life', 'created', 'updated'
     readonly_fields = 'preview_avatar', 'created', 'updated'
 
     def has_add_permission(self, request):
@@ -75,6 +77,12 @@ class ConditionsAdmin(admin.ModelAdmin):
     date_hierarchy = 'created'
     list_per_page = 20
 
+    def get_form(self, request, obj=None, **kwargs):
+        form = super().get_form(request, obj, **kwargs)
+        if 'info' in form.base_fields:
+            form.base_fields['info'].widget.attrs['style'] = 'width: 40%;'
+        return form
+
     def preview_avatar(self, obj):
         if obj.photo:
             return mark_safe(f'<img src="{obj.photo.url}" width="60" height="60"/>')
@@ -114,25 +122,6 @@ class AboutAdmin(admin.ModelAdmin):
     date_hierarchy = 'created'
     ordering = ['numbers']
     list_per_page = 20
-
-
-@admin.register(Personnel)
-class PersonnelAdmin(admin.ModelAdmin):
-    """Персонал"""
-    fields = 'preview_avatar', 'photo', 'fio', 'position', 'status', 'created', 'updated'
-    list_display = 'preview_avatar', 'fio', 'position', 'status', 'created', 'updated'
-    list_editable = 'status',
-    readonly_fields = 'preview_avatar', 'created', 'updated',
-    date_hierarchy = 'created'
-    list_per_page = 20
-
-    def preview_avatar(self, obj):
-        if obj.photo:
-            return mark_safe(f'<img src="{obj.photo.url}" width="60" height="60"/>')
-        else:
-            return 'Нет фотографии'
-
-    preview_avatar.short_description = 'Фото'
 
 
 class CarInline(admin.TabularInline):

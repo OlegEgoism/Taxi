@@ -13,13 +13,13 @@
 
 
     <!-- Car Start -->
-    <div class="container-xxl service py-5">
+    <div class="container-xxl service py-2">
         <div class="container">
             <div class="row g-4 wow fadeInUp" data-wow-delay="0.3s">
                 <div class="col-lg-4">
                     <div class="nav w-100 nav-pills me-6" id="car-tabs" role="tablist">
                         {% for shop_car in shop_cars %}
-                            <button class="nav-link w-100 d-flex align-items-center text-start p-4 mb-0 {% if forloop.first %}active{% endif %}" data-bs-toggle="pill" data-bs-target="#tab-pane-{{ car.id }}" type="button" role="tab">
+                            <button class="nav-link w-100 d-flex align-items-center text-start p-4 mb-0 {% if forloop.first %}active{% endif %}" data-bs-toggle="pill" data-bs-target="#tab-pane-{{ shop_car.id }}" type="button" role="tab">
                                 <i class="fa fa-car fa-2x me-3"></i>
                                 <h4 class="m-0">{{ shop_car.car_brand.name }} {{ shop_car.name }}</h4>
                             </button>
@@ -31,25 +31,20 @@
                         {% for shop_car in shop_cars %}
                             <div class="tab-pane fade {% if forloop.first %}show active{% endif %}" id="tab-pane-{{ shop_car.id }}" role="tabpanel">
                                 <div class="row g-4">
-                                    <div class="col-md-6" style="min-height: 350px;">
-                                        <div class="position-relative h-100">
-                                            <img class="position-absolute img-fluid w-100 h-100"
-                                                 src="{{ shop_car.photo.url }}"
-                                                 style="object-fit: cover;" alt="{{ shop_car }}">
-                                            <a href="#" data-bs-toggle="modal" data-bs-target="#carImageModal"
-                                               data-img-src="{{ shop_car.photo.url }}">
-                                                <img class="position-absolute img-fluid w-100 h-100"
-                                                     src="{{ shop_car.photo.url }}"
-                                                     style="object-fit: cover; cursor: zoom-in;"
-                                                     alt="{{ shop_car }}">
-                                            </a>
-                                        </div>
+                                    <div class="col-md-6 text-center">
+                                        <a href="#" data-bs-toggle="modal" data-bs-target="#carImageModal"
+                                           data-img-src="{{ shop_car.photo.url }}">
+                                            <img src="{{ shop_car.photo.url }}"
+                                                 class="img-fluid rounded-3 shadow"
+                                                 style="max-width: 100%; height: auto; cursor: zoom-in;"
+                                                 alt="{{ car }}">
+                                        </a>
                                     </div>
-                                    <div class="col-md-6">
+                                    <div class="col-md-12">
                                         <h3 class="mb-3">{{ shop_car.car_brand.name }} {{ shop_car.name }}</h3>
                                         <p><i class="fa fa-check text-success me-3"></i>Цена: <span style="font-weight:bold; color:rgb(0,0,0);">{{ shop_car.price }} у.е.</span></p>
                                         <p><i class="fa fa-check text-success me-3"></i>Описание: <span style="font-weight:bold; color:rgb(0,0,0);">{{ shop_car.description }}</span></p>
-                                        <a href="{% url 'contact' %}" class="btn btn-primary py-3 px-5 mt-3">Подать заявку<i class="fa fa-arrow-right ms-3"></i></a>
+                                        <a href="{% url 'contact' %}" class="btn btn-primary py-2 px-5 mt-3">Заказать автомобиль<i class="fa fa-arrow-right ms-3"></i></a>
                                     </div>
                                 </div>
                             </div>
@@ -60,6 +55,9 @@
         </div>
     </div>
     <!-- Car End -->
+
+
+
 
 
     <!-- Modal for enlarged car image Start-->

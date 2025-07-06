@@ -13,9 +13,10 @@ class DateStamp(models.Model):
 
 
 class Address(DateStamp):
-    """Адрес"""
+    """Основные данные"""
     photo = models.ImageField(verbose_name='О нас (Фото)', upload_to='about/')
-    slogan = models.CharField(verbose_name='О нас (Лозунг организации)', blank=True, null=True)
+    slogan = models.TextField(verbose_name='О нас (Описание)')
+    why_us_description = models.TextField(verbose_name='Почему мы (Описание)')
     name = models.CharField(verbose_name='Название организации')
     address = models.CharField(verbose_name='Адрес', max_length=100)
     time_work = models.CharField(verbose_name='Время работы', max_length=100, blank=True, null=True)
@@ -29,15 +30,17 @@ class Address(DateStamp):
     instagram = models.URLField(verbose_name='Instagram', blank=True, null=True)
     created_year_work = models.DateField(verbose_name='Дата начала работы компании')
     count_car = models.IntegerField(verbose_name='Автомобилей в таксопарке')
-    rating_start = models.DecimalField(verbose_name='Средний рейтинг начальный', decimal_places=2, max_digits=3, validators=[MinValueValidator(1), MaxValueValidator(4.5)], help_text='Минимальное начальное значение с 1 до 4,5', default=4.5)
-    rating_end = models.DecimalField(verbose_name='Средний рейтинг конечный', decimal_places=2, max_digits=3, validators=[MinValueValidator(4), MaxValueValidator(5)], help_text='Минимальное конечное значение с 4 до 5', default=4.8)
+    rating_start = models.DecimalField(verbose_name='Средний рейтинг начальный', decimal_places=2, max_digits=3, validators=[MinValueValidator(1), MaxValueValidator(4.7)], help_text='Минимальное начальное значение с 1 до 4,7', default=4.7)
+    rating_end = models.DecimalField(verbose_name='Средний рейтинг конечный', decimal_places=2, max_digits=3, validators=[MinValueValidator(4), MaxValueValidator(5)], help_text='Минимальное конечное значение с 4 до 5', default=5)
+    telegram_bot_token = models.CharField(verbose_name='Токен бота телеграм', max_length=100, help_text='Данные из @BotFather', blank=True, null=True)
+    telegram_chat_id = models.CharField(verbose_name='ID чата телеграм', max_length=100, help_text='Данные из @userinfobot', blank=True, null=True)
 
     def __str__(self):
         return f"{self.address} {self.time_work}"
 
     class Meta:
-        verbose_name = 'Адрес'
-        verbose_name_plural = 'Адрес'
+        verbose_name = 'Основные данные'
+        verbose_name_plural = 'Основные данные'
 
 
 class Servicing(DateStamp):
@@ -92,8 +95,8 @@ class QuestionsAnswers(DateStamp):
 class Conditions(DateStamp):
     """Банер"""
     photo = models.ImageField(verbose_name='Фотография', upload_to='сonditions/', help_text='Фото формата 4:3')
-    info = models.CharField(verbose_name='Название', max_length=50)
-    description = models.CharField(verbose_name='Описание', max_length=250)
+    info = models.CharField(verbose_name='Название', max_length=40, help_text='Максимально 40 символов')
+    description = models.TextField(verbose_name='Описание')
     status = models.BooleanField(verbose_name='Опубликован', default=True)
 
     def __str__(self):
@@ -149,39 +152,6 @@ class About(DateStamp):
     class Meta:
         verbose_name = 'О нас'
         verbose_name_plural = 'О нас'
-
-
-class Personnel(DateStamp):
-    """Сотрудники"""
-    photo = models.ImageField(verbose_name='Фотография', upload_to='photo/', help_text='Фото формата 4:3')
-    fio = models.CharField(verbose_name='ФИО', max_length=50)
-    position = models.CharField(verbose_name='Должность', max_length=50)
-    status = models.BooleanField(verbose_name='Опубликован', default=True)
-
-    def __str__(self):
-        return f"{self.fio} - {self.position}"
-
-    def save(self, *args, **kwargs):
-        """Сохранение фотографии формата 16:9"""
-        super().save(*args, **kwargs)
-        if self.photo:
-            img = Image.open(self.photo.path)
-            width, height = img.size
-            target_ratio = 4 / 3
-            current_ratio = width / height
-            if current_ratio > target_ratio:
-                new_width = int(height * target_ratio)
-                left = (width - new_width) // 2
-                img_cropped = img.crop((left, 0, left + new_width, height))
-            else:
-                new_height = int(width / target_ratio)
-                top = (height - new_height) // 2
-                img_cropped = img.crop((0, top, width, top + new_height))
-            img_cropped.save(self.photo.path)
-
-    class Meta:
-        verbose_name = 'Сотрудник'
-        verbose_name_plural = 'Сотрудники'
 
 
 class CarBrand(DateStamp):

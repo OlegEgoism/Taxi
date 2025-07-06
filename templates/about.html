@@ -1,6 +1,8 @@
 {% extends 'base.html' %}
 
 {% block content %}
+
+
     <!-- Page Header Start -->
     <div class="container-fluid page-header mb-5 p-0" style="background-image: url(media/img/carousel-bg-4.jpg);">
         <div class="container-fluid page-header-inner py-5">
@@ -58,8 +60,7 @@
                     </div>
                 </div>
                 <div class="text-center mt-4">
-                    <a href="{% url 'about' %}" class="btn btn-primary py-3 px-5 mt-3"> Узнать о нас <i class="fa fa-arrow-right ms-3"></i> </a>
-                    <a href="{% url 'contact' %}" class="btn btn-primary py-3 px-5 mt-3"> Подать заявку <i class="fa fa-arrow-right ms-3"></i> </a>
+                    <a href="{% url 'contact' %}" class="btn btn-primary py-2 px-5 mt-3">Подать заявку<i class="fa fa-arrow-right ms-3"></i></a>
                 </div>
             </div>
         </div>
@@ -84,7 +85,7 @@
                                             data-bs-target="#collapse{{ forloop.counter }}"
                                             aria-expanded="{% if forloop.first %}true{% else %}false{% endif %}"
                                             aria-controls="collapse{{ forloop.counter }}">
-                                        {{ que_ans.questions }}
+                                        <strong>{{ que_ans.questions }}</strong>
                                     </button>
                                 </h2>
                                 <div id="collapse{{ forloop.counter }}"
@@ -107,28 +108,4 @@
     <!-- QuestionsAnswers End -->
 
 
-    <!-- Team Start -->
-    <div class="container-xxl py-5">
-        <div class="container">
-            <div class="text-center wow fadeInUp" data-wow-delay="0.1s">
-                <h1 class="mb-4">СОТРУДНИКИ</h1>
-            </div>
-            <div class="scrolling-wrapper" style="overflow-x: auto; white-space: nowrap; padding-bottom: 20px;">
-                {% for member in personnel %}
-                    <div class="team-item" style="display: inline-block; width: 300px; margin-right: 15px; vertical-align: top; white-space: normal;">
-                        <div class="position-relative overflow-hidden">
-                            <img class="img-fluid" src="{{ member.photo.url }}" alt="{{ member.fio }}" style="width: 100%; height: auto;">
-                        </div>
-                        <div class="bg-light text-center p-4">
-                            <h5 class="fw-bold mb-0">{{ member.position }}</h5>
-                            <small>{{ member.fio }}</small>
-                        </div>
-                    </div>
-                {% empty %}
-                    <p class="text-center w-100">Нет информации.</p>
-                {% endfor %}
-            </div>
-        </div>
-    </div>
-    <!-- Team End -->
 {% endblock %}

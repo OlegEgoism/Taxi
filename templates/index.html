@@ -1,6 +1,8 @@
 {% extends 'base.html' %}
 
 {% block content %}
+    
+    
     <!-- Carousel Start -->
     <div class="container-fluid p-0 mb-5">
         <div id="header-carousel" class="carousel slide" data-bs-ride="carousel">
@@ -16,17 +18,15 @@
                                 <div class="row align-items-center justify-content-center justify-content-lg-start">
                                     <div class="col-10 col-lg-7 text-center text-lg-start">
                                         <h1 class="display-3 text-white mb-4 pb-3 animated slideInDown">
-                                            {{ condition.info }}
-                                            <p style="color: #ffffff; font-size: 24px">
+                                            <p style="color: #ffffff; font-size: 56px">
+                                                {{ condition.info }}
+                                            </p>
+                                            <p style="color: #ffffff; font-size: 20px">
                                                 {{ condition.description }}
                                             </p>
                                         </h1>
-                                        <a href="{% url 'about' %}" class="btn btn-primary py-3 px-5 animated slideInDown">
-                                            Узнать о нас<i class="fa fa-arrow-right ms-3"></i>
-                                        </a>
-                                        <a href="{% url 'contact' %}" class="btn btn-primary py-3 px-5 animated slideInDown">
-                                            Подать заявку<i class="fa fa-arrow-right ms-3"></i>
-                                        </a>
+                                        <a href="{% url 'about' %}" class="btn btn-primary py-2 px-5 animated slideInDown">Узнать больше<i class="fa fa-arrow-right ms-3"></i></a>
+                                        <a href="{% url 'contact' %}" class="btn btn-primary py-2 px-5 animated slideInDown">Подать заявку<i class="fa fa-arrow-right ms-3"></i></a>
                                     </div>
                                     <div class="col-lg-5 d-none d-lg-flex animated zoomIn">
                                         <img class="img-fluid" src="{{ condition.photo.url }}" alt="">
@@ -53,36 +53,14 @@
 
 
     <!-- Service Start -->
-    <div class="container-xxl py-5">
+    <div class="container-xxl py-0">
         <div class="container">
             <div class="row g-4">
                 <div class="text-center">
                     <h1 class="mb-0">ПОЧЕМУ МЫ</h1>
                 </div>
-                <div class="container">
-                    <div class="row g-4">
-                        <div class="col-md-6 col-lg-3 text-center wow fadeIn" data-wow-delay="0.1s">
-                            <i class="fa fa-check fa-2x mb-3"></i>
-                            <h2 class="mb-2" data-toggl`e="counter-up">{{ years_work }}</h2>
-                            <h5 class="mb-0">{{ years_word }} опыта</h5>
-                        </div>
-                        <div class="col-md-6 col-lg-3 text-center wow fadeIn" data-wow-delay="0.7s">
-                            <i class="fa fa-car fa-2x mb-3"></i>
-                            <h2 class="mb-2" data-toggle="counter-up">{{ address.count_car }}</h2>
-                            <h5 class="mb-0">автомобилей в таксопарке</h5>
-                        </div>
-                        <div class="col-md-6 col-lg-3 text-center wow fadeIn" data-wow-delay="0.5s">
-                            <i class="fa fa-users fa-2x mb-3"></i>
-                            <h2 class="mb-2" data-toggle="counter-up">{{ passenger_count }}</h2>
-                            <h5 class="mb-0">перевезенных пассажиров</h5>
-                        </div>
-                        <div class="col-md-6 col-lg-3 text-center wow fadeIn" data-wow-delay="0.3s">
-                            <i class="fa fa-users-cog fa-2x mb-3"></i>
-                            <h2 class="mb-2" data-toggle="counter-up">{{ random_rating }}⭐</h2>
-                            <h5 class="mb-0">средний рейтинг</h5>
-                        </div>
-                    </div>
-                    <br>
+                <div class="text-center">
+                    <h1 style="font-size: 20px">{{ address.why_us_description }}</h1>
                 </div>
                 {% for service in servicing %}
                     <div class="col-lg-4 col-md-6 wow fadeInUp" data-wow-delay="{{ forloop.counter|floatformat:1|add:"0.1" }}s">
@@ -90,7 +68,7 @@
                             <img src="{{ service.photo.url }}"
                                  alt="{{ service.name }}"
                                  width="50" height="50"
-                                 style="object-fit:cover; position:absolute; top:20px; left:20px;">
+                                 style="object-fit:cover; position:absolute; top:20px; left:20px; border-radius: 50%">
                             <div style="margin-left:70px;">
                                 <h5 class="mb-3" style="margin-top:0;">{{ service.name }}</h5>
                                 <p>{{ service.description }}</p>
@@ -101,79 +79,41 @@
             </div>
         </div>
         <div class="text-center mt-4">
-            <a href="{% url 'about' %}" class="btn btn-primary py-3 px-5 mt-3"> Узнать о нас <i class="fa fa-arrow-right ms-3"></i> </a>
-            <a href="{% url 'contact' %}" class="btn btn-primary py-3 px-5 mt-3"> Подать заявку <i class="fa fa-arrow-right ms-3"></i> </a>
+            <a href="{% url 'about' %}" class="btn btn-primary py-2 px-5 animated slideInDown">Узнать больше<i class="fa fa-arrow-right ms-3"></i></a>
+            <a href="{% url 'contact' %}" class="btn btn-primary py-2 px-5 animated slideInDown">Подать заявку<i class="fa fa-arrow-right ms-3"></i></a>
         </div>
     </div>
     <!-- Service End -->
 
 
-    {#    <!-- QuestionsAnswers Start -->#}
-    {#    <div class="container-xxl py-8">#}
-    {#        <div class="container">#}
-    {#            <div class="row g-4">#}
-    {#                <div class="text-center">#}
-    {#                    <h1 class="mb-0">ВОПРОСЫ ОТВЕТЫ</h1>#}
-    {#                </div>#}
-    {#                <div class="col-lg-12 col-md-12 col-12 mx-auto">#}
-    {#                    <div class="accordion mb-5" id="questionsAccordion">#}
-    {#                        {% for que_ans in questions_answers %}#}
-    {#                            <div class="accordion-item">#}
-    {#                                <h2 class="accordion-header" id="heading{{ forloop.counter }}">#}
-    {#                                    <button class="accordion-button {% if not forloop.first %}collapsed{% endif %}" type="button"#}
-    {#                                            data-bs-toggle="collapse"#}
-    {#                                            data-bs-target="#collapse{{ forloop.counter }}"#}
-    {#                                            aria-expanded="{% if forloop.first %}true{% else %}false{% endif %}"#}
-    {#                                            aria-controls="collapse{{ forloop.counter }}">#}
-    {#                                        {{ que_ans.questions }}#}
-    {#                                    </button>#}
-    {#                                </h2>#}
-    {#                                <div id="collapse{{ forloop.counter }}"#}
-    {#                                     class="accordion-collapse collapse {% if forloop.first %}show{% endif %}"#}
-    {#                                     aria-labelledby="heading{{ forloop.counter }}"#}
-    {#                                     data-bs-parent="#questionsAccordion">#}
-    {#                                    <div class="accordion-body">#}
-    {#                                        {{ que_ans.answers }}#}
-    {#                                    </div>#}
-    {#                                </div>#}
-    {#                            </div>#}
-    {#                        {% endfor %}#}
-    {#                    </div>#}
-    {#                </div>#}
-    {#            </div>#}
-    {#        </div>#}
-    {#    </div>#}
-    {#    <!-- QuestionsAnswers End -->#}
-
-
-    {#    <!-- Fact Start -->#}
-    {#    <div class="container-fluid fact bg-dark my-5 py-5">#}
-    {#        <div class="container">#}
-    {#            <div class="row g-4">#}
-    {#                <div class="col-md-6 col-lg-3 text-center wow fadeIn" data-wow-delay="0.1s">#}
-    {#                    <i class="fa fa-check fa-2x text-white mb-3"></i>#}
-    {#                    <h2 class="text-white mb-2" data-toggle="counter-up">{{ years_work }}</h2>#}
-    {#                    <h5 class="text-white mb-0">{{ years_word }} опыта</h5>#}
-    {#                </div>#}
-    {#                <div class="col-md-6 col-lg-3 text-center wow fadeIn" data-wow-delay="0.7s">#}
-    {#                    <i class="fa fa-car fa-2x text-white mb-3"></i>#}
-    {#                    <h2 class="text-white mb-2" data-toggle="counter-up">{{ address.count_car }}</h2>#}
-    {#                    <h5 class="text-white mb-0">автомобилей в таксопарке</h5>#}
-    {#                </div>#}
-    {#                <div class="col-md-6 col-lg-3 text-center wow fadeIn" data-wow-delay="0.5s">#}
-    {#                    <i class="fa fa-users fa-2x text-white mb-3"></i>#}
-    {#                    <h2 class="text-white mb-2" data-toggle="counter-up">{{ passenger_count }}</h2>#}
-    {#                    <h5 class="text-white mb-0">перевезенных пассажиров</h5>#}
-    {#                </div>#}
-    {#                <div class="col-md-6 col-lg-3 text-center wow fadeIn" data-wow-delay="0.3s">#}
-    {#                    <i class="fa fa-users-cog fa-2x text-white mb-3"></i>#}
-    {#                    <h2 class="text-white mb-2" data-toggle="counter-up">{{ random_rating }}⭐</h2>#}
-    {#                    <h5 class="text-white mb-0">средний рейтинг</h5>#}
-    {#                </div>#}
-    {#            </div>#}
-    {#        </div>#}
-    {#    </div>#}
-    {#    <!-- Fact End -->#}
+    <!-- Fact Start -->
+    <div class="container-fluid fact bg-dark my-5 py-5">
+        <div class="container">
+            <div class="row g-">
+                <div class="col-md-6 col-lg-3 text-center wow fadeIn" data-wow-delay="0.1s">
+                    <i class="fa fa-check fa-2x text-white mb-3"></i>
+                    <h2 class="text-white mb-2" data-toggle="counter-up">{{ years_work }}</h2>
+                    <h5 class="text-white mb-0">{{ years_word }} опыта</h5>
+                </div>
+                <div class="col-md-6 col-lg-3 text-center wow fadeIn" data-wow-delay="0.7s">
+                    <i class="fa fa-car fa-2x text-white mb-3"></i>
+                    <h2 class="text-white mb-2" data-toggle="counter-up">{{ address.count_car }}</h2>
+                    <h5 class="text-white mb-0">автомобилей в таксопарке</h5>
+                </div>
+                <div class="col-md-6 col-lg-3 text-center wow fadeIn" data-wow-delay="0.5s">
+                    <i class="fa fa-users fa-2x text-white mb-3"></i>
+                    <h2 class="text-white mb-2" data-toggle="counter-up">{{ passenger_count }}</h2>
+                    <h5 class="text-white mb-0">перевезенных пассажиров</h5>
+                </div>
+                <div class="col-md-6 col-lg-3 text-center wow fadeIn" data-wow-delay="0.3s">
+                    <i class="fa fa-users-cog fa-2x text-white mb-3"></i>
+                    <h2 class="text-white mb-2" data-toggle="counter-up">{{ random_rating }}⭐</h2>
+                    <h5 class="text-white mb-0">средний рейтинг</h5>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Fact End -->
 
 
     <!-- Testimonial Start -->

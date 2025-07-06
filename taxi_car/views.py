@@ -1,10 +1,10 @@
-from taxi_car.models import Address, About, Personnel, Car, Reviews, Conditions, Servicing, Spares, CarBrand, ShopCar, QuestionsAnswers
+from taxi_car.models import Address, About, Car, Reviews, Conditions, Servicing, Spares, CarBrand, ShopCar, QuestionsAnswers
 from .forms import FeedbackForm
 from django.shortcuts import render, redirect
 from django.contrib import messages
 from django.db.models import Q
 
-from .utils import message_to_telegram, bot_token, chat_id, get_random_rating, calculate_passengers, get_years_work, years_word
+from .utils import message_to_telegram, get_random_rating, calculate_passengers, get_years_work, years_word
 
 
 def contact(request):
@@ -14,6 +14,8 @@ def contact(request):
         form = FeedbackForm(request.POST)
         if form.is_valid():
             feedback = form.save()
+            bot_token = address.telegram_bot_token
+            chat_id = address.telegram_chat_id
             message_to_telegram(
                 feedback.name,
                 feedback.phone_email,
@@ -27,9 +29,8 @@ def contact(request):
         form = FeedbackForm()
     return render(request,
                   template_name='contact.html',
-                  context={'address': address,
-                           'form': form
-                           })
+                  context={'address': address, 'form': form})
+
 
 
 def home(request):
@@ -63,13 +64,11 @@ def about(request):
     address = Address.objects.first()
     about_info = About.objects.all()
     questions_answers = QuestionsAnswers.objects.filter(status=True).order_by('numbers')
-    personnel = Personnel.objects.filter(status=True)
     return render(request,
                   template_name='about.html',
                   context={'address': address,
                            'questions_answers': questions_answers,
                            'about_info': about_info,
-                           'personnel': personnel
                            })
 
 
