@@ -25,20 +25,22 @@
 
 <!-- Topbar Start -->
 <div class="container-fluid bg-dark text-light p-2">
+
+    <!-- Desktop версия -->
     <div class="row gx-0 d-none d-lg-flex">
         <div class="col-lg-7 px-6 text-start">
             <div class="h-100 d-inline-flex align-items-center py-3 me-4">
-                <small class="fa fa-map-marker-alt text-primary me-4"></small>
+                <small class="fa fa-map-marker-alt text-primary me-2"></small>
                 <small>
                     {% if address %}
                         {{ address.address }}
                     {% else %}
-                        Основные данные не указан
+                        Основные данные не указаны
                     {% endif %}
                 </small>
             </div>
             <div class="h-100 d-inline-flex align-items-center py-3 me-4">
-                <small class="far fa-clock text-primary me-1"></small>
+                <small class="far fa-clock text-primary me-2"></small>
                 <small>
                     {% if address %}
                         {{ address.time_work }}
@@ -48,7 +50,7 @@
                 </small>
             </div>
             <div class="h-100 d-inline-flex align-items-center py-3 me-4">
-                <small class="fa fa-phone-alt text-primary me-1"></small>
+                <small class="fa fa-phone-alt text-primary me-2"></small>
                 <small>
                     {% if address.phone_mtc %}
                         <img src="/media/social/mtc.png" alt="MTC" style="height:18px;vertical-align:middle;margin-left:6px;">
@@ -79,29 +81,103 @@
             <div class="h-100 d-flex align-items-center justify-content-end">
                 {% if address.instagram %}
                     <a class="btn btn-sm-square text-primary me-1" href="{{ address.instagram }}" target="_blank">
-                        <img class="social-icon" src="media/social/instagram.png" alt="Instagram">
+                        <img class="social-icon" src="/media/social/instagram.png" alt="Instagram">
                     </a>
                 {% endif %}
                 {% if address.telegram %}
                     <a class="btn btn-sm-square text-primary me-1" href="{{ address.telegram }}" target="_blank">
-                        <img class="social-icon" src="media/social/telegram.png" alt="Telegram">
+                        <img class="social-icon" src="/media/social/telegram.png" alt="Telegram">
                     </a>
                 {% endif %}
                 {% if address.viber %}
                     <a class="btn btn-sm-square text-primary me-1" href="{{ address.viber }}" target="_blank">
-                        <img class="social-icon" src="media/social/viber.png" alt="Viber">
+                        <img class="social-icon" src="/media/social/viber.png" alt="Viber">
                     </a>
                 {% endif %}
                 {% if address.whatsapp %}
                     <a class="btn btn-sm-square text-primary me-1" href="{{ address.whatsapp }}" target="_blank">
-                        <img class="social-icon" src="media/social/whatsapp.png" alt="Whatsapp">
+                        <img class="social-icon" src="/media/social/whatsapp.png" alt="Whatsapp">
                     </a>
                 {% endif %}
             </div>
         </div>
     </div>
+
+    <!-- Mobile версия -->
+    <div class="row gx-0 d-flex d-lg-none">
+        <div class="col-12 px-2 py-2">
+            <div class="d-flex flex-column gap-2 align-items-start">
+                <div class="d-flex align-items-center">
+                    <small class="fa fa-map-marker-alt text-primary me-2"></small>
+                    <small>
+                        {% if address %}
+                            {{ address.address }}
+                        {% else %}
+                            Основные данные не указаны
+                        {% endif %}
+                    </small>
+                </div>
+                <div class="d-flex align-items-center">
+                    <small class="far fa-clock text-primary me-2"></small>
+                    <small>
+                        {% if address %}
+                            {{ address.time_work }}
+                        {% else %}
+                            Время работы не указано
+                        {% endif %}
+                    </small>
+                </div>
+                <div class="d-flex align-items-center flex-wrap">
+                    <small class="fa fa-phone-alt text-primary me-2"></small>
+                    <small>
+                        {% if address.phone_mtc %}
+                            <img src="/media/social/mtc.png" alt="MTC" style="height:18px;vertical-align:middle;margin-left:6px;">
+                            <a href="tel:{{ address.phone_mtc|cut:' ' }}" class="text-white" style="text-decoration: none;">
+                                {{ address.phone_mtc }}
+                            </a>
+                        {% endif %}
+                        {% if address.phone_a1 %}
+                            <img src="/media/social/a1.png" alt="A1" style="height:18px;vertical-align:middle;margin-left:6px;">
+                            <a href="tel:{{ address.phone_a1|cut:' ' }}" class="text-white" style="text-decoration: none;">
+                                {{ address.phone_a1 }}
+                            </a>
+                        {% endif %}
+                        {% if address.phone_life %}
+                            <img src="/media/social/life.png" alt="Life" style="height:18px;vertical-align:middle;margin-left:6px;">
+                            <a href="tel:{{ address.phone_life|cut:' ' }}" class="text-white" style="text-decoration: none;">
+                                {{ address.phone_life }}
+                            </a>
+                        {% endif %}
+                    </small>
+                </div>
+                <div class="d-flex align-items-center mt-2 gap-2">
+                    {% if address.instagram %}
+                        <a class="btn btn-sm-square text-primary" href="{{ address.instagram }}" target="_blank">
+                            <img class="social-icon" src="/media/social/instagram.png" alt="Instagram" style="height:22px;">
+                        </a>
+                    {% endif %}
+                    {% if address.telegram %}
+                        <a class="btn btn-sm-square text-primary" href="{{ address.telegram }}" target="_blank">
+                            <img class="social-icon" src="/media/social/telegram.png" alt="Telegram" style="height:22px;">
+                        </a>
+                    {% endif %}
+                    {% if address.viber %}
+                        <a class="btn btn-sm-square text-primary" href="{{ address.viber }}" target="_blank">
+                            <img class="social-icon" src="/media/social/viber.png" alt="Viber" style="height:22px;">
+                        </a>
+                    {% endif %}
+                    {% if address.whatsapp %}
+                        <a class="btn btn-sm-square text-primary" href="{{ address.whatsapp }}" target="_blank">
+                            <img class="social-icon" src="/media/social/whatsapp.png" alt="Whatsapp" style="height:22px;">
+                        </a>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 <!-- Topbar End -->
+
 
 
 <!-- Navbar Start -->

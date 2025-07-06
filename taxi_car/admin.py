@@ -39,7 +39,7 @@ class ServicingAdmin(admin.ModelAdmin):
     list_display = 'preview_avatar', 'name', 'description', 'numbers', 'status', 'created', 'updated'
     readonly_fields = 'preview_avatar', 'created', 'updated'
     list_editable = 'status',
-    list_filter = 'status',
+    list_filter = 'status', 'created', 'updated'
     date_hierarchy = 'created'
     ordering = 'numbers',
     list_per_page = 20
@@ -119,6 +119,7 @@ class AboutAdmin(admin.ModelAdmin):
     fields = 'name', 'description', 'numbers', 'created', 'updated'
     list_display = 'name', 'description', 'numbers', 'created', 'updated'
     readonly_fields = 'created', 'updated',
+    list_filter = 'created', 'updated'
     date_hierarchy = 'created'
     ordering = 'numbers',
     list_per_page = 20
@@ -350,6 +351,7 @@ class ReviewsAdmin(admin.ModelAdmin):
     fields = 'preview_avatar', 'photo', 'name', 'message', 'status', 'created', 'updated'
     list_display = 'preview_avatar', 'name', 'message', 'status', 'created', 'updated'
     list_editable = 'status',
+    list_filter = 'status', 'created', 'updated'
     readonly_fields = 'preview_avatar', 'created', 'updated',
     date_hierarchy = 'created'
     list_per_page = 20

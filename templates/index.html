@@ -1,8 +1,8 @@
 {% extends 'base.html' %}
 
 {% block content %}
-    
-    
+
+
     <!-- Carousel Start -->
     <div class="container-fluid p-0 mb-5">
         <div id="header-carousel" class="carousel slide" data-bs-ride="carousel">
@@ -16,17 +16,23 @@
                         <div class="carousel-caption d-flex align-items-center">
                             <div class="container">
                                 <div class="row align-items-center justify-content-center justify-content-lg-start">
-                                    <div class="col-10 col-lg-7 text-center text-lg-start">
-                                        <h1 class="display-3 text-white mb-4 pb-3 animated slideInDown">
-                                            <p style="color: #ffffff; font-size: 56px">
+                                    <div class="col-11 col-lg-7 text-center text-lg-start">
+                                        <h1 class="display-3 text-white mb-1 pb-1 animated slideInDown">
+                                            <p style="color: #ffffff; font-size: 30px">
                                                 {{ condition.info }}
                                             </p>
-                                            <p style="color: #ffffff; font-size: 20px">
+                                            <p style="color: #ffffff; font-size: 18px">
                                                 {{ condition.description }}
                                             </p>
                                         </h1>
-                                        <a href="{% url 'about' %}" class="btn btn-primary py-2 px-5 animated slideInDown">Узнать больше<i class="fa fa-arrow-right ms-3"></i></a>
-                                        <a href="{% url 'contact' %}" class="btn btn-primary py-2 px-5 animated slideInDown">Подать заявку<i class="fa fa-arrow-right ms-3"></i></a>
+                                        <div class="d-flex flex-column flex-md-row gap-1 align-items-center justify-content-center mt-1 mb-1">
+                                            <a href="{% url 'about' %}" class="btn btn-primary py-2 px-5 animated slideInDown mb-1 mb-md-0 w-100 w-md-auto">
+                                                Узнать больше<i class="fa fa-arrow-right ms-1"></i>
+                                            </a>
+                                            <a href="{% url 'contact' %}" class="btn btn-primary py-2 px-5 animated slideInDown mt-1 mt-md-0 w-100 w-md-auto">
+                                                Подать заявку<i class="fa fa-arrow-right ms-1"></i>
+                                            </a>
+                                        </div>
                                     </div>
                                     <div class="col-lg-5 d-none d-lg-flex animated zoomIn">
                                         <img class="img-fluid" src="{{ condition.photo.url }}" alt="">
@@ -78,9 +84,13 @@
                 {% endfor %}
             </div>
         </div>
-        <div class="text-center mt-4">
-            <a href="{% url 'about' %}" class="btn btn-primary py-2 px-5 animated slideInDown">Узнать больше<i class="fa fa-arrow-right ms-3"></i></a>
-            <a href="{% url 'contact' %}" class="btn btn-primary py-2 px-5 animated slideInDown">Подать заявку<i class="fa fa-arrow-right ms-3"></i></a>
+        <div class="d-flex flex-column flex-md-row gap-1 align-items-center justify-content-center mt-3 mb-3">
+            <a href="{% url 'about' %}" class="btn btn-primary py-2 px-5 animated slideInDown mb-1 mb-md-0 w-100 w-md-auto">
+                Узнать больше<i class="fa fa-arrow-right ms-3"></i>
+            </a>
+            <a href="{% url 'contact' %}" class="btn btn-primary py-2 px-5 animated slideInDown mt-1 mt-md-0 w-100 w-md-auto">
+                Подать заявку<i class="fa fa-arrow-right ms-3"></i>
+            </a>
         </div>
     </div>
     <!-- Service End -->
