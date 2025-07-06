@@ -31,14 +31,37 @@
                         {% for shop_car in shop_cars %}
                             <div class="tab-pane fade {% if forloop.first %}show active{% endif %}" id="tab-pane-{{ shop_car.id }}" role="tabpanel">
                                 <div class="row g-4">
-                                    <div class="col-md-6 text-center">
-                                        <a href="#" data-bs-toggle="modal" data-bs-target="#carImageModal"
-                                           data-img-src="{{ shop_car.photo.url }}">
-                                            <img src="{{ shop_car.photo.url }}"
+                                    <div class="col-md-6 text-center" style="min-height: 350px;">
+                                        {% if shop_car.shops.exists %}
+                                            <div id="shopCarCarousel{{ shop_car.id }}" class="carousel slide" data-bs-ride="carousel">
+                                                <div class="carousel-inner rounded-3 shadow">
+                                                    {% for photo in shop_car.shops.all %}
+                                                        <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                                                            <img src="{{ photo.photo.url }}"
+                                                                 class="img-fluid shopcar-image-fullscreen"
+                                                                 style="width: 100%; height: 320px; object-fit: contain; cursor: zoom-in;"
+                                                                 alt="{{ shop_car }}"
+                                                                 data-img-src="{{ photo.photo.url }}">
+                                                        </div>
+                                                    {% endfor %}
+                                                </div>
+                                                {% if shop_car.shops.count > 1 %}
+                                                    <button class="carousel-control-prev" type="button" data-bs-target="#shopCarCarousel{{ shop_car.id }}" data-bs-slide="prev">
+                                                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                                        <span class="visually-hidden">Previous</span>
+                                                    </button>
+                                                    <button class="carousel-control-next" type="button" data-bs-target="#shopCarCarousel{{ shop_car.id }}" data-bs-slide="next">
+                                                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                                        <span class="visually-hidden">Next</span>
+                                                    </button>
+                                                {% endif %}
+                                            </div>
+                                        {% else %}
+                                            <img src="/static/placeholder.png"
                                                  class="img-fluid rounded-3 shadow"
-                                                 style="max-width: 100%; height: auto; cursor: zoom-in;"
-                                                 alt="{{ car }}">
-                                        </a>
+                                                 style="width: 100%; height: 320px; object-fit: contain;"
+                                                 alt="Нет фото">
+                                        {% endif %}
                                     </div>
                                     <div class="col-md-12">
                                         <h3 class="mb-3">{{ shop_car.car_brand.name }} {{ shop_car.name }}</h3>
@@ -73,21 +96,30 @@
     <!-- Modal for enlarged car image End -->
 
 
-    <script>
-        document.addEventListener('DOMContentLoaded', function () {
-            var modal = document.getElementById('carImageModal');
-            var modalImg = document.getElementById('modalCarImage');
-            var carImages = document.querySelectorAll('[data-bs-target="#carImageModal"]');
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        var modal = document.getElementById('carImageModal');
+        var modalImg = document.getElementById('modalCarImage');
+        var images = document.querySelectorAll('.car-image-fullscreen, .spare-image-fullscreen, .shopcar-image-fullscreen');
 
-            carImages.forEach(function (el) {
-                el.addEventListener('click', function () {
-                    var src = this.getAttribute('data-img-src');
-                    modalImg.setAttribute('src', src);
-                });
-            });
-            modal.addEventListener('hidden.bs.modal', function () {
-                modalImg.setAttribute('src', '');
+        images.forEach(function (el) {
+            el.addEventListener('click', function () {
+                var src = this.getAttribute('data-img-src');
+                modalImg.setAttribute('src', src);
+                var bsModal = new bootstrap.Modal(modal);
+                bsModal.show();
             });
         });
-    </script>
+
+        modal.addEventListener('hidden.bs.modal', function () {
+            modalImg.setAttribute('src', '');
+        });
+        modalImg.addEventListener('click', function () {
+            var bsModal = bootstrap.Modal.getInstance(modal);
+            if (bsModal) bsModal.hide();
+        });
+    });
+</script>
+
+    
 {% endblock %}

@@ -46,7 +46,7 @@ class Address(DateStamp):
 class Servicing(DateStamp):
     """Почему мы"""
     photo = models.ImageField(verbose_name='О нас (Фото)', upload_to='why_us/')
-    name = models.CharField(verbose_name='Название', max_length=50)
+    name = models.CharField(verbose_name='Название', max_length=50, help_text='Максимально 50 символов')
     description = models.TextField(verbose_name='Описание')
     numbers = models.IntegerField(verbose_name='Порядковый номер', validators=[MinValueValidator(1), MaxValueValidator(100)], unique=True)
     status = models.BooleanField(verbose_name='Опубликован', default=True)
@@ -142,9 +142,9 @@ class Feedback(DateStamp):
 
 class About(DateStamp):
     """О нас"""
-    numbers = models.IntegerField(verbose_name='Порядковый номер', validators=[MinValueValidator(1), MaxValueValidator(10)])
     name = models.CharField(verbose_name='Название', max_length=50)
     description = models.TextField(verbose_name='Описание')
+    numbers = models.IntegerField(verbose_name='Порядковый номер', validators=[MinValueValidator(1), MaxValueValidator(10)])
 
     def __str__(self):
         return f"{self.numbers} - {self.description}"
@@ -162,50 +162,56 @@ class CarBrand(DateStamp):
         return self.name
 
     class Meta:
-        verbose_name = 'Автомобиль и запчасть'
-        verbose_name_plural = 'Автомобили и запчасти'
+        verbose_name = '- Автомобили и запчасти'
+        verbose_name_plural = '- Автомобили и запчасти'
+
+
+class PhotoCar(models.Model):
+    """Фото таксопарка"""
+    car = models.ForeignKey('Car', on_delete=models.CASCADE, related_name='cars', verbose_name='Автомобиль')
+    photo = models.ImageField(verbose_name='Фото', upload_to='car/')
+
+    def __str__(self):
+        return f'Фото {self.car}'
+
+    class Meta:
+        verbose_name = 'Фото таксопарка'
+        verbose_name_plural = 'Фото таксопарка'
 
 
 class Car(DateStamp):
     """Таксопарк"""
-    photo = models.ImageField(verbose_name='Фотография', upload_to='car/', help_text='Фото формата 16:9')
     car_brand = models.ForeignKey(to=CarBrand, verbose_name='Бренд автомобиля', on_delete=models.CASCADE, related_name='car')
     name = models.CharField(verbose_name='Модель', max_length=100)
     year = models.IntegerField(verbose_name='Год выпуска', validators=[MinValueValidator(2000), MaxValueValidator(2050)])
-    power_reserve = models.CharField(verbose_name='Запас хода', max_length=10, blank=True, null=True)
+    power_reserve = models.IntegerField(verbose_name='Запас хода км.', blank=True, null=True)
     description = models.TextField(verbose_name='Описание')
     status = models.BooleanField(verbose_name='Опубликован', default=True)
 
     def __str__(self):
         return f'{self.car_brand} {self.name}'
 
-    def save(self, *args, **kwargs):
-        """Сохранение фотографии формата 16:9"""
-        super().save(*args, **kwargs)
-        if self.photo:
-            img = Image.open(self.photo.path)
-            width, height = img.size
-            target_ratio = 16 / 9
-            current_ratio = width / height
-            if current_ratio > target_ratio:
-                new_width = int(height * target_ratio)
-                left = (width - new_width) // 2
-                img_cropped = img.crop((left, 0, left + new_width, height))
-            else:
-                new_height = int(width / target_ratio)
-                top = (height - new_height) // 2
-                img_cropped = img.crop((0, top, width, top + new_height))
-            img_cropped.save(self.photo.path)
-
     class Meta:
         verbose_name = 'Таксопарк'
-        verbose_name_plural = 'Таксопарк'
+        verbose_name_plural = '2. Таксопарк'
+
+
+class PhotoSpares(models.Model):
+    """Фото запчастей"""
+    spare = models.ForeignKey('Spares', on_delete=models.CASCADE, related_name='spares', verbose_name='Запчасти')
+    photo = models.ImageField(verbose_name='Фото', upload_to='spare/')
+
+    def __str__(self):
+        return f'Фото {self.spare}'
+
+    class Meta:
+        verbose_name = 'Фото запчастей'
+        verbose_name_plural = 'Фото запчастей'
 
 
 class Spares(DateStamp):
     """Запчасти"""
-    photo = models.ImageField(verbose_name='Фотография', upload_to='car/', help_text='Фото формата 16:9')
-    car_brand = models.ForeignKey(to=CarBrand, verbose_name='Бренд автомобиля', on_delete=models.CASCADE, related_name='spares')
+    car_brand = models.ForeignKey(to=CarBrand, verbose_name='Бренд автомобиля', on_delete=models.CASCADE, related_name='spare')
     name = models.CharField(verbose_name='Название запчасти', max_length=100)
     price = models.DecimalField(verbose_name='Цена', decimal_places=2, max_digits=10, validators=[MinValueValidator(1), MaxValueValidator(50000)], blank=True, null=True)
     description = models.TextField(verbose_name='Описание')
@@ -215,33 +221,27 @@ class Spares(DateStamp):
     def __str__(self):
         return f'{self.car_brand} {self.name}'
 
-    def save(self, *args, **kwargs):
-        """Сохранение фотографии формата 16:9"""
-        super().save(*args, **kwargs)
-        if self.photo:
-            img = Image.open(self.photo.path)
-            width, height = img.size
-            target_ratio = 16 / 9
-            current_ratio = width / height
-            if current_ratio > target_ratio:
-                new_width = int(height * target_ratio)
-                left = (width - new_width) // 2
-                img_cropped = img.crop((left, 0, left + new_width, height))
-            else:
-                new_height = int(width / target_ratio)
-                top = (height - new_height) // 2
-                img_cropped = img.crop((0, top, width, top + new_height))
-            img_cropped.save(self.photo.path)
-
     class Meta:
         verbose_name = 'Запчасть'
-        verbose_name_plural = 'Запчасти'
+        verbose_name_plural = '3. Запчасти'
+
+
+class PhotoShopCar(models.Model):
+    """Фото авто из китая"""
+    shop = models.ForeignKey('ShopCar', on_delete=models.CASCADE, related_name='shops', verbose_name='Авто из китая')
+    photo = models.ImageField(verbose_name='Фото', upload_to='shop/')
+
+    def __str__(self):
+        return f'Фото {self.shop}'
+
+    class Meta:
+        verbose_name = 'Фото авто из китая'
+        verbose_name_plural = 'Фото авто из китая'
 
 
 class ShopCar(DateStamp):
     """Авто из китая"""
-    photo = models.ImageField(verbose_name='Фотография', upload_to='car/', help_text='Фото формата 16:9')
-    car_brand = models.ForeignKey(to=CarBrand, verbose_name='Бренд автомобиля', on_delete=models.CASCADE, related_name='shop_car')
+    car_brand = models.ForeignKey(to=CarBrand, verbose_name='Бренд автомобиля', on_delete=models.CASCADE, related_name='shop')
     name = models.CharField(verbose_name='Название модели', max_length=100)
     price = models.DecimalField(verbose_name='Цена', decimal_places=2, max_digits=10, validators=[MinValueValidator(1), MaxValueValidator(50000)], blank=True, null=True)
     description = models.TextField(verbose_name='Описание')
@@ -250,27 +250,9 @@ class ShopCar(DateStamp):
     def __str__(self):
         return f'{self.car_brand} {self.name}'
 
-    def save(self, *args, **kwargs):
-        """Сохранение фотографии формата 16:9"""
-        super().save(*args, **kwargs)
-        if self.photo:
-            img = Image.open(self.photo.path)
-            width, height = img.size
-            target_ratio = 16 / 9
-            current_ratio = width / height
-            if current_ratio > target_ratio:
-                new_width = int(height * target_ratio)
-                left = (width - new_width) // 2
-                img_cropped = img.crop((left, 0, left + new_width, height))
-            else:
-                new_height = int(width / target_ratio)
-                top = (height - new_height) // 2
-                img_cropped = img.crop((0, top, width, top + new_height))
-            img_cropped.save(self.photo.path)
-
     class Meta:
         verbose_name = 'Авто из китая'
-        verbose_name_plural = 'Авто из китая'
+        verbose_name_plural = '1. Авто из китая'
 
 
 class Reviews(DateStamp):
@@ -282,24 +264,6 @@ class Reviews(DateStamp):
 
     def __str__(self):
         return self.name
-
-    def save(self, *args, **kwargs):
-        """Сохранение фотографии формата 4:3"""
-        super().save(*args, **kwargs)
-        if self.photo:
-            img = Image.open(self.photo.path)
-            width, height = img.size
-            target_ratio = 4 / 3
-            current_ratio = width / height
-            if current_ratio > target_ratio:
-                new_width = int(height * target_ratio)
-                left = (width - new_width) // 2
-                img_cropped = img.crop((left, 0, left + new_width, height))
-            else:
-                new_height = int(width / target_ratio)
-                top = (height - new_height) // 2
-                img_cropped = img.crop((0, top, width, top + new_height))
-            img_cropped.save(self.photo.path)
 
     class Meta:
         verbose_name = 'Отзыв'

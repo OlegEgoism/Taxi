@@ -4,13 +4,6 @@ import random
 import time
 from datetime import date
 from datetime import datetime
-from dotenv import load_dotenv
-
-from taxi_car.models import Address
-
-# load_dotenv()
-# bot_token = os.getenv('TELEGRAM_BOT_TOKEN')
-# chat_id = os.getenv('TELEGRAM_CHAT_ID')
 
 
 def message_to_telegram(name, phone_email, message, bot_token, chat_id):

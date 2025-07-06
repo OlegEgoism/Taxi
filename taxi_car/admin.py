@@ -1,7 +1,7 @@
 from django.contrib import admin
 from django.utils.safestring import mark_safe
 
-from taxi_car.models import Address, Feedback, About, CarBrand, Car, Reviews, Conditions, Servicing, Spares, ShopCar, QuestionsAnswers
+from taxi_car.models import Address, Feedback, About, CarBrand, Car, Reviews, Conditions, Servicing, Spares, ShopCar, QuestionsAnswers, PhotoCar, PhotoSpares, PhotoShopCar
 
 
 @admin.register(Address)
@@ -95,10 +95,10 @@ class ConditionsAdmin(admin.ModelAdmin):
 @admin.register(Feedback)
 class FeedbackAdmin(admin.ModelAdmin):
     """Обратная связь"""
-    list_display = 'name', 'phone_email', 'message', 'published', 'created', 'updated'
+    list_display = 'name', 'phone_email', 'message', 'published', 'created',
     list_filter = 'published', 'created', 'updated'
     list_editable = 'published',
-    readonly_fields = 'name', 'phone_email', 'message', 'published', 'created', 'updated'
+    readonly_fields = 'name', 'phone_email', 'message', 'published', 'created',
     search_fields = 'name', 'phone_email', 'email'
     search_help_text = 'Поиск по имени, телефону или почте'
     date_hierarchy = 'created'
@@ -120,15 +120,132 @@ class AboutAdmin(admin.ModelAdmin):
     list_display = 'name', 'description', 'numbers', 'created', 'updated'
     readonly_fields = 'created', 'updated',
     date_hierarchy = 'created'
-    ordering = ['numbers']
+    ordering = 'numbers',
     list_per_page = 20
+
+
+class PhotoCarInline(admin.TabularInline):
+    """Фото таксопарка"""
+    model = PhotoCar
+    fields = 'photo', 'preview_avatar', 'car',
+    readonly_fields = 'preview_avatar',
+    extra = 1
+
+    def preview_avatar(self, obj):
+        if obj.photo:
+            return mark_safe(f'<img src="{obj.photo.url}" width="100" height="100" />')
+        return 'Нет фото'
+
+    preview_avatar.short_description = 'Фото'
+
+
+@admin.register(Car)
+class CarAdmin(admin.ModelAdmin):
+    """Таксопарк"""
+    list_display = 'car_brand', 'name', 'year', 'power_reserve', 'short_description', 'photo_count', 'status', 'created', 'updated'
+    fields = 'car_brand', 'name', 'year', 'power_reserve', 'description', 'status', 'created', 'updated'
+    readonly_fields = 'created', 'updated'
+    list_editable = 'status',
+    list_filter = 'status', 'car_brand__name', 'created', 'updated'
+    inlines = [PhotoCarInline]
+
+    def photo_count(self, obj):
+        """Количество фото"""
+        return obj.cars.count()
+
+    photo_count.short_description = 'Количество фото'
+
+    def short_description(self, obj):
+        """Краткое описание"""
+        text = obj.description or ""
+        return (text[:50] + '...') if len(text) > 20 else text
+
+    short_description.short_description = 'Описание'
+
+
+class PhotoSparesInline(admin.TabularInline):
+    """Фото запчастей"""
+    model = PhotoSpares
+    fields = 'photo', 'preview_avatar', 'spare',
+    readonly_fields = 'preview_avatar',
+    extra = 1
+
+    def preview_avatar(self, obj):
+        if obj.photo:
+            return mark_safe(f'<img src="{obj.photo.url}" width="100" height="100" />')
+        return 'Нет фото'
+
+    preview_avatar.short_description = 'Фото'
+
+
+@admin.register(Spares)
+class SparesAdmin(admin.ModelAdmin):
+    """Запчасти"""
+    list_display = 'car_brand', 'name', 'price', 'short_description', 'photo_count', 'availability', 'status', 'created', 'updated'
+    fields = 'car_brand', 'name', 'price', 'description', 'availability', 'status', 'created', 'updated'
+    readonly_fields = 'created', 'updated'
+    list_editable = 'availability', 'status',
+    list_filter = 'availability', 'status', 'car_brand__name', 'created', 'updated'
+    inlines = [PhotoSparesInline]
+
+    def photo_count(self, obj):
+        """Количество фото"""
+        return obj.spares.count()
+
+    photo_count.short_description = 'Количество фото'
+
+    def short_description(self, obj):
+        """Краткое описание"""
+        text = obj.description or ""
+        return (text[:50] + '...') if len(text) > 20 else text
+
+    short_description.short_description = 'Описание'
+
+
+class PhotoShopCarInline(admin.TabularInline):
+    """Фото авто из китая"""
+    model = PhotoShopCar
+    fields = 'photo', 'preview_avatar', 'shop',
+    readonly_fields = 'preview_avatar',
+    extra = 1
+
+    def preview_avatar(self, obj):
+        if obj.photo:
+            return mark_safe(f'<img src="{obj.photo.url}" width="100" height="100" />')
+        return 'Нет фото'
+
+    preview_avatar.short_description = 'Фото'
+
+
+@admin.register(ShopCar)
+class ShopCarAdmin(admin.ModelAdmin):
+    """Авто из китая"""
+    list_display = 'car_brand', 'name', 'price', 'short_description', 'photo_count', 'status', 'created', 'updated'
+    fields = 'car_brand', 'name', 'price', 'description', 'status', 'created', 'updated'
+    readonly_fields = 'created', 'updated'
+    list_editable = 'status',
+    list_filter = 'status', 'car_brand__name', 'created', 'updated'
+    inlines = [PhotoShopCarInline]
+
+    def photo_count(self, obj):
+        """Количество фото"""
+        return obj.shops.count()
+
+    photo_count.short_description = 'Количество фото'
+
+    def short_description(self, obj):
+        """Краткое описание"""
+        text = obj.description or ""
+        return (text[:50] + '...') if len(text) > 20 else text
+
+    short_description.short_description = 'Описание'
 
 
 class CarInline(admin.TabularInline):
     """Модель автомобиля"""
     model = Car
-    fields = 'photo', 'preview_avatar', 'car_brand', 'name', 'year', 'power_reserve', 'description', 'status', 'created', 'updated'
-    readonly_fields = 'preview_avatar', 'created', 'updated'
+    fields = 'car_brand', 'name', 'year', 'power_reserve', 'description', 'status', 'created', 'updated'
+    readonly_fields = 'created', 'updated'
     classes = ['collapse']
     extra = 0
 
@@ -140,19 +257,19 @@ class CarInline(admin.TabularInline):
         formset.form.base_fields['description'].widget.attrs['style'] = 'width: 360px;'
         return formset
 
-    def preview_avatar(self, obj):
-        if obj.photo:
-            return mark_safe(f'<img src="{obj.photo.url}" width="100" height="100" />')
-        return 'Нет фото'
-
-    preview_avatar.short_description = 'Фото'
+    # def preview_avatar(self, obj):
+    #     if obj.photo:
+    #         return mark_safe(f'<img src="{obj.photo.url}" width="100" height="100" />')
+    #     return 'Нет фото'
+    #
+    # preview_avatar.short_description = 'Фото'
 
 
 class SparesInline(admin.TabularInline):
     """Запчасти"""
     model = Spares
-    fields = 'photo', 'preview_avatar', 'car_brand', 'name', 'price', 'description', 'availability', 'status', 'created', 'updated'
-    readonly_fields = 'preview_avatar', 'created', 'updated'
+    fields =  'car_brand', 'name', 'price', 'description', 'availability', 'status', 'created', 'updated'
+    readonly_fields = 'created', 'updated'
     classes = ['collapse']
     extra = 0
 
@@ -164,19 +281,19 @@ class SparesInline(admin.TabularInline):
         formset.form.base_fields['description'].widget.attrs['style'] = 'width: 360px;'
         return formset
 
-    def preview_avatar(self, obj):
-        if obj.photo:
-            return mark_safe(f'<img src="{obj.photo.url}" width="100" height="100" />')
-        return 'Нет фото'
-
-    preview_avatar.short_description = 'Фото'
+    # def preview_avatar(self, obj):
+    #     if obj.photo:
+    #         return mark_safe(f'<img src="{obj.photo.url}" width="100" height="100" />')
+    #     return 'Нет фото'
+    #
+    # preview_avatar.short_description = 'Фото'
 
 
 class ShopCarInline(admin.TabularInline):
     """Авто из китая"""
     model = ShopCar
-    fields = 'photo', 'preview_avatar', 'car_brand', 'name', 'price', 'description', 'status', 'created', 'updated'
-    readonly_fields = 'preview_avatar', 'created', 'updated'
+    fields =  'car_brand', 'name', 'price', 'description', 'status', 'created', 'updated'
+    readonly_fields = 'created', 'updated'
     classes = ['collapse']
     extra = 0
 
@@ -188,20 +305,21 @@ class ShopCarInline(admin.TabularInline):
         formset.form.base_fields['description'].widget.attrs['style'] = 'width: 360px;'
         return formset
 
-    def preview_avatar(self, obj):
-        if obj.photo:
-            return mark_safe(f'<img src="{obj.photo.url}" width="100" height="100" />')
-        return 'Нет фото'
-
-    preview_avatar.short_description = 'Фото'
+    # def preview_avatar(self, obj):
+    #     if obj.photo:
+    #         return mark_safe(f'<img src="{obj.photo.url}" width="100" height="100" />')
+    #     return 'Нет фото'
+    #
+    # preview_avatar.short_description = 'Фото'
 
 
 @admin.register(CarBrand)
 class CarBrandAdmin(admin.ModelAdmin):
     """Бренд автомобиля"""
+    pass
     list_display = 'name', 'car_count', 'spares_count', 'spares_availability_count', 'created', 'updated'
     date_hierarchy = 'created'
-    inlines = CarInline, SparesInline, ShopCarInline
+    inlines =  ShopCarInline, CarInline, SparesInline,
     list_per_page = 20
 
     def car_count(self, obj):

@@ -64,18 +64,36 @@
                                 <div class="tab-pane fade {% if forloop.first %}show active{% endif %}" id="tab-pane-{{ spare.id }}" role="tabpanel">
                                     <div class="row g-4">
                                         <div class="col-md-6" style="min-height: 350px;">
-                                            <div class="position-relative h-100">
-                                                <img class="position-absolute img-fluid w-100 h-100"
-                                                     src="{{ spare.photo.url }}"
-                                                     style="object-fit: cover;" alt="{{ spare }}">
-                                                <a href="#" data-bs-toggle="modal" data-bs-target="#carImageModal"
-                                                   data-img-src="{{ spare.photo.url }}">
-                                                    <img class="position-absolute img-fluid w-100 h-100"
-                                                         src="{{ spare.photo.url }}"
-                                                         style="object-fit: cover; cursor: zoom-in;"
-                                                         alt="{{ spare }}">
-                                                </a>
-                                            </div>
+                                            {% if spare.spares.exists %}
+                                                <div id="spareCarousel{{ spare.id }}" class="carousel slide" data-bs-ride="carousel">
+                                                    <div class="carousel-inner rounded-3 shadow">
+                                                        {% for photo in spare.spares.all %}
+                                                            <div class="carousel-item {% if forloop.first %}active{% endif %}">
+                                                                <img src="{{ photo.photo.url }}"
+                                                                     class="img-fluid spare-image-fullscreen"
+                                                                     style="width: 100%; height: 320px; object-fit: contain; cursor: zoom-in;"
+                                                                     alt="{{ spare }}"
+                                                                     data-img-src="{{ photo.photo.url }}">
+                                                            </div>
+                                                        {% endfor %}
+                                                    </div>
+                                                    {% if spare.spares.count > 1 %}
+                                                        <button class="carousel-control-prev" type="button" data-bs-target="#spareCarousel{{ spare.id }}" data-bs-slide="prev">
+                                                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                                            <span class="visually-hidden">Previous</span>
+                                                        </button>
+                                                        <button class="carousel-control-next" type="button" data-bs-target="#spareCarousel{{ spare.id }}" data-bs-slide="next">
+                                                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                                            <span class="visually-hidden">Next</span>
+                                                        </button>
+                                                    {% endif %}
+                                                </div>
+                                            {% else %}
+                                                <img src="/static/placeholder.png"
+                                                     class="img-fluid rounded-3 shadow"
+                                                     style="width: 100%; height: 320px; object-fit: contain;"
+                                                     alt="Нет фото">
+                                            {% endif %}
                                         </div>
                                         <div class="col-md-6">
                                             <h3 class="mb-3">{{ spare.name }}</h3>
@@ -96,7 +114,7 @@
                                                 <i class="fa fa-check text-success me-3"></i>
                                                 Описание: <span style="font-weight:bold; color:rgb(0,0,0);">{{ spare.description }}</span>
                                             </p>
-                                            <a href="{% url 'contact' %}" class="btn btn-primary py-3 px-5 mt-3">Заказать<i class="fa fa-arrow-right ms-3"></i></a>
+                                            <a href="{% url 'contact' %}" class="btn btn-primary py-2 px-5 mt-3">Заказать<i class="fa fa-arrow-right ms-3"></i></a>
                                         </div>
                                     </div>
                                 </div>
@@ -126,18 +144,26 @@
         document.addEventListener('DOMContentLoaded', function () {
             var modal = document.getElementById('carImageModal');
             var modalImg = document.getElementById('modalCarImage');
-            var carImages = document.querySelectorAll('[data-bs-target="#carImageModal"]');
+            var images = document.querySelectorAll('.car-image-fullscreen, .spare-image-fullscreen');
 
-            carImages.forEach(function (el) {
+            images.forEach(function (el) {
                 el.addEventListener('click', function () {
                     var src = this.getAttribute('data-img-src');
                     modalImg.setAttribute('src', src);
+                    var bsModal = new bootstrap.Modal(modal);
+                    bsModal.show();
                 });
             });
+
             modal.addEventListener('hidden.bs.modal', function () {
                 modalImg.setAttribute('src', '');
             });
+            modalImg.addEventListener('click', function () {
+                var bsModal = bootstrap.Modal.getInstance(modal);
+                if (bsModal) bsModal.hide();
+            });
         });
     </script>
+
 
 {% endblock %}
