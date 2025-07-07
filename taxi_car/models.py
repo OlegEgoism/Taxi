@@ -24,10 +24,12 @@ class Address(DateStamp):
     phone_a1 = models.CharField(verbose_name='Телефон A1', max_length=25, help_text='Номер телефона указывать в формате +___(__)___-__-__', blank=True, null=True)
     phone_life = models.CharField(verbose_name='Телефона Life', max_length=25, help_text='Номер телефона указывать в формате +___(__)___-__-__', blank=True, null=True)
     maps = models.TextField('Расположение на карте', help_text='Вставить скрипт-ссылку с конструктора карт https://yandex.ru/map-constructor (width="640" height="400")', blank=True, null=True)
+
     telegram = models.URLField(verbose_name='Telegram', blank=True, null=True, help_text='Вставить: "https://web.telegram.org/k/#" потом только свой логин @....')
-    viber = models.URLField(verbose_name='Viber', blank=True, null=True)
-    whatsapp = models.URLField(verbose_name='Whatsapp', blank=True, null=True, help_text='Вставить: "https://wa.me/" потом только свой номер телефона 375...')
+    viber = models.CharField(verbose_name='Viber', blank=True, null=True, help_text='Вставить: "viber://chat?number=+" потом номер телефона 375...')
+    whatsapp = models.URLField(verbose_name='Whatsapp', blank=True, null=True, help_text='Вставить: "https://wa.me/" потом номер телефона 375...')
     instagram = models.URLField(verbose_name='Instagram', blank=True, null=True)
+
     created_year_work = models.DateField(verbose_name='Дата начала работы компании')
     count_car = models.IntegerField(verbose_name='Автомобилей в таксопарке')
     rating_start = models.DecimalField(verbose_name='Средний рейтинг начальный', decimal_places=2, max_digits=3, validators=[MinValueValidator(1), MaxValueValidator(4.7)], help_text='Минимальное начальное значение с 1 до 4,7', default=4.7)
