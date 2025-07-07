@@ -11,48 +11,6 @@
     </div>
     <!-- Page Header End -->
 
-    <!-- --- Стили для черных стрелок --- -->
-    <style>
-        /* Черные стрелки для карусели */
-        .carousel-control-prev-icon,
-        .carousel-control-next-icon {
-            background-image: none !important;
-            width: 3rem;
-            height: 3rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .carousel-control-prev-icon::after,
-        .carousel-control-next-icon::after {
-            content: '';
-            display: block;
-            width: 2rem;
-            height: 2rem;
-            border: solid #000;
-            border-width: 0 0.4rem 0.4rem 0;
-            padding: 0.3rem;
-            margin: auto;
-            border-radius: 0.25rem;
-        }
-
-        .carousel-control-prev-icon::after {
-            transform: rotate(135deg);
-            /* ← влево */
-        }
-
-        .carousel-control-next-icon::after {
-            transform: rotate(-45deg);
-            /* → вправо */
-        }
-
-        .carousel-control-prev,
-        .carousel-control-next {
-            filter: none !important;
-        }
-    </style>
-    <!-- --- Конец стилей --- -->
 
     <!-- Список брендов Start -->
     <div class="container mb-3">
@@ -67,12 +25,13 @@
     </div>
     <!-- Список брендов End -->
 
+
+    <!-- Поиск Start -->
     {% if active_brand %}
-        <!-- Поиск Start -->
         <form method="get" class="mb-4">
             <input type="hidden" name="brand" value="{{ active_brand }}">
             <div class="d-flex justify-content-center">
-                <div class="input-group input-group-lg" style="width: 80%; max-width: 600px">
+                <div class="input-group input-group-lg" style="width: 40%;">
                     <input type="text" name="q" class="form-control" placeholder="Поиск"
                            value="{{ query|default_if_none:'' }}">
                     <button class="btn btn-primary" type="submit"><i class="fa fa-search"></i> Найти</button>
@@ -83,6 +42,7 @@
             </div>
         </form>
         <!-- Поиск End -->
+
 
         <!-- Service Start -->
         <div class="container-xxl service py-5">
@@ -119,11 +79,11 @@
                                                     </div>
                                                     {% if spare.spares.count > 1 %}
                                                         <button class="carousel-control-prev" type="button" data-bs-target="#spareCarousel{{ spare.id }}" data-bs-slide="prev">
-                                                            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                                                            <span class="carousel-control-prev-icon" style="filter: brightness(0);" aria-hidden="true"></span>
                                                             <span class="visually-hidden">Previous</span>
                                                         </button>
                                                         <button class="carousel-control-next" type="button" data-bs-target="#spareCarousel{{ spare.id }}" data-bs-slide="next">
-                                                            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                                                            <span class="carousel-control-next-icon" style="filter: brightness(0);" aria-hidden="true"></span>
                                                             <span class="visually-hidden">Next</span>
                                                         </button>
                                                     {% endif %}
@@ -152,9 +112,9 @@
                                             </p>
                                             <p>
                                                 <i class="fa fa-check text-success me-3"></i>
-                                                Описание: <span style="font-weight:bold; color:rgb(0,0,0);">{{ spare.description|safe|safe }}</span>
+                                                Описание: <span style="font-weight:bold; color:rgb(0,0,0);">{{ spare.description|safe }}</span>
                                             </p>
-                                            <a href="{% url 'contact' %}" class="btn btn-primary py-2 px-5 mt-3">Заказать запчасть<i class="fa fa-arrow-right ms-3"></i></a>
+                                            <a href="{% url 'contact' %}" class="btn btn-primary py-2 px-5 mt-3">Заказать<i class="fa fa-arrow-right ms-3"></i></a>
                                         </div>
                                     </div>
                                 </div>
@@ -164,8 +124,9 @@
                 </div>
             </div>
         </div>
-        <!-- Service End -->
     {% endif %}
+    <!-- Service End -->
+
 
     <!-- Modal for enlarged car image Start-->
     <div class="modal fade" id="carImageModal" tabindex="-1" aria-labelledby="carImageModalLabel" aria-hidden="true">
@@ -178,6 +139,7 @@
         </div>
     </div>
     <!-- Modal for enlarged car image End -->
+
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
@@ -203,4 +165,6 @@
             });
         });
     </script>
+
+
 {% endblock %}

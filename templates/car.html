@@ -64,7 +64,7 @@
                                         <h3 class="mb-3">{{ car.car_brand.name }} {{ car.name }}</h3>
                                         <p><i class="fa fa-check text-success me-3"></i>Год: <span style="font-weight:bold; color:rgb(0,0,0);">{{ car.year }}</span></p>
                                         <p><i class="fa fa-check text-success me-3"></i>Запас хода: <span style="font-weight:bold; color:rgb(0,0,0);">{{ car.power_reserve }} км.</span></p>
-                                        <p><i class="fa fa-check text-success me-3"></i>Описание: <span style="font-weight:bold; color:rgb(0,0,0);">{{ car.description|safe  }}</span></p>
+                                        <p><i class="fa fa-check text-success me-3"></i>Описание: <span style="font-weight:bold; color:rgb(0,0,0);">{{ car.description|safe }}</span></p>
                                         <a href="{% url 'contact' %}" class="btn btn-primary py-2 px-5 mt-3">Подать заявку<i class="fa fa-arrow-right ms-3"></i></a>
                                         <a href="{% url 'about' %}" class="btn btn-primary py-2 px-5 mt-3">Наши условия<i class="fa fa-arrow-right ms-3"></i></a>
                                     </div>

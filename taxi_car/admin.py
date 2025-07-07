@@ -60,7 +60,7 @@ class QuestionsAnswersAdmin(admin.ModelAdmin):
     list_display = 'questions', 'answers', 'numbers', 'status', 'created', 'updated'
     readonly_fields = 'created', 'updated'
     list_editable = 'status',
-    list_filter = 'status',
+    list_filter = 'status', 'created', 'updated'
     date_hierarchy = 'created'
     ordering = 'numbers',
     list_per_page = 20
@@ -73,7 +73,7 @@ class ConditionsAdmin(admin.ModelAdmin):
     list_display = 'preview_avatar', 'info', 'description', 'status', 'created', 'updated'
     readonly_fields = 'preview_avatar', 'created', 'updated'
     list_editable = 'status',
-    list_filter = 'status',
+    list_filter = 'status', 'created', 'updated'
     date_hierarchy = 'created'
     list_per_page = 20
 
@@ -154,6 +154,7 @@ class CarAdmin(admin.ModelAdmin):
     readonly_fields = 'created', 'updated'
     list_editable = 'status',
     list_filter = 'status', 'car_brand__name', 'created', 'updated'
+    date_hierarchy = 'created'
     inlines = [PhotoCarInline]
 
     def photo_count(self, obj):
@@ -193,6 +194,7 @@ class SparesAdmin(admin.ModelAdmin):
     readonly_fields = 'created', 'updated'
     list_editable = 'availability', 'status',
     list_filter = 'availability', 'status', 'car_brand__name', 'created', 'updated'
+    date_hierarchy = 'created'
     inlines = [PhotoSparesInline]
 
     def photo_count(self, obj):
@@ -232,6 +234,7 @@ class ShopCarAdmin(admin.ModelAdmin):
     readonly_fields = 'created', 'updated'
     list_editable = 'status',
     list_filter = 'status', 'car_brand__name', 'created', 'updated'
+    date_hierarchy = 'created'
     inlines = [PhotoShopCarInline]
 
     def photo_count(self, obj):
@@ -323,6 +326,7 @@ class CarBrandAdmin(admin.ModelAdmin):
     pass
     list_display = 'name', 'car_count', 'shop_car_count', 'spares_count', 'spares_availability_count', 'created', 'updated'
     date_hierarchy = 'created'
+    list_filter = 'created', 'updated'
     inlines = ShopCarInline, CarInline, SparesInline,
     list_per_page = 20
 
